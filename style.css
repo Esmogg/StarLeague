@@ -452,9 +452,10 @@ footer {
 		background-image: url("images/bg/fondoNocheMobile.jpg");
 	}
 
-    body.menu-abierto {
-        overflow: hidden;
-    }
+    body.menu-abierto, html.menu-abierto {
+    overflow: hidden;
+    height: 100%;
+}
 
     aside {
         position: fixed;

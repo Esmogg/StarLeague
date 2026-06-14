@@ -6,6 +6,7 @@ function abrirCerrarMenu() {
     aside.classList.toggle("abierto");
     menuOverlay.classList.toggle("activo");
     document.body.classList.toggle("menu-abierto");
+	document.documentElement.classList.toggle("menu-abierto");
 }
 
 menuBtn.addEventListener("click", abrirCerrarMenu);
@@ -14,6 +15,7 @@ menuOverlay.addEventListener("click", () => {
     aside.classList.remove("abierto");
     menuOverlay.classList.remove("activo");
     document.body.classList.remove("menu-abierto");
+	document.documentElement.classList.remove("menu-abierto");
 });
 
 const darkModeToggle = document.getElementById("darkModeToggle");
