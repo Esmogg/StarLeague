@@ -1,6 +1,7 @@
 :root {
     --color-boton-hover: #ffffff;
     --color-boton-activo: #ffffff;
+	
     --color-boton: #0d65d8;
     --color-boton-border: #054496;
 
@@ -19,19 +20,60 @@
     --color-third: #3d82dd;
 }
 
+/* Se agrega body.dark-mode al inicio de un elemento para que el modo oscuro haga efecto */
+body.dark-mode {
+    --color-boton-hover: #ffffff;
+    --color-boton-activo: #ffffff;
+
+    --color-boton: #30384d;
+    --color-boton-border: #1b2231;
+
+    --color-texto-claro: #fdfdfd;
+    --color-texto-claro2: #fdfdfd;
+
+    --color-boton-select: #46506d;
+
+    --color-aside-bg: #232936;
+
+    --color-content-bg: #2c3345;
+
+    --color-boxshadow: #00000023;
+
+    --color-primary: #3b4258;
+    --color-secondary: #232936;
+    --color-third: #2f3648;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Color del texto default */
+    main, main h1, main p, main span {
+        color: #1a1a1a;
+    }
+/* Color del texto Modo Oscuro */
+    body.dark-mode main, body.dark-mode main h1, body.dark-mode main p, body.dark-mode main span {
+        color: #ffffff;
+    }
+
 body {
     display: flex;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 20px 80px;
-    background-image: url("images/bg/perfect_hue_49.jpg");
+    background-image: url("images/bg/fondoDia.jpg");
     background-size: cover;
     overflow-y: auto;
+}
+
+body.dark-mode {
+    background-image: url("images/bg/fondoNoche.jpg");
+}
+
+html {
+	overflow-y: auto;
 }
 
 main {
@@ -47,24 +89,42 @@ main {
     border-bottom-right-radius: 1em;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
+main span{
+    font-size: 20px;
 }
 
-/* Fondo */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+/* Estilo de la barra de scroll (global) */
+    ::-webkit-scrollbar {
+		width: 10px;
+	}
+
+    /* Fondo */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    /* Fondo Modo Oscuro*/
+    html.dark-mode ::-webkit-scrollbar-track, body.dark-mode ::-webkit-scrollbar-track {
+		background: #373f63;
 }
 
-/* Barra */
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #90cdff, #075ea5);
-    border: #f0f0f0ad 1px solid;
+    /* Barra */
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #90cdff, #075ea5);
+        border: #f0f0f0ad 1px solid;
+    }
+    /* Barra Modo Oscuro */
+    html.dark-mode ::-webkit-scrollbar-thumb, body.dark-mode ::-webkit-scrollbar-thumb {
+		background: linear-gradient(to bottom, #3872a1, #00223d);
+		border: #1d1d1dad 1px solid;
 }
 
-/* Barra en hover */
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #90a1ff, #073ea5);
+    /* Barra en hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, #90a1ff, #073ea5);
+    }
+    /* Barra en hover Modo Oscuro */
+    html.dark-mode ::-webkit-scrollbar-thumb:hover, body.dark-mode ::-webkit-scrollbar-thumb:hover {
+		background: linear-gradient(to bottom, #444f88, #061635);
 }
 
 #menuBtn {
@@ -115,12 +175,7 @@ header {
 	align-items: center;
     justify-content: center;
 
-    background: linear-gradient(
-        to bottom,
-        var(--color-primary),
-        var(--color-secondary),
-        var(--color-third)
-    );
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary), var(--color-third));
     color: var(--color-texto-claro);
     border: var(--color-boton-border) 1px solid;
     box-shadow: inset 0px 0px 1px 5px var(--color-boxshadow);
@@ -140,6 +195,77 @@ header {
 	
 	transition: transform 0.2s ease;
 }
+
+/* Estilo de un boton switch de la configuracion */
+    .config-opcion {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 15px;
+        margin-top: 10px;
+
+        border-radius: 12px;
+
+        background-color: #ffffff93
+    }
+
+    body.dark-mode .config-opcion {
+        background-color: #11141f83;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        inset: 0;
+
+        cursor: pointer;
+
+        background-color: #cccccc;
+
+        transition: 0.3s;
+
+        border-radius: 34px;
+    }
+
+    .slider::before {
+        content: "";
+
+        position: absolute;
+
+        height: 26px;
+        width: 26px;
+
+        left: 4px;
+        bottom: 4px;
+
+        background-color: white;
+
+        transition: .3s;
+
+        border-radius: 50%;
+    }
+
+    .switch input:checked + .slider {
+        background-color: #4d7eff;
+    }
+
+    .switch input:checked + .slider::before {
+        transform: translateX(26px);
+    }
 
 .logo:hover{
     transform: rotate(-5deg);
@@ -252,7 +378,7 @@ footer {
     border-radius: 15px;
 }
 
-@media (max-width: 390px) {
+@media (max-width: 430px) {
     header {
         display: flex;
         align-items: center;
@@ -267,7 +393,26 @@ footer {
         border-top-left-radius: 0em;
         border-top-right-radius: 0em;
     }
+	
+	#menuOverlay {
+		position: fixed;
+		inset: 0;
 
+		background-color: rgba(0, 0, 0, 0.5);
+
+		opacity: 0;
+		visibility: hidden;
+
+		transition: opacity 0.3s ease;
+
+		z-index: 4;
+	}
+
+	#menuOverlay.activo {
+		opacity: 1;
+		visibility: visible;
+	}
+	
     .title {
         font-size: 1rem;
     }
@@ -300,9 +445,12 @@ footer {
 
     body {
         padding: 0;
-		background-image: url("images/bg/perfect_hue_mobile_38.jpg");
-		background-size: cover;
+		background-image: url("images/bg/fondoDiaMobile.jpg");
     }
+	
+	body.dark-mode {
+		background-image: url("images/bg/fondoNocheMobile.jpg");
+	}
 
     body.menu-abierto {
         overflow: hidden;
@@ -321,7 +469,9 @@ footer {
         transition: left 0.3s;
 
         border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 8px;
+        border-bottom-right-radius: 0px;
+		
+		z-index: 5;
     }
 
     aside.abierto {
