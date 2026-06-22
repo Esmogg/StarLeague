@@ -1,4 +1,4 @@
 # Starleague
 
 Ver la página:
-https://esmogg.github.io/Starleague-ProyectoFinal/
+https://esmogg.github.io/StarLeague-ProyectoFinal/
