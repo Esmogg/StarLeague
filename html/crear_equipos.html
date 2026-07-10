@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starleague</title>
+
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <header>
+        <button id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html">
+          <img src="../images/logo.png" alt="Logo Starleague" class="logo" />
+        </a>
+
+        <div class="title">☆ Crear Equipos ☆</div>
+      </header>
+
+      <div class="contenido">
+        <aside>
+          <div id="barraNavegacion">
+            <nav>
+              <ul>
+                <li>
+                  <a href="index.html">
+                    <i class="fa-solid fa-house"></i>
+                    Inicio
+                  </a>
+                </li>
+
+                <li class="menu-grupo">
+                  <div class="menu-padre">
+                    <i class="fa-solid fa-trophy"></i>
+                    Torneos
+                  </div>
+
+                  <ul class="submenu">
+                    <li><a href="ver_torneos.html">Ver Torneos</a></li>
+                    <li><a href="torneos_resultados.html">Resultados</a></li>
+                    <li><a href="crear_torneos.html">Crear Torneo</a></li>
+                  </ul>
+                </li>
+
+                <li class="menu-grupo">
+                  <div class="menu-padre">
+                    <i class="fa-solid fa-users"></i>
+                    Equipos
+                  </div>
+
+                  <ul class="submenu">
+                    <li><a href="buscar_equipos.html">Buscar Equipos</a></li>
+                    <li>
+                      <a class="activo" href="crear_equipos.html"
+                        >Crear Equipo</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="menu-grupo">
+                  <div class="menu-padre">
+                    <i class="fa-solid fa-user"></i>
+                    Usuario
+                  </div>
+
+                  <ul class="submenu">
+                    <li><a href="usuario_perfil.html">Perfil</a></li>
+                    <li><a href="usuario_config.html">Configuración</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </aside>
+        <div id="menuOverlay"></div>
+        <main>
+          <article>
+            <h1>Crear Equipos</h1>
+            <p></p>
+          </article>
+        </main>
+      </div>
+    </div>
+
+    <button id="btnSubir">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script src="../js/script.js" defer></script>
+    <script type="module" src="../js/torneos/crear-torneos.js"></script>
+  </body>
+</html>
