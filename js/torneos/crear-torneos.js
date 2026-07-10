@@ -1,6 +1,4 @@
-import { catalogos } from "./catalogos.js";
-
-console.log(catalogos);const formulario = document.getElementById("formCrearTorneo");
+const formulario = document.getElementById("formCrearTorneo");
 
 const selectCategoria = document.getElementById("categoria");
 const selectDeporte = document.getElementById("deporte");
@@ -64,7 +62,7 @@ function cargarFormatos() {
 /*Actualiza las disciplinas según la categoría elegida*/
 function actualizarDeportes() {
 
-    selectDeporte.innerHTML = '<option value="">Seleccione una disciplina</option>';
+    selectDeporte.innerHTML = '<option value="">Seleccione una disciplina:</option>';
 
     const categoriaSeleccionada = selectCategoria.value;
 
