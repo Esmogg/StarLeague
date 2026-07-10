@@ -1,5 +1,4 @@
 import { catalogos } from "./catalogos.js";
-/*Referencias del formulario*/
 
 console.log(catalogos);const formulario = document.getElementById("formCrearTorneo");
 
