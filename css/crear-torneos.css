@@ -1,0 +1,45 @@
+.campoFormulario input,
+.campoFormulario select,
+.campoFormulario textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+
+    border: 1px solid var(--color-boton-border);
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.campoFormulario textarea {
+    min-height: 140px;
+    resize: none;
+}
+
+.campoFormulario {
+    margin-bottom: 20px;
+}
+
+.botonEnviar { 
+    padding: 7px 15px;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-shadow: 4px 4px 5px 0px #3671978f;
+
+    transition: background-color 0.2s ease;
+    transition: transform 0.1s ease-in-out;
+}
+
+.botonEnviar:hover {
+    background: linear-gradient(
+    to bottom,
+    #7ec5ff,
+    #2a8cce,
+    #6db8e4
+  );
+    transform: rotate(-2deg);
+    border-color: #0d75bb;
+}
+

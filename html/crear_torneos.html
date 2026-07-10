@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="../images/logo.png" />
 
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/crear-torneos.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -87,58 +88,126 @@
         <div id="menuOverlay"></div>
         <main>
           <article>
-            <h1>Crear Torneos</h1>
-
             <form id="formCrearTorneo">
 
-                <fieldset>
-                    <legend>Información General</legend>
+              <!-- Información General -->
+              <div class="seccionFormulario" id="seccionInformacionGeneral">
+                <h1>Información General</h1>
+                <div class="camposFormulario" id="informacionGeneral">
+                  <div class="campoFormulario">
+                    <label for="nombreTorneo">Nombre del torneo:</label>
 
-                    <div id="informacionGeneral">
+                    <input
+                      type="text"
+                      id="nombreTorneo"
+                      name="nombreTorneo"
+                      maxlength="100"
+                      required
+                    />
+                  </div>
 
-                    </div>
-                </fieldset>
+                  <!-- Descripción -->
+                  <div class="campoFormulario">
+                    <label for="descripcion">Descripción:</label>
 
-                <fieldset>
-                    <legend>Configuración del Deporte</legend>
+                    <textarea
+                      id="descripcion"
+                      name="descripcion"
+                      maxlength="500"
+                    ></textarea>
+                  </div>
 
-                    <div id="configuracionDeporte">
+                <!-- Configuración del Torneo -->
+              <div class="seccionFormulario" id="seccionConfiguracionTorneo">
+                <h1>Configuración del Torneo:</h1>
+                <div class="camposFormulario" id="configuracionTorneo"></div>
+              </div>
 
-                    </div>
-                </fieldset>
+                  <!-- Caregoría -->
+                  <div class="campoFormulario">
+                    <label for="categoria">Categoría:</label>
 
-                <fieldset>
-                    <legend>Configuración del Torneo</legend>
+                    <select id="categoria" name="categoria" required>
+                      <option value="">Seleccione una categoría</option>
+                      <option value="esports">eSports</option>
+                      <option value="tradicional">Deporte Tradicional</option>
+                    </select>
+                  </div>
 
-                    <div id="configuracionTorneo">
+                  <!-- Disciplina -->
+                  <div class="campoFormulario">
+                    <label for="deporte">Disciplina:</label>
 
-                    </div>
-                </fieldset>
+                    <select id="deporte" name="deporte" required>
+                      <option value="">Seleccione una disciplina</option>
+                    </select>
+                  </div>
 
-                <fieldset>
-                    <legend>Participantes</legend>
+                  <!-- Formato -->
+                  <div class="campoFormulario">
+                    <label for="formato">Formato del torneo:</label>
 
-                    <div id="participantes">
+                    <select id="formato" name="formato" required>
+                      <option value="">Seleccione un formato:</option>
+                    </select>
+                  </div>
 
-                    </div>
-                </fieldset>
+                  <!-- Cantidad -->
+                  <div class="campoFormulario">
+                    <label id="labelCantidad" for="cantidadParticipantes">
+                      Cantidad:
+                    </label>
+                    <input
+                      type="number"
+                      id="cantidadParticipantes"
+                      name="cantidadParticipantes"
+                      min="2"
+                      required
+                    />
+                  </div>
 
-                <fieldset>
-                    <legend>Apariencia</legend>
+                  <!-- Fechas -->
+                  <div class="campoFormulario">
+                    <label for="fechaInicio">Fecha de inicio:</label>
+                    <input type="date" id="fechaInicio" name="fechaInicio" />
+                  </div>
 
-                    <div id="apariencia">
-
-                    </div>
-                </fieldset>
-
-                <div class="accionesFormulario">
-                    <button type="submit">
-                        Crear Torneo
-                    </button>
+                  <div class="campoFormulario">
+                    <label for="fechaFin">Fecha de fin:</label>
+                    <input type="date" id="fechaFin" name="fechaFin" />
+                  </div>
                 </div>
+              </div>
 
+              <!-- Configuración del Deporte
+              <div class="seccionFormulario" id="seccionConfiguracionDeporte">
+                <h1>Configuración del Deporte:</h1>
+                <div class="camposFormulario" id="configuracionDeporte"></div>
+              </div> -->
+
+
+
+              <!-- Participantes -->
+              <div class="seccionFormulario" id="seccionParticipantes">
+                <h1>Participantes:</h1>
+                <div class="camposFormulario" id="participantes"></div>
+              </div>
+
+              <!-- Apariencia -->
+              <div class="seccionFormulario" id="seccionApariencia">
+                <h1>Apariencia:</h1>
+                <div class="camposFormulario" id="apariencia"></div>
+              </div>
+
+              <!-- Botón de enviar -->
+              <div class="accionesFormulario">
+                <button type="submit" class="botonEnviar">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  Crear Torneo
+                </button>
+              </div>
             </form>
-        </article>
+          </article>
         </main>
       </div>
     </div>
@@ -148,5 +217,7 @@
     </button>
 
     <script src="../js/script.js" defer></script>
+    <script src="../js/torneos/catalogos.js"></script>
+    <script src="../js/torneos/crear-torneos.js"></script>
   </body>
 </html>

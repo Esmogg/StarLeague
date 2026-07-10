@@ -1,6 +1,6 @@
 :root {
-  --color-boton-hover: #5591eb;
-  --color-boton-activo: #5591eb;
+  --color-boton-hover: #5396fa;
+  --color-boton-activo: #5396fa;
 
   --color-boton: #1a74ebb6;
   --color-boton-border: #054496b6;
@@ -67,6 +67,10 @@ body {
   padding: 20px 40px;
   background-image: url("../images/bg/fondoDia.jpg");
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
   overflow-y: auto;
 }
 
@@ -151,8 +155,7 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
   gap: 0px;
   flex: 1;
   min-height: 0;
-  padding-bottom: 70px;
-  margin-bottom: 40px;
+  margin-bottom: 3rem;
 }
 
 aside {
@@ -295,6 +298,20 @@ body.dark-mode .config-opcion {
   text-align: center;
 
   text-shadow: -2px -1px 2px #040025af;
+}
+
+button {
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-third)
+  );
+  color: var(--color-texto-claro);
+  border: 2px solid var(--color-boton-border);
+  border-radius: 5px;
+
+  cursor: pointer;
 }
 
 h1 {
@@ -551,6 +568,5 @@ nav a:hover {
 
   nav a.activo {
     transform: translateX(0);
-    color: var(--color-boton-activo);
   }
 }

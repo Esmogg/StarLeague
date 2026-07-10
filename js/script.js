@@ -54,7 +54,6 @@ const btnSubir = document.getElementById("btnSubir");
 
 window.addEventListener("scroll", () => {
   if (window.scrollY > 65) {
-    console.log("Mostrar");
     btnSubir.classList.add("visible");
   } else {
     btnSubir.classList.remove("visible");
