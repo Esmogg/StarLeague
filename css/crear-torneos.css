@@ -1,20 +1,44 @@
-.campoFormulario input,
-.campoFormulario select,
-.campoFormulario textarea {
+input,
+select,
+textarea {
   width: 100%;
   padding: 10px;
   margin-top: 6px;
 
-  border: 1px solid var(--color-boton-border);
+  border: none;
+  border-bottom: #79c3ce 3px solid;
   border-radius: 8px;
 
   font-family: inherit;
   font-size: 1rem;
 }
 
-.campoFormulario textarea {
+select{
+    cursor: pointer;
+}
+
+textarea {
   min-height: 140px;
   resize: none;
+}
+
+body.dark-mode input, 
+body.dark-mode textarea,
+body.dark-mode select{
+  background-color: #444f6b;
+  color: var(--color-texto-claro);
+  border: none;
+  border-bottom: #1d2436 3px solid;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;
 }
 
 .campoFormulario {
@@ -26,7 +50,7 @@
 
   font-size: 1rem;
   font-family: inherit;
-  box-shadow: 4px 4px 5px 0px #3671978f;
+  box-shadow: 3px 3px 5px 0px #3670975b;
 
   transition: background-color 0.2s ease;
   transition: transform 0.1s ease-in-out;
@@ -36,6 +60,24 @@
   background: linear-gradient(to bottom, #7ec5ff, #2a8cce, #6db8e4);
   transform: rotate(-2deg);
   border-color: #0d75bb;
+}
+
+body.dark-mode .botonEnviar {
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-third)
+  );
+  color: var(--color-texto-claro);
+  border: 2px solid var(--color-boton-border);
+
+  box-shadow: 3px 3px 5px 0px #0811275b;
+}
+
+body.dark-mode .botonEnviar:hover {
+  background: linear-gradient(to bottom, #464e69, #2d3546, #394258);
+  border-color: #212735;
 }
 
 .accionesFormulario {

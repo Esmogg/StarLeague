@@ -87,108 +87,293 @@
 
               <!-- Información General -->
               <div class="seccionFormulario" id="seccionInformacionGeneral">
-                <h1>Información General:</h1>
-                <div class="camposFormulario" id="informacionGeneral">
-                  <div class="campoFormulario">
-                    <label for="nombreTorneo">Nombre del torneo:</label>
 
-                    <input
-                      type="text"
-                      id="nombreTorneo"
-                      name="nombreTorneo"
-                      maxlength="100"
-                      required
-                    />
+                  <h1>Información General:</h1>
+
+                  <div class="camposFormulario" id="informacionGeneral">
+
+                      <!-- Nombre -->
+                      <div class="campoFormulario">
+                          <label for="nombreTorneo">Nombre del torneo:</label>
+
+                          <input
+                              type="text"
+                              id="nombreTorneo"
+                              name="nombreTorneo"
+                              maxlength="100"
+                              required
+                          />
+                      </div>
+
+                      <!-- Descripción -->
+                      <div class="campoFormulario">
+                          <label for="descripcion">Descripción:</label>
+
+                          <textarea
+                              id="descripcion"
+                              name="descripcion"
+                              maxlength="500"
+                          ></textarea>
+                      </div>
                   </div>
-
-                  <!-- Descripción -->
-                  <div class="campoFormulario">
-                    <label for="descripcion">Descripción:</label>
-
-                    <textarea
-                      id="descripcion"
-                      name="descripcion"
-                      maxlength="500"
-                    ></textarea>
-                  </div>
+              </div>
 
                 <!-- Configuración del Torneo -->
-              <div class="seccionFormulario" id="seccionConfiguracionTorneo">
-                <h1>Configuración del Torneo:</h1>
-                <div class="camposFormulario" id="configuracionTorneo"></div>
-              </div>
+                <div class="seccionFormulario" id="seccionConfiguracionTorneo">
 
-                  <!-- Caregoría -->
-                  <div class="campoFormulario">
-                    <label for="categoria">Categoría:</label>
+                    <h1>Configuración del Torneo:</h1>
 
-                    <select id="categoria" name="categoria" required>
-                      <option value="">Seleccione una categoría:</option>
-                      <option value="esports">eSports</option>
-                      <option value="tradicional">Deporte Tradicional</option>
-                    </select>
-                  </div>
+                    <div class="camposFormulario" id="configuracionTorneo">
 
-                  <!-- Disciplina -->
-                  <div class="campoFormulario">
-                    <label for="deporte">Disciplina:</label>
-                    <select id="deporte" name="deporte" required>
-                      <option value="">Seleccione una disciplina:</option>
-                    </select>
-                  </div>
+                        <!-- Categoría -->
+                        <div class="campoFormulario">
+                            <label for="categoria">Categoría:</label>
 
-                  <!-- Formato -->
-                  <div class="campoFormulario">
-                    <label for="formato">Formato del torneo:</label>
-                    <select id="formato" name="formato" required>
-                      <option value="">Seleccione un formato:</option>
-                    </select>
-                  </div>
+                            <select id="categoria" name="categoria" required>
+                                <option value="">Seleccione una categoría:</option>
+                                <option value="esports">eSports</option>
+                                <option value="tradicional">Deporte Tradicional</option>
+                            </select>
+                        </div>
 
-                  <!-- Cantidad -->
-                  <div class="campoFormulario">
-                    <label id="labelCantidad" for="cantidadParticipantes">
-                      Cantidad:
-                    </label>
-                    <input
-                      type="number"
-                      id="cantidadParticipantes"
-                      name="cantidadParticipantes"
-                      min="2"
-                      required
-                    />
-                  </div>
+                        <!-- Disciplina -->
+                        <div class="campoFormulario">
+                            <label for="deporte">Disciplina:</label>
 
-                  <!-- Fechas -->
-                  <div class="campoFormulario">
-                    <label for="fechaInicio">Fecha de inicio:</label>
-                    <input type="date" id="fechaInicio" name="fechaInicio" />
-                  </div>
+                            <select id="deporte" name="deporte" required>
+                                <option value="">Seleccione una disciplina:</option>
+                            </select>
+                        </div>
 
-                  <div class="campoFormulario">
-                    <label for="fechaFin">Fecha de fin:</label>
-                    <input type="date" id="fechaFin" name="fechaFin" />
-                  </div>
+                        <!-- Formato -->
+                        <div class="campoFormulario">
+                            <label for="formato">Formato del torneo:</label>
+
+                            <select id="formato" name="formato" required>
+                                <option value="">Seleccione un formato:</option>
+                            </select>
+                        </div>
+
+                        <!-- Cantidad -->
+                        <div class="campoFormulario">
+                            <label id="labelCantidad" for="cantidadParticipantes">
+                                Cantidad:
+                            </label>
+
+                            <input
+                                type="number"
+                                id="cantidadParticipantes"
+                                name="cantidadParticipantes"
+                                min="2"
+                                required
+                            />
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="campoFormulario">
+                            <label for="estadoTorneo">Inscripciones:</label>
+
+                            <select id="estadoTorneo" name="estadoTorneo">
+                                <option value="inscripciones">Inscripciones abiertas</option>
+                                <option value="proximamente">Próximamente</option>
+                            </select>
+                        </div>
+
+                        <!-- Fechas -->
+                        <div class="campoFormulario">
+                            <label for="fechaInicio">Fecha de inicio:</label>
+
+                            <input
+                                type="date"
+                                id="fechaInicio"
+                                name="fechaInicio"
+                            />
+                        </div>
+
+                        <div class="campoFormulario">
+                            <label for="fechaFin">Fecha de fin:</label>
+
+                            <input
+                                type="date"
+                                id="fechaFin"
+                                name="fechaFin"
+                            />
+                        </div>
+
+                        <!-- Visibilidad -->
+                        <div class="campoFormulario">
+                            <label for="visibilidad">Visibilidad:</label>
+
+                            <select id="visibilidad" name="visibilidad">
+                                <option value="publico">Público</option>
+                                <option value="privado">Privado</option>
+                            </select>
+                        </div>
+
+                        <!-- Inscripción automática -->
+                        <div class="campoFormulario">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    id="inscripcionAutomatica"
+                                    name="inscripcionAutomatica"
+                                />
+                                Permitir inscripción automática
+                            </label>
+                        </div>
+
+                        <!-- Generación automática -->
+                        <div class="campoFormulario">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    id="generarPartidas"
+                                    name="generarPartidas"
+                                />
+                                Generar enfrentamientos automáticamente
+                            </label>
+                        </div>
+
+                        <!-- Tercer puesto -->
+                        <div class="campoFormulario" id="campoTercerPuesto">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    id="tercerPuesto"
+                                    name="tercerPuesto"
+                                />
+                                Disputar tercer puesto
+                            </label>
+                        </div>
+                    </div>
+
+
+              <!-- Apariencia -->
+            <div class="seccionFormulario" id="seccionApariencia">
+
+              <h1>Apariencia:</h1>
+
+              <div class="camposFormulario" id="apariencia">
+
+                <div class="campoFormulario">
+
+                  <label for="logoTorneo">
+                    Logo del torneo:
+                  </label>
+
+                  <input
+                    type="file"
+                    id="logoTorneo"
+                    name="logoTorneo"
+                    accept="image/*"
+                  />
+
                 </div>
+
+                <div class="campoFormulario">
+
+                  <label for="bannerTorneo">
+                    Banner del torneo:
+                  </label>
+
+                  <input
+                    type="file"
+                    id="bannerTorneo"
+                    name="bannerTorneo"
+                    accept="image/*"
+                  />
+
+                </div>
+
               </div>
 
-              <!-- Configuración del Deporte
+            </div>
+
+                <!-- Configuración del Deporte -->
               <div class="seccionFormulario" id="seccionConfiguracionDeporte">
-                <h1>Configuración del Deporte:</h1>
-                <div class="camposFormulario" id="configuracionDeporte"></div>
-              </div> -->
 
-              <!-- Participantes 
-              <div class="seccionFormulario" id="seccionParticipantes">
-                <h1>Participantes:</h1>
-                <div class="camposFormulario" id="participantes"></div>
-              </div> -->
+              <h1>Configuración del Deporte:</h1>
 
-              <!-- Apariencia 
-              <div class="seccionFormulario" id="seccionApariencia">
-                <h1>Apariencia:</h1>
-                <div class="camposFormulario" id="apariencia"></div>
-              </div> -->
+              <div class="camposFormulario" id="configuracionDeporte">
+
+                <div class="campoFormulario">
+                  <label for="box">BoX:</label>
+
+                  <input
+                    type="number"
+                    id="box"
+                    name="box"
+                    min="1"
+                    value="1"
+                  />
+                </div>
+
+                <div class="campoFormulario">
+                  <label for="ladoLol">
+                    Selección de lado (League of Legends):
+                  </label>
+
+                  <select id="ladoLol" name="ladoLol">
+                    <option value="aleatorio">Aleatorio</option>
+                    <option value="azul">Azul</option>
+                    <option value="rojo">Rojo</option>
+                  </select>
+                </div>
+
+                <div class="campoFormulario">
+                  <label for="descanso">
+                    Descanso entre partidas (minutos):
+                  </label>
+
+                  <input
+                    type="number"
+                    id="descanso"
+                    name="descanso"
+                    min="0"
+                    value="5"
+                  />
+                </div>
+
+              </div>
+
+            </div>
+            
+              <!-- Participantes -->
+            <div class="seccionFormulario" id="seccionParticipantes">
+
+              <h1>Participantes:</h1>
+
+              <div class="camposFormulario" id="participantes">
+
+                <div class="campoFormulario">
+
+                  <button
+                    type="button"
+                    id="btnAgregarEquipo"
+                  >
+                    <i class="fa-solid fa-plus"></i>
+                    Agregar equipo
+                  </button>
+
+                </div>
+
+                <div class="campoFormulario">
+
+                  <label>Equipos agregados:</label>
+
+                  <ul id="listaEquipos">
+
+                    <li>No hay equipos agregados.</li>
+
+                  </ul>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
 
               <!-- Botón de enviar -->
               <div class="accionesFormulario">
