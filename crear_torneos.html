@@ -29,8 +29,7 @@
       </header>
 
       <div class="contenido">
-        <aside>
-          <div id="barraNavegacion">
+        <div class="barra-lateral">
             <nav>
               <ul>
                 <li>
@@ -78,17 +77,15 @@
                 </li>
               </ul>
             </nav>
-          </div>
-        </aside>
+        </div> 
         <div id="menuOverlay"></div>
         <main>
           <article>
             <form id="formCrearTorneo">
-
               <!-- Información General -->
-              <div class="seccionFormulario" id="seccionInformacionGeneral">
+              <fieldset class="seccionFormulario" id="seccionInformacionGeneral">
 
-                  <h1>Información General:</h1>
+                  <legend>Información General</legend>
 
                   <div class="camposFormulario" id="informacionGeneral">
 
@@ -97,11 +94,12 @@
                           <label for="nombreTorneo">Nombre del torneo:</label>
 
                           <input
-                              type="text"
-                              id="nombreTorneo"
-                              name="nombreTorneo"
-                              maxlength="100"
-                              required
+                          placeholder="Torneo Starleague!"
+                            type="text"
+                            id="nombreTorneo"
+                            name="nombreTorneo"
+                            maxlength="100"
+                            required
                           />
                       </div>
 
@@ -110,18 +108,19 @@
                           <label for="descripcion">Descripción:</label>
 
                           <textarea
-                              id="descripcion"
-                              name="descripcion"
-                              maxlength="500"
+                            placeholder="¡Esto es un ejemplo de descripción de un torneo!"
+                            id="descripcion"
+                            name="descripcion"
+                            maxlength="500"
                           ></textarea>
                       </div>
                   </div>
-              </div>
+              </fieldset>
 
                 <!-- Configuración del Torneo -->
-                <div class="seccionFormulario" id="seccionConfiguracionTorneo">
+                <fieldset class="seccionFormulario" id="seccionConfiguracionTorneo">
 
-                    <h1>Configuración del Torneo:</h1>
+                    <legend>Configuración del Torneo</legend>
 
                     <div class="camposFormulario" id="configuracionTorneo">
 
@@ -161,11 +160,12 @@
                             </label>
 
                             <input
-                                type="number"
-                                id="cantidadParticipantes"
-                                name="cantidadParticipantes"
-                                min="2"
-                                required
+                              placeholder="Min: 2"
+                              type="number"
+                              id="cantidadParticipantes"
+                              name="cantidadParticipantes"
+                              min="2"
+                              required
                             />
                         </div>
 
@@ -184,9 +184,9 @@
                             <label for="fechaInicio">Fecha de inicio:</label>
 
                             <input
-                                type="date"
-                                id="fechaInicio"
-                                name="fechaInicio"
+                              type="date"
+                              id="fechaInicio"
+                              name="fechaInicio"
                             />
                         </div>
 
@@ -194,9 +194,9 @@
                             <label for="fechaFin">Fecha de fin:</label>
 
                             <input
-                                type="date"
-                                id="fechaFin"
-                                name="fechaFin"
+                              type="date"
+                              id="fechaFin"
+                              name="fechaFin"
                             />
                         </div>
 
@@ -211,47 +211,50 @@
                         </div>
 
                         <!-- Inscripción automática -->
-                        <div class="campoFormulario">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    id="inscripcionAutomatica"
-                                    name="inscripcionAutomatica"
-                                />
-                                Permitir inscripción automática
+                        <div class="campoFormulario campoCheckbox">
+                            <label for="inscripcionAutomatica">
+                                Permitir inscripción automática:
                             </label>
+
+                            <input
+                              type="checkbox"
+                              id="inscripcionAutomatica"
+                              name="inscripcionAutomatica"
+                            />
                         </div>
 
                         <!-- Generación automática -->
-                        <div class="campoFormulario">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    id="generarPartidas"
-                                    name="generarPartidas"
-                                />
-                                Generar enfrentamientos automáticamente
+                        <div class="campoFormulario campoCheckbox">
+                            <label for="generarPartidas">
+                                Generar enfrentamientos automáticamente:
                             </label>
+
+                            <input
+                              type="checkbox"
+                              id="generarPartidas"
+                              name="generarPartidas"
+                            />
                         </div>
 
                         <!-- Tercer puesto -->
-                        <div class="campoFormulario" id="campoTercerPuesto">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    id="tercerPuesto"
-                                    name="tercerPuesto"
-                                />
-                                Disputar tercer puesto
+                        <div class="campoFormulario campoCheckbox">
+                            <label for="tercerPuesto">
+                                Disputar tercer puesto:
                             </label>
+
+                            <input
+                              type="checkbox"
+                              id="tercerPuesto"
+                              name="tercerPuesto"
+                            />
                         </div>
                     </div>
-
+              </fieldset>
 
               <!-- Apariencia -->
-            <div class="seccionFormulario" id="seccionApariencia">
+            <fieldset class="seccionFormulario" id="seccionApariencia">
 
-              <h1>Apariencia:</h1>
+              <legend>Apariencia</legend>
 
               <div class="camposFormulario" id="apariencia">
 
@@ -287,7 +290,7 @@
 
               </div>
 
-            </div>
+            </fieldset>
 
                 <!-- Configuración del Deporte -->
               <div class="seccionFormulario" id="seccionConfiguracionDeporte">
@@ -298,6 +301,7 @@
 
                 <div class="campoFormulario">
                   <label for="box">BoX:</label>
+              <fieldset class="seccionFormulario" id="seccionConfiguracionDeporte">
 
                   <input
                     type="number"
@@ -333,24 +337,25 @@
                     value="5"
                   />
                 </div>
+              <legend>Configuración del Deporte</legend>
 
+              <div class="seccionFormulario" id="seccionConfiguracionDeporte">
+                  <div class="camposFormulario" id="configuracionDeporte">
+                      <p>Seleccione una disciplina.</p>
+                  </div>
               </div>
-
-            </div>
+            </fieldset>
             
               <!-- Participantes -->
-            <div class="seccionFormulario" id="seccionParticipantes">
+            <fieldset class="seccionFormulario" id="seccionParticipantes">
 
-              <h1>Participantes:</h1>
+              <legend>Participantes</legend>
 
               <div class="camposFormulario" id="participantes">
 
-                <div class="campoFormulario">
+                <div class="accionesFormulario">
 
-                  <button
-                    type="button"
-                    id="btnAgregarEquipo"
-                  >
+                  <button type="button" class="btnAgregarEquipo">
                     <i class="fa-solid fa-plus"></i>
                     Agregar equipo
                   </button>
@@ -371,9 +376,7 @@
 
               </div>
 
-            </div>
-
-
+            </fieldset>
 
               <!-- Botón de enviar -->
               <div class="accionesFormulario">
