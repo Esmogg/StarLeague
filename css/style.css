@@ -64,8 +64,9 @@ body.dark-mode main span {
 body {
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  padding: 20px 40px;
-  background-image: url("../images/bg/fondoDia.jpg");
+
+  padding: 0;
+  background-image: url("../images/bg/fondoDiaMobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -75,18 +76,41 @@ body {
 }
 
 body.dark-mode {
-  background-image: url("../images/bg/fondoNoche.jpg");
+  background-image: url("../images/bg/fondoNocheMobile.jpg");
+}
+
+body.menu-abierto,
+html.menu-abierto {
+  overflow: hidden;
+  height: 100%;
 }
 
 html {
   overflow-y: auto;
 }
 
-main {
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.contenido {
+  display: block;
+  align-items: start;
+  gap: 0px;
   flex: 1;
+  min-height: 0;
+  margin-bottom: 3rem;
+  padding-bottom: 0px;
+}
+
+main {
+  width: 100%;
   height: auto;
   padding: 20px;
-  margin-bottom: auto;
+  margin-bottom: 0px;
 
   background-color: var(--color-content-bg);
   border: var(--color-boton-border) 1px solid;
@@ -139,50 +163,11 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #444f88, #061635);
 }
 
-#menuBtn {
-  display: none;
-}
-
-.contenedor {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-
-.contenido {
-  display: flex;
-  gap: 0px;
-  flex: 1;
-  min-height: 0;
-  margin-bottom: 3rem;
-}
-
-aside {
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-
-  align-self: flex-start;
-
-  padding: 16px;
-  width: 200px;
-
-  background-color: var(--color-aside-bg);
-  color: var(--color-texto-claro);
-  border: var(--color-boton-border) 1px solid;
-  box-shadow: inset 0px 0px 1px 5px var(--color-boxshadow);
-
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
-}
-
 header {
   display: flex;
-  position: relative;
+  position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 6;
 
   align-items: center;
   justify-content: center;
@@ -198,9 +183,80 @@ header {
   box-shadow: inset 0px 0px 1px 5px var(--color-boxshadow);
 
   padding: 20px;
+  margin-bottom: 0px;
 
-  border-top-left-radius: 2em;
-  border-top-right-radius: 2em;
+  border-top-left-radius: 0em;
+  border-top-right-radius: 0em;
+}
+
+#menuBtn {
+  position: absolute;
+  left: 20px;
+
+  display: block;
+  background: none;
+  border: none;
+
+  color: var(--color-texto-claro);
+  font-size: 1.5rem;
+}
+
+#btnSubir {
+  display: flex;
+  position: fixed;
+  right: 20px;
+  bottom: 15px;
+
+  width: 65px;
+  height: 65px;
+
+  border-radius: 50%;
+  border: 1px solid var(--color-boton-border);
+
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-third)
+  );
+  color: white;
+  font-size: 26px;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(46px);
+
+  transition: all 0.3s ease-in-out;
+
+  z-index: 100;
+}
+
+#btnSubir.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#menuOverlay {
+  position: fixed;
+  inset: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.3s ease;
+
+  z-index: 4;
+}
+
+#menuOverlay.activo {
+  opacity: 1;
+  visibility: visible;
 }
 
 .logo {
@@ -211,7 +267,14 @@ header {
   height: auto;
   z-index: 10;
 
+  visibility: hidden;
+
   transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: rotate(-5deg);
+  cursor: pointer;
 }
 
 /* Estilo de un boton switch de la configuracion */
@@ -285,13 +348,8 @@ body.dark-mode .config-opcion {
   transform: translateX(26px);
 }
 
-.logo:hover {
-  transform: rotate(-5deg);
-  cursor: pointer;
-}
-
 .title {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 5px;
   margin-top: 5px;
@@ -335,12 +393,14 @@ body.dark-mode button:hover {
   border-color: #212735;
 }
 
-h1 {
+h1,
+h2 {
   padding-bottom: 15px;
   text-shadow: 2px 3px #4694fa5b;
 }
 
-body.dark-mode h1 {
+body.dark-mode h1,
+body.dark-mode h2 {
   text-shadow: 2px 3px #030c165b;
 }
 
@@ -349,11 +409,51 @@ p {
   padding-left: 8px;
 }
 
-nav ul {
+.barra-lateral {
   display: flex;
   flex-direction: column;
+
+  position: fixed;
+  top: auto;
+  left: -235px;
+
+  width: 200px;
+  height: 80vh;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: left 0.3s;
+
+  padding: 16px;
+
+  background-color: var(--color-aside-bg);
+  color: var(--color-texto-claro);
+  border: var(--color-boton-border) 1px solid;
+  box-shadow: inset 0px 0px 1px 5px var(--color-boxshadow);
+
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  z-index: 5;
+}
+
+.barra-lateral.abierto {
+  left: 0;
+}
+
+nav ul {
+  display: flex;
+  z-index: inherit;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 15px;
+  width: 100%;
   list-style: none;
+}
+
+nav li {
+  width: 100%;
+
 }
 
 .menu-padre {
@@ -399,6 +499,9 @@ nav a {
   align-items: center;
   gap: 10px;
 
+  width: 100%;
+  justify-content: flex-start;
+
   background-color: var(--color-boton);
   border: 1px var(--color-boton-border) solid;
 
@@ -422,172 +525,75 @@ nav a:hover {
   background-color: var(--color-boton-hover);
 }
 
-#btnSubir {
-  display: none;
-}
+@media (min-width: 431px) and (min-width: 900px) {
+  body {
+    padding: 20px 40px;
+    background-image: url("../images/bg/fondoDia.jpg");
+  }
 
-@media (max-width: 430px) {
-  header {
+  body.dark-mode {
+    background-image: url("../images/bg/fondoNoche.jpg");
+  }
+
+  .contenido {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
+  }
+
+  main {
+    flex: 1;
+    margin-bottom: auto;
+  }
+
+  header {
+    position: relative;
     top: 0;
-    z-index: 6;
-    margin-bottom: 0px;
+    z-index: 1;
 
-    padding: 20px;
+    margin-bottom: unset;
 
-    border-top-left-radius: 0em;
-    border-top-right-radius: 0em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+  }
+
+  #menuBtn {
+    display: none;
   }
 
   #btnSubir {
-    display: flex;
-    position: fixed;
-    right: 20px;
-    bottom: 15px;
-
+    display:flex;
     width: 55px;
     height: 55px;
-
-    border-radius: 50%;
-    border: 1px solid var(--color-boton-border);
-
-    align-items: center;
-    justify-content: center;
-
-    background: linear-gradient(
-      to bottom,
-      var(--color-primary),
-      var(--color-secondary),
-      var(--color-third)
-    );
-    color: white;
-    font-size: 22px;
-
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(46px);
-
-    transition: all 0.3s ease-in-out;
-
-    z-index: 100;
   }
 
-  #btnSubir.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  #menuOverlay {
-    position: fixed;
-    inset: 0;
-
-    background-color: rgba(0, 0, 0, 0.5);
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: opacity 0.3s ease;
-
-    z-index: 4;
-  }
-
-  #menuOverlay.activo {
-    opacity: 1;
+  .logo {
     visibility: visible;
   }
 
   .title {
-    font-size: 1rem;
-  }
-
-  .logo {
-    visibility: hidden;
-  }
-
-  #menuBtn {
-    position: absolute;
-    left: 20px;
-
-    display: block;
-    background: none;
-    border: none;
-
-    color: var(--color-texto-claro);
     font-size: 1.5rem;
   }
 
-  .contenido {
-    display: block;
-    padding-bottom: 0px;
-  }
-
-  main {
-    width: 100%;
-    margin-bottom: 0px;
-  }
-
-  body {
-    padding: 0;
-    background-image: url("../images/bg/fondoDiaMobile.jpg");
-  }
-
-  body.dark-mode {
-    background-image: url("../images/bg/fondoNocheMobile.jpg");
-  }
-
-  body.menu-abierto,
-  html.menu-abierto {
-    overflow: hidden;
-    height: 100%;
-  }
-
-  aside {
-    position: fixed;
+  .barra-lateral {
+    position: relative;
     top: auto;
-    left: -235px;
+    left: auto;
+
+    align-self: flex-start;
 
     width: 200px;
-    height: 80vh;
+    height: auto;
 
-    overflow-y: auto;
-    overflow-x: hidden;
-    transition: left 0.3s;
+    overflow: visible;
+    transition: none;
 
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 
-    z-index: 5;
-  }
-
-  aside.abierto {
-    left: 0;
+    z-index: auto;
   }
 
   nav ul {
     flex-direction: column;
-    align-items: flex-start;
     gap: 15px;
-    width: 100%;
-  }
-
-  nav li {
-    width: 100%;
-  }
-
-  nav a {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  nav a:hover {
-    transform: translateX(0);
-  }
-
-  nav a.activo {
-    transform: translateX(0);
   }
 }

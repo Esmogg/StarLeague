@@ -7,6 +7,12 @@ const selectFormato = document.getElementById("formato");
 const labelCantidad = document.getElementById("labelCantidad");
 const inputCantidad = document.getElementById("cantidadParticipantes");
 
+const mensajeExito = document.getElementById("mensajeExito");
+
+const configuracionDeporte = document.getElementById("configuracionDeporte");
+
+
+
 /*Inicialización*/
 
 // Detectar cuando cambia la disciplina
@@ -20,6 +26,8 @@ selectCategoria.addEventListener("change", actualizarDeportes);
 
 // Detectar envío del formulario
 formulario.addEventListener("submit", enviarFormulario);
+
+selectDeporte.addEventListener("change", actualizarConfiguracionDeporte);
 
 /*Funciones*/
 
@@ -72,6 +80,34 @@ function actualizarDeportes() {
     selectDeporte.appendChild(option);
   });
 }
+
+/* Actualiza la configuración específica del deporte */
+function actualizarConfiguracionDeporte() {
+
+    const deporteSeleccionado = selectDeporte.value;
+
+    if (!deporteSeleccionado) {
+
+        configuracionDeporte.innerHTML =
+            "<p>Seleccione una disciplina.</p>";
+
+        return;
+    }
+
+    const configuracion =
+        catalogos.configuracionesDeporte[deporteSeleccionado];
+
+    if (!configuracion) {
+
+        configuracionDeporte.innerHTML =
+            "<p>No hay configuración disponible para esta disciplina.</p>";
+
+        return;
+    }
+
+    configuracionDeporte.innerHTML = configuracion;
+}
+
 
 /* Procesa el envío del formulario */
 function enviarFormulario(event) {

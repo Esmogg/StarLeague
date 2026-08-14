@@ -1,6 +1,6 @@
 /* Menu Lateral */
 const menuBtn = document.getElementById("menuBtn");
-const aside = document.querySelector("aside");
+const aside = document.querySelector(".barra-lateral");
 const menuOverlay = document.getElementById("menuOverlay");
 
 function abrirCerrarMenu() {

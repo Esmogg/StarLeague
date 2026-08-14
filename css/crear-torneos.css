@@ -13,8 +13,8 @@ textarea {
   font-size: 1rem;
 }
 
-select{
-    cursor: pointer;
+select {
+  cursor: pointer;
 }
 
 textarea {
@@ -22,9 +22,9 @@ textarea {
   resize: none;
 }
 
-body.dark-mode input, 
+body.dark-mode input,
 body.dark-mode textarea,
-body.dark-mode select{
+body.dark-mode select {
   background-color: #444f6b;
   color: var(--color-texto-claro);
   border: none;
@@ -41,8 +41,66 @@ input[type="number"] {
   appearance: textfield;
 }
 
+.seccionFormulario {
+  border: none;
+  min-width: 0;
+  padding: 0;
+  margin: 0 0 25px 0;
+}
+
+.seccionFormulario legend {
+  padding: 0 0 15px 0;
+  font-size: 1.17em;
+  font-weight: bold;
+  text-shadow: 2px 3px #4694fa5b;
+}
+
+body.dark-mode .seccionFormulario legend {
+  text-shadow: 2px 3px #030c165b;
+}
+
+::placeholder {
+  color: #25252583;
+  opacity: 1;    /*Firefox */
+}
+
+body.dark-mode ::placeholder {
+  color: #ffffff8e;
+  opacity: 1;    /*Firefox */
+}
+
+.campoCheckbox label {
+  margin-bottom: 8px;
+}
+
+.campoCheckbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+
 .campoFormulario {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
+}
+
+.btnAgregarEquipo {
+  padding: 7px 15px;
+  font-size: 1rem;
+  font-family: inherit;
+  margin-bottom: 15px;
+
+    transition:
+    background-color 0.2s ease,
+    transform 0.1s ease-in-out;
+}
+
+.btnAgregarEquipo:hover {
+  background: linear-gradient(to bottom, #7ec5ff, #2a8cce, #6db8e4);
+  transform: rotate(-2deg);
+  border-color: #0d75bb;
 }
 
 .botonEnviar {
@@ -52,8 +110,9 @@ input[type="number"] {
   font-family: inherit;
   box-shadow: 3px 3px 5px 0px #3670975b;
 
-  transition: background-color 0.2s ease;
-  transition: transform 0.1s ease-in-out;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease-in-out;
 }
 
 .botonEnviar:hover {
@@ -83,12 +142,22 @@ body.dark-mode .botonEnviar:hover {
 .accionesFormulario {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 0px;
+}
+
+li {
+  list-style-type: none;
 }
 
 .mensajeExito {
   color: #1a9b2a;
+  font-weight: bold;
+  display: none;
+  margin: 0;
+  padding-bottom: 0px;
+}
+
+body.dark-mode .mensajeExito {
+  color: #28f140;
   font-weight: bold;
   display: none;
   margin: 0;
