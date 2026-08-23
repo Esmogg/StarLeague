@@ -8,6 +8,8 @@
     <link rel="icon" type="image/png" href="images/logo.png" />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/ver-torneos.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -26,65 +28,94 @@
         </a>
 
         <div class="title">☆ Ver Torneos ☆</div>
-
       </header>
 
       <div class="contenido">
         <div class="barra-lateral">
-            <nav>
-              <ul>
-                <li>
-                  <a href="index.html">
-                    <i class="fa-solid fa-house"></i>
-                    Inicio
-                  </a>
-                </li>
+          <nav>
+            <ul>
+              <li>
+                <a href="index.html">
+                  <i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-trophy"></i>
-                    Torneos
-                  </div>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
 
-                  <ul class="submenu">
-                    <li><a class="activo" href="ver_torneos.html">Ver Torneos</a></li>
-                    <li><a href="torneos_resultados.html">Resultados</a></li>
-                    <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
-                  </ul>
-                </li>
+                <ul class="submenu">
+                  <li>
+                    <a class="activo" href="ver_torneos.html">★ Ver Torneos</a>
+                  </li>
+                  <li><a href="torneos_resultados.html">Resultados</a></li>
+                  <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
+                </ul>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-users"></i>
-                    Equipos
-                  </div>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="buscar_equipos.html">Buscar Equipos</a></li>
-                    <li><a href="crear_equipos.html">Crear Equipo</a></li>
-                  </ul>
-                </li>
+                <ul class="submenu">
+                  <li><a href="buscar_equipos.html">Buscar Equipos</a></li>
+                  <li><a href="crear_equipos.html">Crear Equipo</a></li>
+                </ul>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-user"></i>
-                    Usuario
-                  </div>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="usuario_perfil.html">Perfil</a></li>
-                    <li><a href="usuario_config.html">★ Configuración</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
+                <ul class="submenu">
+                  <li><a href="usuario_perfil.html">Perfil</a></li>
+                  <li><a href="usuario_config.html">★ Configuración</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
         </div>
         <div id="menuOverlay"></div>
+
         <main>
-          <article>
-            <h1>Torneos</h1>
-            <p></p>
-          </article>
+          <!-- BARRA DE BUSQUEDA -->
+
+          <div class="buscador-torneos">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+              type="search"
+              id="buscarTorneo"
+              placeholder="BUSCAR..."
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- GRID DE TORNEOS -->
+
+          <section id="gridTorneos" class="grid-torneos">
+            <!--
+              Las tarjetas de los torneos
+              serán creadas mediante JavaScript.
+            -->
+          </section>
+
+          <!-- MENSAJE SIN TORNEOS -->
+
+          <div id="sinTorneos" class="sin-torneos">
+            <i class="fa-solid fa-trophy"></i>
+
+            <h2>No hay torneos para mostrar</h2>
+
+            <p>Los torneos que crees aparecerán aquí.</p>
+          </div>
         </main>
       </div>
     </div>
@@ -93,7 +124,27 @@
       <i class="fa-solid fa-chevron-up"></i>
     </button>
 
+    <!-- OVERLAY DEL MODAL -->
+
+    <div id="torneoOverlay" class="torneo-overlay"></div>
+
+    <!-- MODAL DEL TORNEO -->
+
+    <div id="modalTorneo" class="modal-torneo">
+      <button id="cerrarModalTorneo" class="cerrar-modal-torneo">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="contenidoModalTorneo" class="contenido-modal-torneo">
+        <!--
+          La información completa del torneo
+          se genera mediante JavaScript.
+        -->
+      </div>
+    </div>
+
     <script src="js/script.js" defer></script>
-    
+    <script src="js/torneos/catalogos.js"></script>
+    <script src="js/torneos/ver-torneos.js" defer></script>
   </body>
 </html>

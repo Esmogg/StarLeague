@@ -393,8 +393,8 @@ body.dark-mode button:hover {
   border-color: #212735;
 }
 
-h1,
-h2 {
+body h1,
+body h2 {
   padding-bottom: 15px;
   text-shadow: 2px 3px #4694fa5b;
 }

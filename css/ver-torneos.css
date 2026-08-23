@@ -1,0 +1,552 @@
+.contenido-modal-torneo::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contenido-modal-torneo::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contenido-modal-torneo::-webkit-scrollbar-thumb {
+  background: #596783;
+  border-radius: 10px;
+}
+
+.contenido-modal-torneo::-webkit-scrollbar-thumb:hover {
+  background: #7382a5;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* BUSCADOR EN GENEARAL*/
+.buscador-torneos {
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  background: #65a0f8;
+
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: 24px;
+  overflow: hidden;
+
+  border-radius: 15px;
+}
+
+body.dark-mode .buscador-torneos {
+  background-color: #4b5878;
+}
+
+/*LUPA*/
+.buscador-torneos i {
+  color: #1b6dbb;
+  font-size: 18px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+body.dark-mode .buscador-torneos i {
+  color: #ffffff;
+}
+
+/*TEXTO QUE ESCRIBES*/
+#buscarTorneo {
+  min-width: 0;
+  width: 100%;
+  flex: 1;
+  height: 40px;
+  background: transparent;
+
+  border: none;
+  border-bottom: 5px solid #3384cf;
+  color: #1456a1ef;
+
+  outline: none;
+  font-size: 18px;
+  font-weight: bold;
+  box-sizing: border-box;
+
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+body.dark-mode #buscarTorneo {
+  color: #ffffff;
+  border-bottom: 5px solid #ffffff;
+}
+
+/*TEXTO BUSCAR PLACEHOLDER*/
+#buscarTorneo::placeholder {
+  color: #3d82d1ef;
+  opacity: 1;
+}
+
+body.dark-mode #buscarTorneo::placeholder {
+  color: #ffffffaf;
+  opacity: 1;
+}
+
+/* GRID */
+
+.grid-torneos {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  padding: 0 28px 30px;
+}
+
+/* TARJETA */
+
+.tarjeta-torneo {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  height: 130px;
+  box-sizing: border-box;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background-color: #ffffff;
+  /*Por si no llega a haber banner*/
+
+  background-size: cover;
+
+  background-position: center;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.tarjeta-torneo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* CAPA OSCURA */
+.tarjeta-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.15)
+  );
+
+  z-index: 1;
+}
+
+/* CONTENIDO DE TARJETA */
+
+.tarjeta-contenido {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  z-index: 2;
+}
+
+/* LOGO */
+
+.torneo-logo {
+  width: 88px;
+  height: 88px;
+  flex: 0 0 88px;
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  background: rgba(30, 40, 65, 0.9);
+
+  border: 2px solid rgba(255, 255, 255, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.torneo-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.torneo-logo i {
+  color: #cfff00;
+  font-size: 34px;
+}
+
+/* INFORMACIÓN */
+
+.torneo-info {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.torneo-nombre, body.dark-mode .torneo-nombre {
+    margin: 0 0 8px;
+
+    color: #d8ff2a;
+    font-size: clamp(20px, 1.6vw, 23px);
+    text-shadow: 2px 2px 0 #232b00;
+
+    white-space: nowrap;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.torneo-subtitulo {
+  margin: 0;
+
+  color: white;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 14px;
+
+  white-space: nowrap;
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+/* SIN TORNEOS */
+
+.sin-torneos {
+  text-align: center;
+  padding: 70px 20px;
+  color: #707fa8;
+}
+
+.sin-torneos i {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.sin-torneos h2 {
+  margin: 0 0 10px;
+  color: #508fe0;
+}
+
+body.dark-mode .sin-torneos h2 {
+  color: #ffffff;
+}
+
+.sin-torneos p {
+  margin: 0;
+}
+
+/* OVERLAY DEL MODAL */
+
+.torneo-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition: opacity 0.2s ease;
+
+  z-index: 9998;
+}
+
+.torneo-overlay.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* MODAL */
+
+.modal-torneo {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(850px, calc(100vw - 40px));
+
+  max-height: calc(100vh - 50px);
+
+  box-sizing: border-box;
+
+  background: #dce4f8;
+
+  border: 2px solid #596783;
+
+  border-radius: 15px;
+
+  transform: translate(-50%, -50%) scale(0.94);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  z-index: 9999;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+
+  overflow: hidden;
+}
+
+body.dark-mode .modal-torneo {
+  background: #2b3349;
+}
+
+.contenido-modal-torneo {
+  max-height: calc(100vh - 50px);
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+
+  padding-bottom: 25px;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: #596783 transparent;
+}
+
+.modal-torneo.activo {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* CERRAR */
+
+.cerrar-modal-torneo,
+body.dark-mode .cerrar-modal-torneo {
+  position: absolute;
+
+  top: 12px;
+  right: 14px;
+
+  z-index: 10;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+
+  font-size: 22px;
+}
+
+.cerrar-modal-torneo:hover,
+body.dark-mode .cerrar-modal-torneo:hover {
+  cursor: pointer;
+}
+
+/* BANNER DEL MODAL */
+
+.modal-banner {
+  width: 100%;
+
+  height: 230px;
+
+  background-size: cover;
+
+  background-position: center;
+
+  border-radius: 12px 12px 0 0;
+
+  position: relative;
+}
+
+.modal-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* CONTENIDO MODAL */
+
+.contenido-modal-torneo {
+  padding-bottom: 25px;
+}
+
+/* HEADER MODAL */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 30px;
+  margin-top: -55px;
+  position: relative;
+  z-index: 3;
+}
+
+.modal-logo {
+  width: 100px;
+  height: 100px;
+  flex: 0 0 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid white;
+  background: #27314a;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
+}
+
+.modal-header h2,
+body.dark-mode .modal-header h2 {
+  margin: 0;
+  color: #cfff00;
+  text-shadow: 2px 3px #445300ad;
+  font-size: 30px;
+  overflow-wrap: anywhere;
+}
+
+/* SECCIONES MODAL */
+
+.modal-seccion {
+  margin: 0 30px 18px;
+  padding: 20px;
+  background: #4b92f0e3;
+  border-radius: 10px;
+}
+
+body.dark-mode .modal-seccion {
+  background: #232b3f;
+}
+
+.modal-seccion h3 {
+  margin: 0 0 15px;
+  color: #03387ece;
+  font-size: 20px;
+}
+
+body.dark-mode .modal-seccion h3 {
+  color: #79c3ce;
+}
+
+.modal-seccion p {
+  color: white;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* DATOS */
+
+.modal-dato {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #054496b6;
+}
+
+.modal-dato:last-child {
+  border-bottom: none;
+}
+
+.modal-dato strong {
+  color: white;
+  flex-shrink: 0;
+}
+
+.modal-dato span {
+  color: white;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .grid-torneos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .grid-torneos {
+    grid-template-columns: 1fr;
+    padding: 0 10px 25px;
+    gap: 18px;
+  }
+
+  .tarjeta-torneo {
+    height: 115px;
+  }
+
+  .torneo-logo {
+    width: 72px;
+
+    height: 72px;
+
+    flex-basis: 72px;
+  }
+
+  .modal-torneo {
+    width: calc(100vw - 20px);
+
+    max-height: calc(100vh - 20px);
+  }
+
+  .modal-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding: 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 25px;
+  }
+
+  .modal-seccion {
+    margin: 0 20px 15px;
+  }
+
+  .modal-dato {
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .modal-dato span {
+    text-align: left;
+  }
+}
