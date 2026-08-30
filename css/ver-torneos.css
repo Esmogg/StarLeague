@@ -141,12 +141,10 @@ body.dark-mode #buscarTorneo::placeholder {
 
   inset: 0;
 
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.78),
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.15)
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.78),
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.15));
 
   z-index: 1;
 }
@@ -204,17 +202,18 @@ body.dark-mode #buscarTorneo::placeholder {
   overflow: hidden;
 }
 
-.torneo-nombre, body.dark-mode .torneo-nombre {
-    margin: 0 0 8px;
+.torneo-nombre,
+body.dark-mode .torneo-nombre {
+  margin: 0 0 8px;
 
-    color: #d8ff2a;
-    font-size: clamp(20px, 1.6vw, 23px);
-    text-shadow: 2px 2px 0 #232b00;
+  color: #d8ff2a;
+  font-size: clamp(20px, 1.6vw, 23px);
+  text-shadow: 2px 2px 0 #232b00;
 
-    white-space: nowrap;
-    overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
 
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .torneo-subtitulo {
@@ -350,30 +349,131 @@ body.dark-mode .modal-torneo {
 
 /* CERRAR */
 
-.cerrar-modal-torneo,
-body.dark-mode .cerrar-modal-torneo {
+.cerrar-modal-torneo {
   position: absolute;
 
   top: 12px;
-  right: 14px;
+  right: 12px;
+
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  border: #ffffff 2px solid;
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 25px;
+
+  cursor: pointer;
 
   z-index: 10;
 
-  width: 42px;
-  height: 42px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(0, 0, 0, 0.55);
-  color: white;
-
-  font-size: 22px;
+  box-shadow: none;
 }
 
-.cerrar-modal-torneo:hover,
-body.dark-mode .cerrar-modal-torneo:hover {
+/* ELIMINAR TORNEO */
+
+.eliminar-modal-torneo {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  height: 45px;
+  min-width: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 0 14px;
+
+  background: #af1d1d;
+
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: bold;
+
   cursor: pointer;
+
+  z-index: 10;
+
+  box-shadow: none;
+
+  transition: transform 0.2s ease;
+}
+
+.eliminar-modal-torneo:hover {
+  background: #c62828;
+
+  border: 2px solid #ffffff;
+
+  color: white;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+.eliminar-modal-torneo i {
+  font-size: 16px;
+}
+
+/* EVITAR QUE EL MODO OSCURO CAMBIE EL HOVER */
+
+body.dark-mode .eliminar-modal-torneo:hover {
+  background: #c62828;
+
+  border: 2px solid #ffffff;
+
+  color: white;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+/* Hover propio del botón */
+
+.cerrar-modal-torneo:hover {
+  background: rgba(0, 0, 0, 0.75);
+
+  border: #cacaca 2px solid;
+
+  color: white;
+
+  box-shadow: none;
+
+  transform: none;
+}
+
+
+/* Evitar el hover del modo oscuro */
+
+body.dark-mode .cerrar-modal-torneo:hover {
+  background: rgba(0, 0, 0, 0.75);
+
+  border: none;
+
+  border: #cacaca 2px solid;
+
+  box-shadow: none;
+
+  transform: none;
 }
 
 /* BANNER DEL MODAL */
@@ -500,6 +600,20 @@ body.dark-mode .modal-seccion h3 {
 }
 
 @media (max-width: 700px) {
+
+  .eliminar-modal-torneo {
+    width: 45px;
+    min-width: 45px;
+
+    padding: 0;
+
+    border-radius: 50%;
+  }
+
+  .eliminar-modal-torneo span {
+    display: none;
+  }
+
   .grid-torneos {
     grid-template-columns: 1fr;
     padding: 0 10px 25px;

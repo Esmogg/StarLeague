@@ -7,9 +7,17 @@ const selectFormato = document.getElementById("formato");
 const labelCantidad = document.getElementById("labelCantidad");
 const inputCantidad = document.getElementById("cantidadParticipantes");
 
-const mensajeExito = document.getElementById("mensajeExito");
+const mensaje = document.getElementById("mensaje");
 
 const configuracionDeporte = document.getElementById("configuracionDeporte");
+
+const inputLogo = document.getElementById("logo");
+const inputBanner = document.getElementById("banner");
+
+const previewLogo = document.getElementById("previewLogo");
+const previewBanner = document.getElementById("previewBanner");
+
+const previewNombre = document.getElementById("previewNombre");
 
 /*INICIALIZACIÓN*/
 
@@ -52,9 +60,7 @@ function actualizarTipoParticipante() {
   }
 }
 
-/* 
-   Carga los formatos del torneo
- */
+/* Carga los formatos del torneo */
 
 function cargarFormatos() {
   selectFormato.innerHTML = '<option value="">Seleccione un formato:</option>';
@@ -208,6 +214,22 @@ function convertirImagenBase64(archivo) {
   });
 }
 
+/* VALIDAR NOMBRE */
+
+function validarNombre(nombre) {
+  const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9 ]+$/;
+
+  return regex.test(nombre);
+}
+
+/* VALIDAR DESCRIPCION */
+
+function validarDescripcion(descripcion) {
+  const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9 .,!?¿¡:;()\-\/]+$/;
+
+  return regex.test(descripcion);
+}
+
 /*PROCESAR ENVÍO DEL FORMULARIO*/
 
 async function enviarFormulario(event) {
@@ -217,6 +239,14 @@ async function enviarFormulario(event) {
     /*Obtener datos del formulario*/
 
     const datos = Object.fromEntries(new FormData(formulario));
+
+    if (!validarNombre(datos.nombre)) {
+      throw "El nombre del torneo contiene caracteres no permitidos.";
+    }
+
+    if (!validarDescripcion(datos.descripcion)) {
+      throw "La descripción contiene caracteres no permitidos.";
+    }
 
     /*Obtener archivos*/
 
@@ -257,6 +287,10 @@ async function enviarFormulario(event) {
       delete datos.cantidadParticipantes;
     }
 
+    /* GENERAR ID DEL TORNEO */
+
+    datos.id = crypto.randomUUID();
+
     /*Guardar torneo*/
 
     const torneos = JSON.parse(localStorage.getItem("torneos")) || [];
@@ -271,14 +305,99 @@ async function enviarFormulario(event) {
 
     /*Mostrar mensaje de éxito*/
 
-    mensajeExito.textContent = "¡Torneo creado con éxito!";
+    mensaje.textContent = "¡Torneo creado con éxito!";
 
-    mensajeExito.style.display = "block";
+    mensaje.classList.remove("error");
+    mensaje.classList.add("exito");
+
+    mensaje.style.display = "block";
   } catch (error) {
     /*Mostrar error*/
 
-    mensajeExito.textContent = error;
+    mensaje.textContent = error;
 
-    mensajeExito.style.display = "block";
+    mensaje.classList.remove("exito");
+    mensaje.classList.add("error");
+
+    mensaje.style.display = "block";
   }
 }
+
+/* PREVISUALIZACIÓN DE IMÁGENES */
+
+/* Al hacer click en el logo */
+
+previewLogo.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  inputLogo.click();
+});
+
+/* Al hacer click en el banner */
+
+previewBanner.addEventListener("click", () => {
+  inputBanner.click();
+});
+
+/* Cuando se selecciona un logo */
+
+inputLogo.addEventListener("change", async () => {
+  const archivo = inputLogo.files[0];
+
+  if (!archivo) {
+    return;
+  }
+
+  try {
+    await validarImagen(archivo, "Logo", 300, 300, 2 * 1024 * 1024);
+
+    const url = URL.createObjectURL(archivo);
+
+    previewLogo.innerHTML = `
+      <img
+        src="${url}"
+        alt="Previsualización del logo"
+      >
+    `;
+  } catch (error) {
+    alert(error);
+
+    inputLogo.value = "";
+  }
+});
+
+/* Cuando se selecciona un banner */
+
+inputBanner.addEventListener("change", async () => {
+  const archivo = inputBanner.files[0];
+
+  if (!archivo) {
+    return;
+  }
+
+  try {
+    await validarImagen(archivo, "Banner", 800, 300, 5 * 1024 * 1024);
+
+    const url = URL.createObjectURL(archivo);
+
+    previewBanner.style.backgroundImage = `url("${url}")`;
+
+    const textoBanner = previewBanner.querySelector(".preview-info p");
+
+    textoBanner.style.opacity = "0";
+  } catch (error) {
+    alert(error);
+
+    inputBanner.value = "";
+  }
+});
+
+const inputNombre = document.getElementById("nombre");
+
+inputNombre.addEventListener("input", () => {
+  if (inputNombre.value.trim() === "") {
+    previewNombre.textContent = "[TÍTULO AQUÍ]";
+  } else {
+    previewNombre.textContent = inputNombre.value;
+  }
+});

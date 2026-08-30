@@ -358,7 +358,7 @@ body.dark-mode .config-opcion {
   text-shadow: -2px -1px 2px #040025af;
 }
 
-button {
+body button {
   background: linear-gradient(
     to bottom,
     var(--color-primary),
@@ -374,19 +374,6 @@ button {
   cursor: pointer;
 }
 
-body.dark-mode button {
-  background: linear-gradient(
-    to bottom,
-    var(--color-primary),
-    var(--color-secondary),
-    var(--color-third)
-  );
-  color: var(--color-texto-claro);
-  border: 2px solid var(--color-boton-border);
-  border-radius: 5px;
-
-  cursor: pointer;
-}
 
 body.dark-mode button:hover {
   background: linear-gradient(to bottom, #464e69, #2d3546, #394258);

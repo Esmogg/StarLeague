@@ -91,14 +91,15 @@
 
                       <!-- Nombre -->
                       <div class="campoFormulario">
-                          <label for="nombreTorneo">Nombre del torneo:</label>
+                          <label for="nombre">Nombre del torneo:</label>
 
                           <input
                           placeholder="Torneo Starleague!"
                             type="text"
-                            id="nombreTorneo"
-                            name="nombreTorneo"
-                            maxlength="100"
+                            id="nombre"
+                            name="nombre"
+                            maxlength="50"
+                            title="Solo se permiten letras, números y espacios."
                             required
                           />
                       </div>
@@ -252,54 +253,83 @@
               </fieldset>
 
               <!-- Apariencia -->
-            <fieldset class="seccionFormulario" id="seccionApariencia">
+            <fieldset class="seccionFormulario" id="seccionConfiguracionDeporte">
 
-              <legend>Apariencia</legend>
+              <h2>Apariencia</h2>
 
-              <div class="camposFormulario" id="apariencia">
+              <div class="previsualizacion-torneo">
 
-                <div class="campoFormulario">
+                <div
+                  class="preview-banner"
+                  id="previewBanner"
+                  title="Hacé clic para seleccionar un banner"
+                >
 
-                  <label for="logo">
-                    Logo del torneo:
-                  </label>
+                  <div
+                    class="preview-logo"
+                    id="previewLogo"
+                    title="Hacé clic para seleccionar un logo"
+                  >
 
-                  <input
-                    type="file"
-                    id="logo"
-                    name="logo"
-                    accept="image/png, image/jpeg, image/webp"
-                  />
+                    <i class="fa-solid fa-image"></i>
 
-                  <small>
-                    PNG, JPG o WEBP · mínimo 300×300 px · máximo 2 MB
-                  </small>
+                    <span>Logo</span>
 
-                </div>
+                  </div>
 
-                <div class="campoFormulario">
 
-                  <label for="banner">
-                    Banner del torneo:
-                  </label>
+                  <div class="preview-info">
 
-                  <input
-                    type="file"
-                    id="banner"
-                    name="banner"
-                    accept="image/png, image/jpeg, image/webp"
-                  />
-                  <small>
-                    PNG, JPG o WEBP · mínimo 800×300 px · máximo 5 MB
-                  </small>
+                    <h3 id="previewNombre">
+                      [TÍTULO AQUÍ]
+                    </h3>
+
+                    <p>
+                      [BANNER AQUÍ]
+                    </p>
+
+                  </div>
+
                 </div>
 
               </div>
 
+
+              <!-- Inputs reales, pero ocultos -->
+
+              <input
+                type="file"
+                id="logo"
+                name="logo"
+                accept="image/png, image/jpeg, image/webp"
+                hidden
+              >
+
+              <input
+                type="file"
+                id="banner"
+                name="banner"
+                accept="image/png, image/jpeg, image/webp"
+                hidden
+              >
+
+
+              <p class="ayuda-imagen">
+                Hacé clic sobre el logo o el banner para seleccionar una imagen.
+              </p>
+
+              <p class="ayuda-imagen">
+                Logo: PNG, JPG o WEBP · mínimo 300×300 px · máximo 2 MB
+              </p>
+
+              <p class="ayuda-imagen">
+                Banner: PNG, JPG o WEBP · mínimo 800×300 px · máximo 5 MB
+              </p>
+
             </fieldset>
 
-                <!-- Configuración del Deporte -->
-              <fieldset class="seccionFormulario" id="seccionConfiguracionDeporte">
+              <!-- Configuración del Deporte -->
+            <fieldset class="seccionFormulario" id="seccionConfiguracionDeporte">
 
               <legend>Configuración del Deporte</legend>
 
@@ -328,7 +358,7 @@
 
                 <div class="campoFormulario">
 
-                  <label>Equipos agregados:</label>
+                  <span>Equipos agregados:</span>
 
                   <ul id="listaEquipos">
 
@@ -350,7 +380,7 @@
                   Crear Torneo
                 </button>
 
-                <p id="mensajeExito" class="mensajeExito"></p>
+                <p id="mensaje" class="mensaje"></p>
 
               </div>
             </form>

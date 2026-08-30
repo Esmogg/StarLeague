@@ -18,11 +18,61 @@ const cerrarModal = document.getElementById("cerrarModalTorneo");
 
 function obtenerTorneos() {
   try {
-    return JSON.parse(localStorage.getItem("torneos")) || [];
+    const torneos = JSON.parse(localStorage.getItem("torneos")) || [];
+
+    let huboCambios = false;
+
+    torneos.forEach((torneo) => {
+      if (!torneo.id) {
+        torneo.id = crypto.randomUUID();
+        huboCambios = true;
+      }
+    });
+
+    if (huboCambios) {
+      localStorage.setItem("torneos", JSON.stringify(torneos));
+    }
+
+    return torneos;
   } catch (error) {
     console.error("No se pudieron cargar los torneos:", error);
 
     return [];
+  }
+}
+
+/* ELIMINAR TORNEO */
+
+function eliminarTorneo(torneo) {
+  const nombre = obtenerNombreTorneo(torneo);
+
+  const confirmar = confirm(
+    `¿Seguro que quieres eliminar el torneo "${nombre}"?\n\nEsta acción no se puede deshacer.`,
+  );
+
+  if (!confirmar) {
+    return;
+  }
+
+  const torneos = obtenerTorneos();
+
+  const indice = torneos.findIndex((item) => item.id === torneo.id);
+
+  if (indice === -1) {
+    console.error("No se encontró el torneo para eliminar.");
+    return;
+  }
+
+  torneos.splice(indice, 1);
+
+  localStorage.setItem("torneos", JSON.stringify(torneos));
+
+  cerrarVentana();
+
+  mostrarTorneos(torneos);
+
+  if (buscarTorneo && buscarTorneo.value.trim()) {
+    buscarTorneo.dispatchEvent(new Event("input"));
   }
 }
 
@@ -48,9 +98,7 @@ function obtenerValor(torneo, nombres, valorPorDefecto = "") {
   return valorPorDefecto;
 }
 
-/* =====================================================
-   CONVERTIR IDS DE CATÁLOGOS A NOMBRES
-===================================================== */
+/* CONVERTIR IDS DE CATÁLOGOS A NOMBRES */
 
 function obtenerNombreDeporte(id) {
   if (!id) {
@@ -315,6 +363,24 @@ function abrirModal(torneo) {
   /*LIMPIAR MODAL*/
 
   contenidoModal.innerHTML = "";
+
+  /* BOTÓN ELIMINAR */
+
+  const botonEliminar = document.createElement("button");
+
+  botonEliminar.className = "eliminar-modal-torneo";
+
+  botonEliminar.innerHTML = `
+    <i class="fa-solid fa-trash"></i>
+    <span>Eliminar</span>
+  `;
+
+  botonEliminar.addEventListener("click", (event) => {
+    event.stopPropagation();
+    eliminarTorneo(torneo);
+  });
+
+  modalTorneo.appendChild(botonEliminar);
 
   /*BANNER*/
 
