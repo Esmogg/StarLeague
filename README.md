@@ -1,1 +1,1 @@
-Entrar a la pagina: https://esmogg.github.io/StarLeague/
+Visita nuestra pagina: [StarLeague](https://esmogg.github.io/StarLeague/)
