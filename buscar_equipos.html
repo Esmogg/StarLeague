@@ -3,11 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Starleague</title>
 
     <link rel="icon" type="image/png" href="images/logo.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/equipos/buscar-equipos.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -29,69 +40,153 @@
       </header>
 
       <div class="contenido">
+        <!-- BARRA LATERAL -->
+
         <div class="barra-lateral">
-            <nav>
-              <ul>
-                <li>
-                  <a href="index.html">
-                    <i class="fa-solid fa-house"></i>
-                    Inicio
-                  </a>
-                </li>
+          <nav>
+            <ul>
+              <li>
+                <a href="index.html">
+                  <i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-trophy"></i>
-                    Torneos
-                  </div>
+              <!-- TORNEOS -->
 
-                  <ul class="submenu">
-                    <li><a href="ver_torneos.html">★ Ver Torneos</a></li>
-                    <li><a href="torneos_resultados.html">Resultados</a></li>
-                    <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
-                  </ul>
-                </li>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-users"></i>
-                    Equipos
-                  </div>
+                <ul class="submenu">
+                  <li>
+                    <a href="ver_torneos.html"> ★ Ver Torneos </a>
+                  </li>
 
-                  <ul class="submenu">
-                    <li><a class="activo" href="buscar_equipos.html">Buscar Equipos</a></li>
-                    <li><a href="crear_equipos.html">Crear Equipo</a></li>
-                  </ul>
-                </li>
+                  <li>
+                    <a href="torneos_resultados.html">Resultados</a>
+                  </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-user"></i>
-                    Usuario
-                  </div>
+                  <li>
+                    <a href="crear_torneos.html"> ★ Crear Torneo </a>
+                  </li>
+                </ul>
+              </li>
 
-                  <ul class="submenu">
-                    <li><a href="usuario_perfil.html">Perfil</a></li>
-                    <li><a href="usuario_config.html">★ Configuración</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
+              <!-- EQUIPOS -->
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a class="activo" href="buscar_equipos.html"> ★ Buscar Equipos </a>
+                  </li>
+
+                  <li>
+                    <a href="crear_equipos.html"> ★ Crear Equipo </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- USUARIO -->
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="usuario_perfil.html">Perfil</a>
+                  </li>
+
+                  <li>
+                    <a href="usuario_config.html"> ★ Configuración </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
         </div>
+
         <div id="menuOverlay"></div>
+
+        <!-- CONTENIDO -->
+
         <main>
-          <article>
-            <h1>Buscar Equipos</h1>
-            <p></p>
-          </article>
+          <!-- BUSCADOR -->
+
+          <div class="buscador-equipos">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+              type="search"
+              id="buscarEquipo"
+              placeholder="BUSCAR..."
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- GRID -->
+
+          <section id="gridEquipos" class="grid-equipos">
+            <!--
+              Las tarjetas se generan
+              mediante JavaScript.
+            -->
+          </section>
+
+          <!-- SIN EQUIPOS -->
+
+          <div id="sinEquipos" class="sin-equipos">
+            <i class="fa-solid fa-users"></i>
+
+            <h2>No hay equipos para mostrar</h2>
+
+            <p>Los equipos que crees aparecerán aquí.</p>
+          </div>
         </main>
       </div>
     </div>
+
+    <!-- BOTÓN SUBIR -->
 
     <button id="btnSubir">
       <i class="fa-solid fa-chevron-up"></i>
     </button>
 
+    <!-- OVERLAY -->
+
+    <div id="equipoOverlay" class="equipo-overlay"></div>
+
+    <!-- MODAL -->
+
+    <div id="modalEquipo" class="modal-equipo">
+      <button id="cerrarModalEquipo" class="cerrar-modal-equipo">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="contenidoModalEquipo" class="contenido-modal-equipo">
+        <!--
+          La información completa del equipo
+          será generada mediante JavaScript.
+        -->
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+
     <script src="js/script.js" defer></script>
+
+    <script src="js/torneos/catalogos.js"></script>
+
+    <script src="js/equipos/buscar-equipos.js" defer></script>
   </body>
 </html>
