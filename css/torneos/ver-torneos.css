@@ -26,17 +26,24 @@ main {
 /* BUSCADOR EN GENEARAL*/
 .buscador-torneos {
   width: 100%;
-  height: 56px;
+  height: 64px;
   box-sizing: border-box;
-  background: #65a0f8;
+  background: var(--color-primary);
 
   display: flex;
   align-items: center;
   padding: 0 16px;
   margin-bottom: 24px;
   overflow: hidden;
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration,
+  input[type="text"]::-webkit-search-cancel-button,
+  input[type="text"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
 
-  border-radius: 15px;
+  border-radius: 16px;
 }
 
 body.dark-mode .buscador-torneos {
@@ -45,9 +52,9 @@ body.dark-mode .buscador-torneos {
 
 /*LUPA*/
 .buscador-torneos i {
-  color: #1b6dbb;
-  font-size: 18px;
-  margin-right: 12px;
+  color: var(--color-secondary);
+  font-size: 16px;
+  margin-right: 16px;
   flex-shrink: 0;
 }
 
@@ -64,8 +71,8 @@ body.dark-mode .buscador-torneos i {
   background: transparent;
 
   border: none;
-  border-bottom: 5px solid #3384cf;
-  color: #1456a1ef;
+  border-bottom: 5px solid var(--color-third);
+  color: var(--color-secondary);
 
   outline: none;
   font-size: 18px;
@@ -141,10 +148,12 @@ body.dark-mode #buscarTorneo::placeholder {
 
   inset: 0;
 
-  background: linear-gradient(90deg,
-      rgba(0, 0, 0, 0.78),
-      rgba(0, 0, 0, 0.35),
-      rgba(0, 0, 0, 0.15));
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.15)
+  );
 
   z-index: 1;
 }
@@ -206,9 +215,18 @@ body.dark-mode #buscarTorneo::placeholder {
 body.dark-mode .torneo-nombre {
   margin: 0 0 8px;
 
-  color: #d8ff2a;
+  color: #fff;
   font-size: clamp(20px, 1.6vw, 23px);
-  text-shadow: 2px 2px 0 #232b00;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    0px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 0px 0 #000,
+    1.5px 0px 0 #000,
+    -1.5px 1.5px 0 #000,
+    0px 1.5px 0 #000,
+    1.5px 1.5px 0 #000,
+    3px 3px 2.5px #000000d2;
 
   white-space: nowrap;
   overflow: hidden;
@@ -385,18 +403,18 @@ body.dark-mode .modal-torneo {
 .eliminar-modal-torneo {
   position: absolute;
 
-  top: 12px;
-  left: 12px;
+  top: 5px;
+  left: 5px;
 
-  height: 45px;
-  min-width: 45px;
+  height: 36px;
+  min-width: 40px;
 
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 
-  padding: 0 14px;
+  padding: 0 12px;
 
   background: #af1d1d;
 
@@ -460,7 +478,6 @@ body.dark-mode .eliminar-modal-torneo:hover {
 
   transform: none;
 }
-
 
 /* Evitar el hover del modo oscuro */
 
@@ -529,9 +546,18 @@ body.dark-mode .cerrar-modal-torneo:hover {
 
 .modal-header h2,
 body.dark-mode .modal-header h2 {
-  margin: 0;
-  color: #cfff00;
-  text-shadow: 2px 3px #445300ad;
+  margin-top: 32px;
+  color: #fff;
+  text-shadow:
+    -1.5px -1.5px 0 #000,
+    0px -1.5px 0 #000,
+    1.5px -1.5px 0 #000,
+    -1.5px 0px 0 #000,
+    1.5px 0px 0 #000,
+    -1.5px 1.5px 0 #000,
+    0px 1.5px 0 #000,
+    1.5px 1.5px 0 #000,
+    3px 3px 2.5px #000000d2;
   font-size: 30px;
   overflow-wrap: anywhere;
 }
@@ -600,7 +626,6 @@ body.dark-mode .modal-seccion h3 {
 }
 
 @media (max-width: 700px) {
-
   .eliminar-modal-torneo {
     width: 45px;
     min-width: 45px;
