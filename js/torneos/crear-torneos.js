@@ -261,7 +261,7 @@ async function enviarFormulario(event) {
 
     /*Validar banner*/
 
-    await validarImagen(archivoBanner, "Banner", 800, 300, 5 * 1024 * 1024);
+    await validarImagen(archivoBanner, "Banner", 800, 180, 5 * 1024 * 1024);
 
     /*Convertir imágenes*/
 
@@ -307,18 +307,24 @@ async function enviarFormulario(event) {
 
     mensaje.textContent = "¡Torneo creado con éxito!";
 
-    mensaje.classList.remove("error");
-    mensaje.classList.add("exito");
+    mensaje.classList.remove("error", "exito");
+    mensaje.style.display = "none";
 
+    void mensaje.offsetWidth;
+
+    mensaje.classList.add("exito");
     mensaje.style.display = "block";
   } catch (error) {
     /*Mostrar error*/
 
     mensaje.textContent = error;
 
-    mensaje.classList.remove("exito");
-    mensaje.classList.add("error");
+    mensaje.classList.remove("error", "exito");
+    mensaje.style.display = "none";
 
+    void mensaje.offsetWidth;
+
+    mensaje.classList.add("error");
     mensaje.style.display = "block";
   }
 }
@@ -376,7 +382,7 @@ inputBanner.addEventListener("change", async () => {
   }
 
   try {
-    await validarImagen(archivo, "Banner", 800, 300, 5 * 1024 * 1024);
+    await validarImagen(archivo, "Banner", 800, 180, 5 * 1024 * 1024);
 
     const url = URL.createObjectURL(archivo);
 
