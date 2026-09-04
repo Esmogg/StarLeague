@@ -15,31 +15,74 @@ const catalogos = {
   /*DEPORTES*/
 
   deportes: [
-    {
-      id: "lol",
-      nombre: "League of Legends",
-      categoria: "esports",
-      tipoParticipante: "equipos",
-    },
-    {
-      id: "valorant",
-      nombre: "Valorant",
-      categoria: "esports",
-      tipoParticipante: "equipos",
-    },
-    {
-      id: "ajedrez",
-      nombre: "Ajedrez",
-      categoria: "tradicional",
-      tipoParticipante: "individual",
-    },
-    {
-      id: "tenis",
-      nombre: "Tenis",
-      categoria: "tradicional",
-      tipoParticipante: "individual",
-    },
-  ],
+  {
+    id: "lol",
+    nombre: "League of Legends",
+    categoria: "esports",
+    tipoParticipante: "equipos",
+
+    configuracionEquipo: {
+      titulares: 5,
+      suplentes: 5,
+      roles: [
+        "Top",
+        "Jungla",
+        "Mid",
+        "ADC",
+        "Support"
+      ]
+    }
+  },
+
+  {
+    id: "valorant",
+    nombre: "Valorant",
+    categoria: "esports",
+    tipoParticipante: "equipos",
+
+    configuracionEquipo: {
+      titulares: 5,
+      suplentes: 2,
+      roles: [
+        "Duelista",
+        "Iniciador",
+        "Controlador",
+        "Centinela",
+        "Flex"
+      ]
+    }
+  },
+
+  {
+    id: "ajedrez",
+    nombre: "Ajedrez",
+    categoria: "tradicional",
+    tipoParticipante: "individual",
+
+    configuracionEquipo: {
+      titulares: 1,
+      suplentes: 0,
+      roles: [
+        "Jugador"
+      ]
+    }
+  },
+
+  {
+    id: "tenis",
+    nombre: "Tenis",
+    categoria: "tradicional",
+    tipoParticipante: "individual",
+
+    configuracionEquipo: {
+      titulares: 1,
+      suplentes: 0,
+      roles: [
+        "Jugador"
+      ]
+    }
+  }
+],
 
   /*FORMATOS DE TORNEO*/
 
@@ -251,3 +294,4 @@ const catalogos = {
         `,
   },
 };
+

@@ -3,11 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Starleague</title>
 
     <link rel="icon" type="image/png" href="images/logo.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/equipos/crear-equipos.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -25,73 +35,238 @@
           <img src="images/logo.png" alt="Logo Starleague" class="logo" />
         </a>
 
-        <div class="title">☆ Crear Equipos ☆</div>
+        <div class="title">☆ Crear Equipo ☆</div>
       </header>
 
       <div class="contenido">
+        <!-- Barra lateral -->
         <div class="barra-lateral">
-            <nav>
-              <ul>
-                <li>
-                  <a href="index.html">
-                    <i class="fa-solid fa-house"></i>
-                    Inicio
-                  </a>
-                </li>
+          <nav>
+            <ul>
+              <li>
+                <a href="index.html">
+                  <i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-trophy"></i>
-                    Torneos
-                  </div>
+              <!-- Torneos -->
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="ver_torneos.html">★ Ver Torneos</a></li>
-                    <li><a href="torneos_resultados.html">Resultados</a></li>
-                    <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
-                  </ul>
-                </li>
+                <ul class="submenu">
+                  <li><a href="ver_torneos.html"> ★ Ver Torneos </a></li>
+                  <li><a href="torneos_resultados.html"> Resultados </a></li>
+                  <li><a href="crear_torneos.html"> ★ Crear Torneo </a></li>
+                </ul>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-users"></i>
-                    Equipos
-                  </div>
+              <!-- Equipos -->
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="buscar_equipos.html">Buscar Equipos</a></li>
-                    <li><a class="activo" href="crear_equipos.html">Crear Equipo</a></li>
-                  </ul>
-                </li>
+                <ul class="submenu">
+                  <li><a href="buscar_equipos.html"> ★ Buscar Equipos </a></li>
+                  <li>
+                    <a class="activo" href="crear_equipos.html"
+                      >★ Crear Equipo</a
+                    >
+                  </li>
+                </ul>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-user"></i>
-                    Usuario
-                  </div>
+              <!-- Usuario -->
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="usuario_perfil.html">Perfil</a></li>
-                    <li><a href="usuario_config.html">★ Configuración</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
+                <ul class="submenu">
+                  <li><a href="usuario_perfil.html">Perfil </a></li>
+                  <li><a href="usuario_config.html"> ★ Configuración </a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
         </div>
+
         <div id="menuOverlay"></div>
+
         <main>
           <article>
-            <h1>Crear Equipos</h1>
-            <p></p>
+            <form id="formCrearEquipo">
+              <!-- INFORMACIÓN GENERAL -->
+              <fieldset
+                class="seccionFormulario"
+                id="seccionInformacionGeneral"
+              >
+                <legend>Información General</legend>
+
+                <div class="camposFormulario" id="informacionGeneral">
+                  <!-- Nombre -->
+
+                  <div class="campoFormulario">
+                    <label for="nombre"> Nombre del equipo: </label>
+
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      placeholder="Ej: Nova Esports"
+                      maxlength="50"
+                      required
+                    />
+                  </div>
+
+                  <!-- Tag -->
+                  <div class="campoFormulario">
+                    <label for="tag"> Tag del equipo: </label>
+
+                    <input
+                      type="text"
+                      id="tag"
+                      name="tag"
+                      placeholder="Ej: NOVA"
+                      maxlength="10"
+                      required
+                    />
+                  </div>
+
+                  <!-- Descripción -->
+                  <div class="campoFormulario">
+                    <label for="descripcion"> Descripción: </label>
+
+                    <textarea
+                      id="descripcion"
+                      name="descripcion"
+                      placeholder="Describe brevemente al equipo..."
+                      maxlength="500"
+                    ></textarea>
+                  </div>
+
+                  <!-- País -->
+                  <div class="campoFormulario">
+                    <label for="pais"> País / región: </label>
+
+                    <select id="pais" name="pais">
+                      <option value="">Seleccione un país</option>
+                      <option value="uruguay">Uruguay</option>
+                      <option value="argentina">Argentina</option>
+                      <option value="brasil">Brasil</option>
+                      <option value="chile">Chile</option>
+                      <option value="paraguay">Paraguay</option>
+                      <option value="venezuela">Venezuela</option>
+                      <option value="colombia">Colombia</option>
+                    </select>
+                  </div>
+
+                  <!-- Deporte -->
+                  <div class="campoFormulario">
+                    <label for="deporte"> Disciplina: </label>
+
+                    <select id="deporte" name="deporte" required>
+                      <option value="">Seleccione una disciplina</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- APARIENCIA -->
+              <fieldset class="seccionFormulario" id="seccionApariencia">
+                <legend>Apariencia</legend>
+
+                <div class="previsualizacion-equipo">
+                  <div
+                    class="preview-equipo"
+                    id="previewEquipo"
+                    title="Haz clic para seleccionar un logo"
+                  >
+                    <div
+                      class="preview-equipo-logo"
+                      id="previewLogo"
+                      title="Haz clic para seleccionar un logo"
+                    >
+                      <i class="fa-solid fa-image"></i>
+                      <span>Logo</span>
+                    </div>
+
+                    <div class="preview-equipo-info">
+                      <h3 id="previewNombre">[NOMBRE DEL EQUIPO]</h3>
+
+                      <p id="previewTag">[TAG]</p>
+                    </div>
+                  </div>
+                </div>
+
+                <input
+                  type="file"
+                  id="logo"
+                  name="logo"
+                  accept="image/png, image/jpeg, image/webp"
+                  hidden
+                  required
+                />
+
+                <p class="ayuda-imagen">
+                  Haz clic sobre el logo para seleccionar una imagen.
+                </p>
+
+                <p class="ayuda-imagen">
+                  Logo: PNG, JPG o WEBP · mínimo 300×300 px · máximo 2 MB
+                </p>
+              </fieldset>
+
+              <!-- INTEGRANTES -->
+              <fieldset class="seccionFormulario" id="seccionIntegrantes">
+                <legend>Integrantes</legend>
+
+                <div class="camposFormulario" id="integrantes">
+                  <!-- Información dinámica -->
+                  <div
+                    id="informacionIntegrantes"
+                    class="informacionIntegrantes"
+                  >
+                    <p>
+                      Seleccione una disciplina para configurar los integrantes.
+                    </p>
+                  </div>
+
+                  <!-- Jugadores -->
+                  <div id="listaIntegrantes" class="listaIntegrantes"></div>
+                </div>
+              </fieldset>
+
+              <!-- BOTÓN -->
+              <div class="accionesFormulario">
+                <button type="submit" class="botonEnviar">
+                  <i class="fa-solid fa-floppy-disk"></i>
+
+                  Crear Equipo
+                </button>
+
+                <p id="mensaje" class="mensaje"></p>
+              </div>
+            </form>
           </article>
         </main>
       </div>
     </div>
 
+    <!-- Botón subir -->
     <button id="btnSubir">
       <i class="fa-solid fa-chevron-up"></i>
     </button>
 
+    <!-- Scripts -->
     <script src="js/script.js" defer></script>
+    <script src="js/torneos/catalogos.js"></script>
+    <script src="js/equipos/crear-equipos.js"></script>
   </body>
 </html>
