@@ -6,12 +6,18 @@
     <title>Starleague</title>
 
     <link rel="icon" type="image/png" href="images/logo.png" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/crear-torneos.css" />
+    <link rel="stylesheet" href="css/torneos/crear-torneos.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -30,358 +36,341 @@
 
       <div class="contenido">
         <div class="barra-lateral">
-            <nav>
-              <ul>
-                <li>
-                  <a href="index.html">
-                    <i class="fa-solid fa-house"></i>
-                    Inicio
-                  </a>
-                </li>
+          <nav>
+            <ul>
+              <li>
+                <a href="index.html">
+                  <i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-trophy"></i>
-                    Torneos
-                  </div>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="ver_torneos.html">★ Ver Torneos</a></li>
-                    <li><a href="torneos_resultados.html">Resultados</a></li>
-                    <li><a class="activo" href="crear_torneos.html">★ Crear Torneo</a></li>
-                  </ul>
-                </li>
+                <ul class="submenu">
+                  <li><a href="ver_torneos.html"> ★ Ver Torneos </a></li>
+                  <li><a href="torneos_resultados.html">Resultados</a></li>
+                  <li>
+                    <a class="activo" href="crear_torneos.html"
+                      >★ Crear Torneo</a
+                    >
+                  </li>
+                </ul>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-users"></i>
-                    Equipos
-                  </div>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="buscar_equipos.html">Buscar Equipos</a></li>
-                    <li><a href="crear_equipos.html">Crear Equipo</a></li>
-                  </ul>
-                </li>
+                <ul class="submenu">
+                  <li><a href="buscar_equipos.html"> ★ Buscar Equipos </a></li>
+                  <li><a href="crear_equipos.html"> ★ Crear Equipo </a></li>
+                </ul>
+              </li>
 
-                <li class="menu-grupo">
-                  <div class="menu-padre">
-                    <i class="fa-solid fa-user"></i>
-                    Usuario
-                  </div>
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
 
-                  <ul class="submenu">
-                    <li><a href="usuario_perfil.html">Perfil</a></li>
-                    <li><a href="usuario_config.html">★ Configuración</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-        </div> 
+                <ul class="submenu">
+                  <li><a href="usuario_perfil.html">Perfil</a></li>
+                  <li><a href="usuario_config.html"> ★ Configuración </a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
         <div id="menuOverlay"></div>
         <main>
           <article>
             <form id="formCrearTorneo">
               <!-- Información General -->
-              <fieldset class="seccionFormulario" id="seccionInformacionGeneral">
+              <fieldset
+                class="seccionFormulario"
+                id="seccionInformacionGeneral"
+              >
+                <legend>Información General</legend>
 
-                  <legend>Información General</legend>
+                <div class="camposFormulario" id="informacionGeneral">
+                  <!-- Nombre -->
+                  <div class="campoFormulario">
+                    <label for="nombre">Nombre del torneo:</label>
 
-                  <div class="camposFormulario" id="informacionGeneral">
-
-                      <!-- Nombre -->
-                      <div class="campoFormulario">
-                          <label for="nombre">Nombre del torneo:</label>
-
-                          <input
-                          placeholder="Torneo Starleague!"
-                            type="text"
-                            id="nombre"
-                            name="nombre"
-                            maxlength="50"
-                            title="Solo se permiten letras, números y espacios."
-                            required
-                          />
-                      </div>
-
-                      <!-- Descripción -->
-                      <div class="campoFormulario">
-                          <label for="descripcion">Descripción:</label>
-
-                          <textarea
-                            placeholder="¡Esto es un ejemplo de descripción de un torneo!"
-                            id="descripcion"
-                            name="descripcion"
-                            maxlength="500"
-                          ></textarea>
-                      </div>
+                    <input
+                      placeholder="Torneo Starleague!"
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      maxlength="50"
+                      title="Solo se permiten letras, números y espacios."
+                      required
+                    />
                   </div>
+
+                  <!-- Descripción -->
+                  <div class="campoFormulario">
+                    <label for="descripcion">Descripción:</label>
+
+                    <textarea
+                      placeholder="¡Esto es un ejemplo de descripción de un torneo!"
+                      id="descripcion"
+                      name="descripcion"
+                      maxlength="500"
+                    ></textarea>
+                  </div>
+                </div>
               </fieldset>
 
-                <!-- Configuración del Torneo -->
-                <fieldset class="seccionFormulario" id="seccionConfiguracionTorneo">
+              <!-- Configuración del Torneo -->
+              <fieldset
+                class="seccionFormulario"
+                id="seccionConfiguracionTorneo"
+              >
+                <legend>Configuración del Torneo</legend>
 
-                    <legend>Configuración del Torneo</legend>
+                <div class="camposFormulario" id="configuracionTorneo">
+                  <!-- Categoría -->
+                  <div class="campoFormulario">
+                    <label for="categoria">Categoría:</label>
 
-                    <div class="camposFormulario" id="configuracionTorneo">
+                    <select id="categoria" name="categoria" required>
+                      <option value="">
+                        <span>Seleccione una categoria</span>
+                      </option>
 
-                        <!-- Categoría -->
-                        <div class="campoFormulario">
-                            <label for="categoria">Categoría:</label>
+                      <option value="esports">
+                        <span>eSports</span>
+                      </option>
 
-                            <select id="categoria" name="categoria" required>
-                                <option value="">Seleccione una categoría:</option>
-                                <option value="esports">eSports</option>
-                                <option value="tradicional">Deporte Tradicional</option>
-                            </select>
-                        </div>
+                      <option value="tradicional">
+                        <span>Deporte Tradicional</span>
+                      </option>
+                    </select>
+                  </div>
 
-                        <!-- Disciplina -->
-                        <div class="campoFormulario">
-                            <label for="deporte">Disciplina:</label>
+                  <!-- Disciplina -->
+                  <div class="campoFormulario">
+                    <label for="deporte">Disciplina:</label>
 
-                            <select id="deporte" name="deporte" required>
-                                <option value="">Seleccione una disciplina:</option>
-                            </select>
-                        </div>
+                    <select id="deporte" name="deporte" required>
+                      <option value="">
+                        <span>Seleccione una disciplina</span>
+                      </option>
+                    </select>
+                  </div>
 
-                        <!-- Formato -->
-                        <div class="campoFormulario">
-                            <label for="formato">Formato del torneo:</label>
+                  <!-- Formato -->
+                  <div class="campoFormulario">
+                    <label for="formato">Formato del torneo:</label>
 
-                            <select id="formato" name="formato" required>
-                                <option value="">Seleccione un formato:</option>
-                            </select>
-                        </div>
+                    <select id="formato" name="formato" required>
+                      <option value="">
+                        <span>Seleccione un formato</span>
+                      </option>
+                    </select>
+                  </div>
 
-                        <!-- Cantidad -->
-                        <div class="campoFormulario">
-                            <label id="labelCantidad" for="cantidadParticipantes">
-                                Cantidad:
-                            </label>
+                  <!-- Cantidad -->
+                  <div class="campoFormulario">
+                    <label id="labelCantidad" for="cantidadParticipantes">
+                      Cantidad:
+                    </label>
 
-                            <input
-                              placeholder="Min: 2"
-                              type="number"
-                              id="cantidadParticipantes"
-                              name="cantidadParticipantes"
-                              min="2"
-                              required
-                            />
-                        </div>
+                    <input
+                      placeholder="Min: 2"
+                      type="number"
+                      id="cantidadParticipantes"
+                      name="cantidadParticipantes"
+                      min="2"
+                      required
+                    />
+                  </div>
 
-                        <!-- Estado -->
-                        <div class="campoFormulario">
-                            <label for="estadoTorneo">Inscripciones:</label>
+                  <!-- Estado -->
+                  <div class="campoFormulario">
+                    <label for="estadoTorneo">Inscripciones:</label>
 
-                            <select id="estadoTorneo" name="estadoTorneo">
-                                <option value="inscripciones">Inscripciones abiertas</option>
-                                <option value="proximamente">Próximamente</option>
-                            </select>
-                        </div>
+                    <select id="estadoTorneo" name="estadoTorneo">
+                      <option value="inscripciones">
+                        Inscripciones abiertas
+                      </option>
+                      <option value="proximamente">Próximamente</option>
+                    </select>
+                  </div>
 
-                        <!-- Fechas -->
-                        <div class="campoFormulario">
-                            <label for="fechaInicio">Fecha de inicio:</label>
+                  <!-- Fechas -->
+                  <div class="campoFormulario">
+                    <label for="fechaInicio">Fecha de inicio:</label>
 
-                            <input
-                              type="date"
-                              id="fechaInicio"
-                              name="fechaInicio"
-                            />
-                        </div>
+                    <input type="date" id="fechaInicio" name="fechaInicio" />
+                  </div>
 
-                        <div class="campoFormulario">
-                            <label for="fechaFin">Fecha de fin:</label>
+                  <div class="campoFormulario">
+                    <label for="fechaFin">Fecha de fin:</label>
 
-                            <input
-                              type="date"
-                              id="fechaFin"
-                              name="fechaFin"
-                            />
-                        </div>
+                    <input type="date" id="fechaFin" name="fechaFin" />
+                  </div>
 
-                        <!-- Visibilidad -->
-                        <div class="campoFormulario">
-                            <label for="visibilidad">Visibilidad:</label>
+                  <!-- Visibilidad -->
+                  <div class="campoFormulario">
+                    <label for="visibilidad">Visibilidad:</label>
 
-                            <select id="visibilidad" name="visibilidad">
-                                <option value="publico">Público</option>
-                                <option value="privado">Privado</option>
-                            </select>
-                        </div>
+                    <select id="visibilidad" name="visibilidad">
+                      <option value="publico">Público</option>
+                      <option value="privado">Privado</option>
+                    </select>
+                  </div>
 
-                        <!-- Inscripción automática -->
-                        <div class="campoFormulario campoCheckbox">
-                            <label for="inscripcionAutomatica">
-                                Permitir inscripción automática:
-                            </label>
+                  <!-- Inscripción automática -->
+                  <div class="campoFormulario campoCheckbox">
+                    <label for="inscripcionAutomatica">
+                      Permitir inscripción automática:
+                    </label>
 
-                            <input
-                              type="checkbox"
-                              id="inscripcionAutomatica"
-                              name="inscripcionAutomatica"
-                            />
-                        </div>
+                    <input
+                      type="checkbox"
+                      id="inscripcionAutomatica"
+                      name="inscripcionAutomatica"
+                    />
+                  </div>
 
-                        <!-- Generación automática -->
-                        <div class="campoFormulario campoCheckbox">
-                            <label for="generarPartidas">
-                                Generar enfrentamientos automáticamente:
-                            </label>
+                  <!-- Generación automática -->
+                  <div class="campoFormulario campoCheckbox">
+                    <label for="generarPartidas">
+                      Generar enfrentamientos automáticamente:
+                    </label>
 
-                            <input
-                              type="checkbox"
-                              id="generarPartidas"
-                              name="generarPartidas"
-                            />
-                        </div>
+                    <input
+                      type="checkbox"
+                      id="generarPartidas"
+                      name="generarPartidas"
+                    />
+                  </div>
 
-                        <!-- Tercer puesto -->
-                        <div class="campoFormulario campoCheckbox">
-                            <label for="tercerPuesto">
-                                Disputar tercer puesto:
-                            </label>
+                  <!-- Tercer puesto -->
+                  <div class="campoFormulario campoCheckbox">
+                    <label for="tercerPuesto"> Disputar tercer puesto: </label>
 
-                            <input
-                              type="checkbox"
-                              id="tercerPuesto"
-                              name="tercerPuesto"
-                            />
-                        </div>
-                    </div>
+                    <input
+                      type="checkbox"
+                      id="tercerPuesto"
+                      name="tercerPuesto"
+                    />
+                  </div>
+                </div>
               </fieldset>
 
-              <!-- Apariencia -->
-            <fieldset class="seccionFormulario" id="seccionConfiguracionDeporte">
-
-              <h2>Apariencia</h2>
-
-              <div class="previsualizacion-torneo">
-
-                <div
-                  class="preview-banner"
-                  id="previewBanner"
-                  title="Hacé clic para seleccionar un banner"
-                >
-
+              <!-- APARIENCIA -->
+              <fieldset class="seccionFormulario">
+                <legend>Apariencia</legend>
+                <div class="previsualizacion">
                   <div
-                    class="preview-logo"
-                    id="previewLogo"
-                    title="Hacé clic para seleccionar un logo"
+                    class="preview-banner"
+                    id="previewBanner"
+                    title="Haz clic para seleccionar un banner"
                   >
+                    <div
+                      class="preview-logo"
+                      id="previewLogo"
+                      title="Haz clic para seleccionar un logo"
+                    >
+                      <i class="fa-solid fa-image"></i>
+                      <span>Logo</span>
+                    </div>
 
-                    <i class="fa-solid fa-image"></i>
-
-                    <span>Logo</span>
-
+                    <div class="preview-info">
+                      <h3 id="previewNombre">[TÍTULO AQUÍ]</h3>
+                      <p>[BANNER AQUÍ]</p>
+                    </div>
                   </div>
-
-
-                  <div class="preview-info">
-
-                    <h3 id="previewNombre">
-                      [TÍTULO AQUÍ]
-                    </h3>
-
-                    <p>
-                      [BANNER AQUÍ]
-                    </p>
-
-                  </div>
-
                 </div>
 
-              </div>
+                <!-- Inputs reales, pero ocultos -->
 
+                <input
+                  type="file"
+                  id="logo"
+                  name="logo"
+                  accept="image/png, image/jpeg, image/webp"
+                  hidden
 
-              <!-- Inputs reales, pero ocultos -->
+                />
 
-              <input
-                type="file"
-                id="logo"
-                name="logo"
-                accept="image/png, image/jpeg, image/webp"
-                hidden
-              >
+                <input
+                  type="file"
+                  id="banner"
+                  name="banner"
+                  accept="image/png, image/jpeg, image/webp"
+                  hidden
+                />
 
-              <input
-                type="file"
-                id="banner"
-                name="banner"
-                accept="image/png, image/jpeg, image/webp"
-                hidden
-              >
+                <p class="ayuda-imagen">
+                  Haz clic sobre el logo o el banner para seleccionar una
+                  imagen.
+                </p>
 
+                <p class="ayuda-imagen">
+                  Logo: PNG, JPG o WEBP · mínimo 300×300px  · máximo 2 MB
+                </p>
 
-              <p class="ayuda-imagen">
-                Hacé clic sobre el logo o el banner para seleccionar una imagen.
-              </p>
+                <p class="ayuda-imagen">
+                  Banner: PNG, JPG o WEBP · mínimo 800×180px · máximo 5 MB
+                </p>
 
-              <p class="ayuda-imagen">
-                Logo: PNG, JPG o WEBP · mínimo 300×300 px · máximo 2 MB
-              </p>
-
-              <p class="ayuda-imagen">
-                Banner: PNG, JPG o WEBP · mínimo 800×300 px · máximo 5 MB
-              </p>
-
-            </fieldset>
+                <p class="ayuda-imagen">
+                  Tamaños recomendados para el BANNER: 800×180px | 1600x360px | 3200x720px
+                </p>
+              </fieldset>
 
               <!-- Configuración del Deporte -->
-            <fieldset class="seccionFormulario" id="seccionConfiguracionDeporte">
+              <fieldset class="seccionFormulario">
+                <legend>Configuración del Deporte</legend>
 
-              <legend>Configuración del Deporte</legend>
-
-              <div class="seccionFormulario" id="seccionConfiguracionDeporte">
+                <div class="seccionFormulario">
                   <div class="camposFormulario" id="configuracionDeporte">
-                      <p>Seleccione una disciplina.</p>
+                    <p>Seleccione una disciplina.</p>
                   </div>
-              </div>
-            </fieldset>
-            
+                </div>
+              </fieldset>
+
               <!-- Participantes -->
-            <fieldset class="seccionFormulario" id="seccionParticipantes">
+              <fieldset class="seccionFormulario" id="seccionParticipantes">
+                <legend>Participantes</legend>
 
-              <legend>Participantes</legend>
+                <div class="camposFormulario" id="participantes">
+                  <div class="accionesFormulario">
+                    <button type="button" class="btnAgregarEquipo">
+                      <i class="fa-solid fa-plus"></i>
+                      Agregar equipo
+                    </button>
+                  </div>
 
-              <div class="camposFormulario" id="participantes">
+                  <div class="campoFormulario">
+                    <span>Equipos agregados:</span>
 
-                <div class="accionesFormulario">
-
-                  <button type="button" class="btnAgregarEquipo">
-                    <i class="fa-solid fa-plus"></i>
-                    Agregar equipo
-                  </button>
-
+                    <ul id="listaEquipos">
+                      <li>No hay equipos agregados.</li>
+                    </ul>
+                  </div>
                 </div>
-
-                <div class="campoFormulario">
-
-                  <span>Equipos agregados:</span>
-
-                  <ul id="listaEquipos">
-
-                    <li>No hay equipos agregados.</li>
-
-                  </ul>
-
-                </div>
-
-              </div>
-
-            </fieldset>
+              </fieldset>
 
               <!-- Botón de enviar -->
               <div class="accionesFormulario">
-
                 <button type="submit" class="botonEnviar">
                   <i class="fa-solid fa-floppy-disk"></i>
                   Crear Torneo
                 </button>
 
                 <p id="mensaje" class="mensaje"></p>
-
               </div>
             </form>
           </article>
@@ -396,6 +385,5 @@
     <script src="js/script.js" defer></script>
     <script src="js/torneos/catalogos.js"></script>
     <script src="js/torneos/crear-torneos.js"></script>
-
   </body>
 </html>
