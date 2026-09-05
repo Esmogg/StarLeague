@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starleague</title>
 
-    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/torneos/crear-torneos.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/torneos/crear-torneos.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -27,8 +27,8 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-        <a href="index.html">
-          <img src="images/logo.png" alt="Logo Starleague" class="logo" />
+        <a href="../../index.html">
+          <img src="../../images/logo.png" alt="Logo Starleague" class="logo" />
         </a>
 
         <div class="title">☆ Crear Torneos ☆</div>
@@ -39,7 +39,7 @@
           <nav>
             <ul>
               <li>
-                <a href="index.html">
+                <a href="../../index.html">
                   <i class="fa-solid fa-house"></i>
                   Inicio
                 </a>
@@ -69,8 +69,14 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="buscar_equipos.html"> ★ Buscar Equipos </a></li>
-                  <li><a href="crear_equipos.html"> ★ Crear Equipo </a></li>
+                  <li>
+                    <a href="../equipos/buscar_equipos.html">
+                      ★ Buscar Equipos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../equipos/crear_equipos.html"> ★ Crear Equipo </a>
+                  </li>
                 </ul>
               </li>
 
@@ -81,9 +87,13 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="usuario_perfil.html">Perfil</a></li>
-                  <li><a href="usuario_config.html"> ★ Configuración </a></li>
+                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
                 </ul>
+              </li>
+              <li>
+                <a href="../configuracion/config.html">
+                  <i class="fa-solid fa-cog"></i> Configuración
+                </a>
               </li>
             </ul>
           </nav>
@@ -301,7 +311,6 @@
                   name="logo"
                   accept="image/png, image/jpeg, image/webp"
                   hidden
-
                 />
 
                 <input
@@ -318,7 +327,7 @@
                 </p>
 
                 <p class="ayuda-imagen">
-                  Logo: PNG, JPG o WEBP · mínimo 300×300px  · máximo 2 MB
+                  Logo: PNG, JPG o WEBP · mínimo 300×300px · máximo 2 MB
                 </p>
 
                 <p class="ayuda-imagen">
@@ -326,7 +335,8 @@
                 </p>
 
                 <p class="ayuda-imagen">
-                  Tamaños recomendados para el BANNER: 800×180px | 1600x360px | 3200x720px
+                  Tamaños recomendados para el BANNER: 800×180px | 1600x360px |
+                  3200x720px
                 </p>
               </fieldset>
 
@@ -382,8 +392,8 @@
       <i class="fa-solid fa-chevron-up"></i>
     </button>
 
-    <script src="js/script.js" defer></script>
-    <script src="js/torneos/catalogos.js"></script>
-    <script src="js/torneos/crear-torneos.js"></script>
+    <script src="../../js/script.js" defer></script>
+    <script src="../../js/torneos/catalogos.js"></script>
+    <script src="../../js/torneos/crear-torneos.js"></script>
   </body>
 </html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starleague</title>
+
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <header>
+        <button id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="../../index.html">
+          <img src="../../images/logo.png" alt="Logo Starleague" class="logo" />
+        </a>
+
+        <div class="title">☆ Configuración ☆</div>
+      </header>
+
+      <div class="contenido">
+        <div class="barra-lateral">
+          <nav>
+            <ul>
+              <li>
+                <a href="../../index.html">
+                  <i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="../torneos/ver_torneos.html"> ★ Ver Torneos </a>
+                  </li>
+                  <li>
+                    <a href="../torneos/torneos_resultados.html">Resultados</a>
+                  </li>
+                  <li>
+                    <a href="../torneos/crear_torneos.html"> ★ Crear Torneo </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="../equipos/buscar_equipos.html">
+                      ★ Buscar Equipos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../equipos/crear_equipos.html"> ★ Crear Equipo </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
+
+                <ul class="submenu">
+                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
+                </ul>
+              </li>
+              <li>
+                <a class="activo" href="config.html">
+                  <i class="fa-solid fa-cog"></i> Configuración
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div id="menuOverlay"></div>
+        <main>
+          <article>
+            <h1>Configuración</h1>
+
+            <div class="config-opcion">
+              <span>Modo oscuro</span>
+
+              <label class="switch">
+                <input type="checkbox" id="darkModeToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </article>
+        </main>
+      </div>
+    </div>
+
+    <button id="btnSubir">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script src="../../js/script.js" defer></script>
+  </body>
+</html>
