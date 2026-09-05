@@ -20,3 +20,4 @@ else
         echo "$(date) - Consulta fallida, usuario inexistente: $usuario" | sudo tee -a "$LOG"
     fi
 fi
+./menu.sh
