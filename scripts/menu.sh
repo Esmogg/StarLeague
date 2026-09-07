@@ -2,9 +2,7 @@
 
 clear
 
-echo "======================================"
-echo "       GESTION DE USUARIOS"
-echo "======================================"
+echo "---== GESTION DE USUARIOS ==---"
 echo "1- Crear usuario"
 echo "2- Leer usuario"
 echo "3- Modificar usuario"
