@@ -1,8 +1,12 @@
+/* BOTONES */
+
 .btnAgregarEquipo {
   padding: 7px 15px;
+
+  margin-bottom: 15px;
+
   font-size: 1rem;
   font-family: inherit;
-  margin-bottom: 15px;
 
   transition:
     background-color 0.2s ease,
@@ -16,7 +20,9 @@
     var(--color-boton-hover2),
     var(--color-boton-hover3)
   );
+
   transform: rotate(-2deg);
+
   border-color: var(--color-boton-border);
 }
 
@@ -24,39 +30,42 @@ li {
   list-style-type: none;
 }
 
-/* MENSAJE */
+/* MENSAJES*/
+
 .mensaje {
-  color: #1a9b2a;
-  font-weight: bold;
   display: none;
-  padding: 0px 0px 0px 10px;
+
+  padding: 0 0 0 10px;
+
+  color: #1a9b2a;
+
+  font-weight: bold;
   text-align: center;
+
   border-radius: 8px;
 }
 
-/* MENSAJE DE ÉXITO */
-
 .mensaje.exito {
   color: #1a9b2a;
+
   animation: mensajeExito 0.4s ease;
+}
+
+.mensaje.error {
+  color: #d32f2f;
+
+  animation: mensajeError 0.45s ease;
 }
 
 body.dark-mode .mensaje.exito {
   color: #28f140;
 }
 
-/* MENSAJE DE ERROR */
-
-.mensaje.error {
-  color: #d32f2f;
-  animation: mensajeError 0.45s ease;
-}
-
 body.dark-mode .mensaje.error {
   color: #ff5252;
 }
 
-/* ANIMACIÓN DE ÉXITO */
+/* ANIMACIONES */
 
 @keyframes mensajeExito {
   0% {
@@ -75,8 +84,6 @@ body.dark-mode .mensaje.error {
     transform: translateY(0);
   }
 }
-
-/* ANIMACIÓN DE ERROR */
 
 @keyframes mensajeError {
   0% {
@@ -112,7 +119,889 @@ body.dark-mode .mensaje.error {
   }
 }
 
+/* SELECCIÓN DE EQUIPOS */
+
+.overlay-seleccion-equipos {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9998;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.2s ease;
+}
+
+.overlay-seleccion-equipos.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* MODAL SELECCIÓN */
+
+.modal-seleccion-equipos {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(650px, calc(100vw - 40px));
+  max-height: calc(100vh - 50px);
+
+  z-index: 9999;
+
+  box-sizing: border-box;
+
+  background: #dce4f8;
+
+  border: 2px solid #596783;
+  border-radius: 15px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translate(-50%, -50%) scale(0.94);
+
+  overflow: hidden;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modal-seleccion-equipos.activo {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translate(-50%, -50%) scale(1);
+}
+
+body.dark-mode .modal-seleccion-equipos {
+  background: #2b3349;
+}
+
+/* HEADER  */
+
+.modal-seleccion-header {
+  padding: 25px 30px 15px;
+}
+
+.modal-seleccion-header h2 {
+  margin: 0 0 8px;
+
+  color: #ffffff;
+
+  font-size: 26px;
+
+  text-shadow:
+    -1px -1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px 1px 0 #000000,
+    1px 1px 0 #000000;
+}
+
+.modal-seleccion-header p {
+  margin: 0;
+  padding: 0;
+
+  color: #333333;
+}
+
+body.dark-mode .modal-seleccion-header p {
+  color: #ffffff;
+}
+
+/* BOTONES DE CERRAR */
+
+.cerrar-seleccion-equipos,
+.cerrar-info-equipo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.cerrar-seleccion-equipos {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 42px;
+  height: 42px;
+
+  z-index: 2;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  font-size: 20px;
+}
+
+.cerrar-seleccion-equipos:hover,
+.cerrar-info-equipo:hover {
+  background: rgba(0, 0, 0, 0.75);
+
+  transform: none;
+}
+
+/* LISTA DE SELECCIÓN */
+
+.lista-seleccion-equipos {
+  max-height: 400px;
+
+  padding: 10px 30px 20px;
+
+  overflow-y: auto;
+}
+
+/* OPCIONES DE EQUIPO */
+
+.opcion-equipo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 12px 15px;
+
+  margin-bottom: 10px;
+
+  background: #ffffff;
+
+  border: 2px solid transparent;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+body.dark-mode .opcion-equipo {
+  background: #1c1d2b;
+}
+
+.opcion-equipo:hover,
+.opcion-equipo.seleccionado {
+  border-color: var(--color-boton-border);
+}
+
+.opcion-equipo:hover {
+  transform: translateY(-2px);
+}
+
+.opcion-equipo.no-disponible {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+.opcion-equipo input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+
+  cursor: pointer;
+}
+
+/* LOGO DE OPCIÓN */
+
+.opcion-equipo-logo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  background: #c2c2c2;
+
+  border: 2px solid var(--color-boton-border);
+  border-radius: 8px;
+}
+
+.opcion-equipo-logo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.opcion-equipo-logo i {
+  color: #555555;
+
+  font-size: 22px;
+}
+
+body.dark-mode .opcion-equipo-logo {
+  background: #0b0b13;
+}
+
+body.dark-mode .opcion-equipo-logo i {
+  color: #ffffff;
+}
+
+/* INFORMACIÓN DE OPCIÓN */
+
+.opcion-equipo-info {
+  min-width: 0;
+}
+
+.opcion-equipo-nombre {
+  margin: 0;
+  padding: 0;
+
+  color: #1a1a1a;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.opcion-equipo-tag {
+  margin: 3px 0 0;
+  padding: 0;
+
+  color: #555555;
+
+  font-size: 13px;
+}
+
+body.dark-mode .opcion-equipo-nombre {
+  color: #ffffff;
+}
+
+body.dark-mode .opcion-equipo-tag {
+  color: #c5c9d5;
+}
+
+/* SIN EQUIPOS */
+/* ESTADO VACÍO (equipos) */
+
+.estado-vacio-equipos {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 35px 20px;
+
+  color: #707fa8;
+
+  text-align: center;
+
+  list-style: none;
+}
+
+.estado-vacio-equipos i {
+  font-size: 35px;
+}
+
+/* ACCIONES  */
+
+.acciones-seleccion-equipos {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 15px 30px 25px;
+
+  border-top: 1px solid #596783;
+}
+
+.botonCancelarSeleccion,
+.botonConfirmarSeleccion {
+  padding: 9px 16px;
+
+  font-family: inherit;
+  font-size: 1rem;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease-in-out;
+}
+
+.botonCancelarSeleccion:hover,
+.botonConfirmarSeleccion:hover {
+  background: linear-gradient(
+    to bottom,
+    var(--color-boton-hover1),
+    var(--color-boton-hover2),
+    var(--color-boton-hover1)
+  );
+
+  transform: rotate(-2deg);
+
+  border-color: #0d75bb;
+}
+
+.btnEliminarEquipo {
+  padding: 6px;
+}
+
+#cancelarP {
+  padding: 0;
+}
+
+/* EQUIPOS AGREGADOS */
+
+#listaEquipos.grid-equipos-agregados {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  width: 100%;
+
+  gap: 20px;
+
+  margin-top: 15px;
+  padding: 0;
+}
+
+/* TARJETA DE EQUIPO */
+
+.tarjeta-equipo-agregado {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 220px;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 2px solid var(--color-boton-border);
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.tarjeta-equipo-agregado:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .tarjeta-equipo-agregado {
+  background: #1c1d2b;
+}
+
+/* LOGO DE TARJETA */
+
+.tarjeta-equipo-agregado-logo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100px;
+  height: 100px;
+
+  flex: 0 0 100px;
+
+  overflow: hidden;
+
+  background: #c2c2c2;
+
+  border: 2px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+.tarjeta-equipo-agregado-logo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.tarjeta-equipo-agregado-logo i {
+  font-size: 35px;
+}
+
+body.dark-mode .tarjeta-equipo-agregado-logo {
+  background: #0b0b13;
+}
+
+/* INFORMACIÓN DE TARJETA */
+
+.tarjeta-equipo-agregado-info {
+  width: 100%;
+
+  min-width: 0;
+
+  margin-top: 12px;
+
+  text-align: center;
+}
+
+.tarjeta-equipo-agregado-nombre {
+  margin: 0;
+  padding: 0;
+
+  color: #1a1a1a;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tarjeta-equipo-agregado-tag {
+  margin: 4px 0 0;
+  padding: 0;
+
+  color: #555555;
+
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tarjeta-equipo-agregado-disciplina {
+  margin: 4px 0 0;
+  padding: 0;
+
+  color: #508fe0;
+
+  font-size: 13px;
+}
+
+body.dark-mode .tarjeta-equipo-agregado-nombre {
+  color: #ffffff;
+}
+
+body.dark-mode .tarjeta-equipo-agregado-tag {
+  color: #c5c9d5;
+}
+
+body.dark-mode .tarjeta-equipo-agregado-disciplina {
+  color: #79c3ce;
+}
+
+/* ELIMINAR EQUIPO */
+
+.tarjeta-equipo-agregado .btnEliminarEquipo {
+  position: absolute;
+
+  top: 8px;
+  right: 8px;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  background: #af1d1d;
+
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-color: #ffffff;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.tarjeta-equipo-agregado .btnEliminarEquipo:hover {
+  background: #c62828;
+  transform: none;
+}
+
+body.dark-mode .tarjeta-equipo-agregado .btnEliminarEquipo:hover {
+  border-color: #ffffff;
+}
+
+/* MODAL INFORMACIÓN DEL EQUIPO  */
+
+.overlay-info-equipo {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 10000;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.2s ease;
+}
+
+.overlay-info-equipo.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* MODAL */
+
+.modal-info-equipo {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(750px, calc(100vw - 40px));
+  max-height: calc(100vh - 50px);
+
+  z-index: 10001;
+
+  box-sizing: border-box;
+
+  background: #dce4f8;
+
+  border: 2px solid #596783;
+  border-radius: 15px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translate(-50%, -50%) scale(0.94);
+
+  overflow: hidden;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modal-info-equipo.activo {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translate(-50%, -50%) scale(1);
+}
+
+body.dark-mode .modal-info-equipo {
+  background: #2b3349;
+}
+
+/* PÁRRAFOS DEL MODAL */
+
+.modal-info-equipo p {
+  padding: 0;
+}
+
+/* CERRAR */
+
+.cerrar-info-equipo {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 45px;
+  height: 45px;
+
+  z-index: 10;
+
+  padding: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  font-size: 23px;
+}
+
+/* CONTENIDO */
+
+.contenido-info-equipo {
+  max-height: calc(100vh - 50px);
+
+  padding: 25px 0;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+}
+
+/* HEADER  */
+
+.info-equipo-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 20px 30px 25px;
+}
+
+.info-equipo-logo {
+  width: 110px;
+  height: 110px;
+
+  flex: 0 0 110px;
+
+  object-fit: cover;
+
+  background: #27314a;
+
+  border: 3px solid #ffffff;
+  border-radius: 12px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
+}
+
+.info-equipo-logo.sin-logo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  font-size: 35px;
+}
+
+.info-equipo-header-text {
+  min-width: 0;
+}
+
+.info-equipo-header-text h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 28px;
+
+  text-shadow:
+    -1px -1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px 1px 0 #000000,
+    1px 1px 0 #000000,
+    3px 3px 5px #000000d2;
+}
+
+.info-equipo-header-text p {
+  margin: 6px 0 0;
+
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* SECCIONES */
+
+.info-equipo-seccion {
+  margin: 0 30px 18px;
+
+  padding: 20px;
+
+  background: #4b92f0e3;
+
+  border-radius: 10px;
+}
+
+body.dark-mode .info-equipo-seccion {
+  background: #232b3f;
+}
+
+.info-equipo-seccion h3 {
+  margin: 0 0 15px;
+
+  color: #03387ece;
+
+  font-size: 20px;
+}
+
+body.dark-mode .info-equipo-seccion h3 {
+  color: #79c3ce;
+}
+
+.info-equipo-dato {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #054496b6;
+}
+
+.info-equipo-dato:last-child {
+  border-bottom: none;
+}
+
+.info-equipo-dato strong,
+.info-equipo-dato span {
+  color: #ffffff;
+}
+
+.info-equipo-dato span {
+  text-align: right;
+
+  overflow-wrap: anywhere;
+}
+
+.info-equipo-seccion > p {
+  margin: 0;
+
+  color: #ffffff;
+
+  line-height: 1.5;
+}
+
+/* INTEGRANTES */
+
+.lista-integrantes-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.integrante-info {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 10px 12px;
+
+  background: #ffffff2d;
+
+  border-radius: 8px;
+}
+
+.integrante-info-nombre {
+  color: #ffffff;
+
+  font-weight: bold;
+}
+
+.integrante-info-rol {
+  color: #dce4f8;
+
+  text-align: right;
+}
+
+.sin-integrantes {
+  margin: 0;
+
+  color: #ffffff;
+}
+
+/* RESPONSIVE */
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  #listaEquipos.grid-equipos-agregados {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MÓVIL */
+
 @media (max-width: 700px) {
+  /* Equipos agregados */
+
+  #listaEquipos.grid-equipos-agregados {
+    grid-template-columns: 1fr;
+  }
+
+  /* Modal selección */
+
+  .modal-seleccion-equipos {
+    width: calc(100vw - 20px);
+
+    max-height: calc(100vh - 20px);
+  }
+
+  .modal-seleccion-header {
+    padding: 20px;
+  }
+
+  .lista-seleccion-equipos {
+    padding: 10px 20px 15px;
+  }
+
+  .acciones-seleccion-equipos {
+    padding: 15px 20px 20px;
+  }
+
+  .opcion-equipo-logo {
+    width: 45px;
+    height: 45px;
+  }
+
+  /* Previsualización */
+
   .preview-banner {
     min-height: 120px;
   }
@@ -131,11 +1020,54 @@ body.dark-mode .mensaje.error {
   }
 
   .preview-info h3 {
-    font-size: 17px;
     margin-bottom: 8px;
+
+    font-size: 17px;
   }
 
   .preview-info p {
     font-size: 14px;
+  }
+
+  /* Modal información */
+
+  .modal-info-equipo {
+    width: calc(100vw - 20px);
+
+    max-height: calc(100vh - 20px);
+  }
+
+  .info-equipo-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    padding: 20px;
+  }
+
+  .info-equipo-seccion {
+    margin: 0 20px 15px;
+  }
+
+  .info-equipo-dato {
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .info-equipo-dato span {
+    text-align: left;
+  }
+
+  .integrante-info {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 3px;
+  }
+
+  .integrante-info-rol {
+    text-align: left;
   }
 }

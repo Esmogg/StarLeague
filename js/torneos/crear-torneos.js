@@ -38,6 +38,308 @@ selectDeporte.addEventListener("change", actualizarConfiguracionDeporte);
 
 /* FUNCIONES*/
 
+/* SELECCIÓN DE EQUIPOS */
+
+const overlayInfoEquipo = document.getElementById("overlayInfoEquipo");
+
+const modalInfoEquipo = document.getElementById("modalInfoEquipo");
+
+const contenidoInfoEquipo = document.getElementById("contenidoInfoEquipo");
+
+const cerrarInfoEquipo = document.getElementById("cerrarInfoEquipo");
+
+cerrarInfoEquipo.addEventListener("click", cerrarModalInfoEquipo);
+
+overlayInfoEquipo.addEventListener("click", (event) => {
+  if (event.target === overlayInfoEquipo) {
+    cerrarModalInfoEquipo();
+  }
+});
+
+const botonAgregarEquipo = document.querySelector(".btnAgregarEquipo");
+
+const overlaySeleccionEquipos = document.getElementById(
+  "overlaySeleccionEquipos",
+);
+
+const modalSeleccionEquipos = document.getElementById("modalSeleccionEquipos");
+
+const listaSeleccionEquipos = document.getElementById("listaSeleccionEquipos");
+
+const cerrarSeleccionEquipos = document.getElementById(
+  "cerrarSeleccionEquipos",
+);
+
+const cancelarSeleccionEquipos = document.getElementById(
+  "cancelarSeleccionEquipos",
+);
+
+const confirmarSeleccionEquipos = document.getElementById(
+  "confirmarSeleccionEquipos",
+);
+
+const listaEquipos = document.getElementById("listaEquipos");
+
+/*
+ * Equipos que actualmente están agregados al torneo.
+ */
+let equiposSeleccionados = [];
+
+botonAgregarEquipo.addEventListener("click", abrirSeleccionEquipos);
+
+cerrarSeleccionEquipos.addEventListener("click", cerrarSeleccionEquiposModal);
+
+cancelarSeleccionEquipos.addEventListener("click", cerrarSeleccionEquiposModal);
+
+confirmarSeleccionEquipos.addEventListener("click", confirmarEquipos);
+
+overlaySeleccionEquipos.addEventListener("click", (event) => {
+  if (event.target === overlaySeleccionEquipos) {
+    cerrarSeleccionEquiposModal();
+  }
+});
+
+/* SELECCIÓN DE EQUIPOS */
+
+/* Abrir ventana de selección */
+
+function abrirSeleccionEquipos() {
+  cargarEquiposDisponibles();
+
+  overlaySeleccionEquipos.classList.add("activo");
+  modalSeleccionEquipos.classList.add("activo");
+
+  document.body.classList.add("modal-abierto");
+  document.documentElement.classList.add("modal-abierto");
+}
+
+/* Cerrar ventana de selección */
+
+function cerrarSeleccionEquiposModal() {
+  overlaySeleccionEquipos.classList.remove("activo");
+  modalSeleccionEquipos.classList.remove("activo");
+
+  document.body.classList.remove("modal-abierto");
+  document.documentElement.classList.remove("modal-abierto");
+}
+
+/* Cargar equipos creados */
+
+function cargarEquiposDisponibles() {
+  listaSeleccionEquipos.innerHTML = "";
+
+  const equipos = JSON.parse(localStorage.getItem("equipos")) || [];
+
+  if (equipos.length === 0) {
+    listaSeleccionEquipos.innerHTML = `
+      <div class="estado-vacio-equipos">
+        <i class="fa-solid fa-users"></i>
+        <p>No hay equipos creados.</p>
+      </div>
+    `;
+    return;
+  }
+
+  equipos.forEach((equipo) => {
+    const yaAgregado = equiposSeleccionados.some(
+      (equipoSeleccionado) => equipoSeleccionado.id === equipo.id,
+    );
+
+    const opcion = document.createElement("label");
+
+    opcion.className = "opcion-equipo";
+
+    if (yaAgregado) {
+      opcion.classList.add("no-disponible");
+    }
+
+    const logo = equipo.logo
+      ? `
+        <img
+          src="${equipo.logo}"
+          alt="Logo de ${equipo.nombre}"
+        >
+      `
+      : `
+        <i class="fa-solid fa-users"></i>
+      `;
+
+    opcion.innerHTML = `
+      <input
+        type="checkbox"
+        value="${equipo.id}"
+        ${yaAgregado ? "checked disabled" : ""}
+      >
+
+      <div class="opcion-equipo-logo">
+        ${logo}
+      </div>
+
+      <div class="opcion-equipo-info">
+        <p class="opcion-equipo-nombre">
+          ${equipo.nombre}
+        </p>
+
+        <p class="opcion-equipo-tag">
+          ${equipo.tag || ""}
+        </p>
+      </div>
+    `;
+
+    const checkbox = opcion.querySelector('input[type="checkbox"]');
+
+    if (!yaAgregado) {
+      checkbox.addEventListener("change", () => {
+        opcion.classList.toggle("seleccionado", checkbox.checked);
+      });
+    }
+
+    listaSeleccionEquipos.appendChild(opcion);
+  });
+}
+
+/* Confirmar selección */
+
+function confirmarEquipos() {
+  const equipos = JSON.parse(localStorage.getItem("equipos")) || [];
+
+  const checkboxes = listaSeleccionEquipos.querySelectorAll(
+    'input[type="checkbox"]:checked:not(:disabled)',
+  );
+
+  checkboxes.forEach((checkbox) => {
+    const equipo = equipos.find((equipo) => equipo.id === checkbox.value);
+
+    if (!equipo) {
+      return;
+    }
+
+    const yaExiste = equiposSeleccionados.some(
+      (equipoSeleccionado) => equipoSeleccionado.id === equipo.id,
+    );
+
+    if (!yaExiste) {
+      equiposSeleccionados.push(equipo);
+    }
+  });
+
+  actualizarListaEquipos();
+
+  cerrarSeleccionEquiposModal();
+}
+
+/* Mostrar equipos agregados */
+
+function actualizarListaEquipos() {
+  listaEquipos.innerHTML = "";
+
+  const hayEquipos = equiposSeleccionados.length > 0;
+
+  listaEquipos.classList.toggle("grid-equipos-agregados", hayEquipos);
+
+  if (!hayEquipos) {
+    listaEquipos.innerHTML = `
+      <div class="estado-vacio-equipos">
+        <i class="fa-solid fa-users"></i>
+        <p>No hay equipos agregados.</p>
+      </div>
+    `;
+    return;
+  }
+
+  /*
+   * Convertir la lista en un grid.
+   */
+  listaEquipos.classList.add("grid-equipos-agregados");
+
+  equiposSeleccionados.forEach((equipo) => {
+    const tarjeta = document.createElement("div");
+
+    tarjeta.className = "tarjeta-equipo-agregado";
+
+    tarjeta.dataset.id = equipo.id;
+
+    const logo = equipo.logo
+      ? `
+        <img
+          src="${equipo.logo}"
+          alt="Logo de ${equipo.nombre}"
+        >
+      `
+      : `
+        <i class="fa-solid fa-users"></i>
+      `;
+
+    tarjeta.innerHTML = `
+      <div class="tarjeta-equipo-agregado-logo">
+        ${logo}
+      </div>
+
+      <div class="tarjeta-equipo-agregado-info">
+        <p class="tarjeta-equipo-agregado-nombre">
+          ${equipo.nombre}
+        </p>
+
+        <p class="tarjeta-equipo-agregado-tag">
+          ${equipo.tag ? equipo.tag : ""}
+        </p>
+
+        <p class="tarjeta-equipo-agregado-disciplina">
+          ${equipo.deporte ? equipo.deporte : ""}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="btnEliminarEquipo"
+        data-id="${equipo.id}"
+        title="Quitar equipo del torneo"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    `;
+
+    /*
+     * Click sobre la tarjeta:
+     * abrir información del equipo.
+     */
+    tarjeta.addEventListener("click", (event) => {
+      /*
+       * Si se hizo click en el botón X,
+       * no abrimos el modal.
+       */
+      if (event.target.closest(".btnEliminarEquipo")) {
+        return;
+      }
+
+      abrirModalEquipo(equipo);
+    });
+
+    /*
+     * Botón para quitar el equipo.
+     */
+    const botonEliminar = tarjeta.querySelector(".btnEliminarEquipo");
+
+    botonEliminar.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      eliminarEquipo(equipo.id);
+    });
+
+    listaEquipos.appendChild(tarjeta);
+  });
+}
+
+/* Eliminar un equipo de la selección */
+
+function eliminarEquipo(id) {
+  equiposSeleccionados = equiposSeleccionados.filter(
+    (equipo) => equipo.id !== id,
+  );
+
+  actualizarListaEquipos();
+}
+
 /* Actualiza el tipo de participante según el deporte */
 
 function actualizarTipoParticipante() {
@@ -120,6 +422,129 @@ function actualizarConfiguracionDeporte() {
   }
 
   configuracionDeporte.innerHTML = configuracion;
+}
+
+function abrirModalEquipo(equipo) {
+  const logo = equipo.logo
+    ? `
+      <img
+        src="${equipo.logo}"
+        alt="Logo de ${equipo.nombre}"
+        class="info-equipo-logo"
+      >
+    `
+    : `
+      <div class="info-equipo-logo sin-logo">
+        <i class="fa-solid fa-users"></i>
+      </div>
+    `;
+
+  const integrantes = equipo.integrantes || [];
+
+  let listaIntegrantes = "";
+
+  if (integrantes.length === 0) {
+    listaIntegrantes = `
+      <p class="sin-integrantes">
+        Este equipo no tiene integrantes registrados.
+      </p>
+    `;
+  } else {
+    listaIntegrantes = `
+      <div class="lista-integrantes-info">
+        ${integrantes
+          .map(
+            (integrante) => `
+              <div class="integrante-info">
+                <span class="integrante-info-nombre">
+                  ${integrante.jugador || "Jugador"}
+                </span>
+
+                <span class="integrante-info-rol">
+                  ${integrante.rol || ""}
+                </span>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+    `;
+  }
+
+  contenidoInfoEquipo.innerHTML = `
+    <div class="info-equipo-header">
+
+      ${logo}
+
+      <div class="info-equipo-header-text">
+
+        <h2 id="tituloInfoEquipo">
+          ${equipo.nombre}
+        </h2>
+
+        <p>
+          ${equipo.tag ? equipo.tag : "Sin tag"}
+        </p>
+
+      </div>
+
+    </div>
+
+    <section class="info-equipo-seccion">
+
+      <h3>
+        <i class="fa-solid fa-circle-info"></i>
+        Información
+      </h3>
+
+      <div class="info-equipo-dato">
+        <strong>Disciplina:</strong>
+        <span>
+          ${equipo.deporte || "No especificada"}
+        </span>
+      </div>
+
+      <div class="info-equipo-dato">
+        <strong>Tag:</strong>
+        <span>
+          ${equipo.tag || "Sin tag"}
+        </span>
+      </div>
+
+    </section>
+
+    <section class="info-equipo-seccion">
+
+      <h3>
+        <i class="fa-solid fa-align-left"></i>
+        Descripción
+      </h3>
+
+      <p>
+        ${equipo.descripcion || "Este equipo no tiene descripción."}
+      </p>
+
+    </section>
+
+    <section class="info-equipo-seccion">
+
+      <h3>
+        <i class="fa-solid fa-users"></i>
+        Integrantes
+      </h3>
+
+      ${listaIntegrantes}
+
+    </section>
+  `;
+
+  overlayInfoEquipo.classList.add("activo");
+  modalInfoEquipo.classList.add("activo");
+}
+
+function cerrarModalInfoEquipo() {
+  overlayInfoEquipo.classList.remove("activo");
+  modalInfoEquipo.classList.remove("activo");
 }
 
 /*VALIDACIÓN DE IMÁGENES*/
@@ -286,6 +711,15 @@ async function enviarFormulario(event) {
 
       delete datos.cantidadParticipantes;
     }
+
+    /* EQUIPOS DEL TORNEO */
+
+    datos.equipos = equiposSeleccionados.map((equipo) => ({
+      id: equipo.id,
+      nombre: equipo.nombre,
+      tag: equipo.tag,
+      logo: equipo.logo,
+    }));
 
     /* GENERAR ID DEL TORNEO */
 

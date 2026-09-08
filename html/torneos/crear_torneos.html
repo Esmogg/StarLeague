@@ -99,6 +99,77 @@
           </nav>
         </div>
         <div id="menuOverlay"></div>
+
+        <div id="overlaySeleccionEquipos" class="overlay-seleccion-equipos">
+          <div
+            id="modalSeleccionEquipos"
+            class="modal-seleccion-equipos"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tituloSeleccionEquipos"
+          >
+            <button
+              type="button"
+              id="cerrarSeleccionEquipos"
+              class="cerrar-seleccion-equipos"
+              aria-label="Cerrar"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-seleccion-header">
+              <h2 id="tituloSeleccionEquipos">Seleccionar equipos</h2>
+              <p id="cancelarP">
+                Selecciona uno o varios equipos para agregarlos al torneo.
+              </p>
+            </div>
+
+            <div id="listaSeleccionEquipos" class="lista-seleccion-equipos">
+              <!-- Los equipos se generan mediante JavaScript -->
+            </div>
+
+            <div class="acciones-seleccion-equipos">
+              <button
+                type="button"
+                id="cancelarSeleccionEquipos"
+                class="botonCancelarSeleccion"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                id="confirmarSeleccionEquipos"
+                class="botonConfirmarSeleccion"
+              >
+                <i class="fa-solid fa-plus"></i>
+                Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="overlayInfoEquipo" class="overlay-info-equipo">
+          <div
+            id="modalInfoEquipo"
+            class="modal-info-equipo"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tituloInfoEquipo"
+          >
+            <button
+              type="button"
+              id="cerrarInfoEquipo"
+              class="cerrar-info-equipo"
+              aria-label="Cerrar información del equipo"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="contenidoInfoEquipo" class="contenido-info-equipo">
+              <!-- Se genera mediante JavaScript -->
+            </div>
+          </div>
+        </div>
         <main>
           <article>
             <form id="formCrearTorneo">
@@ -366,9 +437,12 @@
                   <div class="campoFormulario">
                     <span>Equipos agregados:</span>
 
-                    <ul id="listaEquipos">
-                      <li>No hay equipos agregados.</li>
-                    </ul>
+                    <div id="listaEquipos">
+                      <div class="estado-vacio-equipos">
+                        <i class="fa-solid fa-users"></i>
+                        <p>No hay equipos agregados.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </fieldset>
