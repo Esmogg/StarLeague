@@ -30,10 +30,8 @@ CREATE TABLE formato (
 ) ENGINE=InnoDB;
 
 
--- //////////////////////////////////////////////////////////////
 -- TORNEO (entidad fuerte) + relaciones 1:N "crea", "clasifica",
 -- "define", "usa" -> se resuelven como FKs en torneo
--- //////////////////////////////////////////////////////////////
 
 CREATE TABLE torneo (
     id_torneo     INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,10 +60,8 @@ CREATE TABLE torneo (
 ) ENGINE=InnoDB;
 
 
--- //////////////////////////////////////////////////////////////
 -- Especialización "es": TORNEO -> CONFIG_LOL / CONFIG_VALORANT /
 -- CONFIG_AJEDREZ / CONFIG_TENIS (1 a 1 identificador)
--- //////////////////////////////////////////////////////////////
 
 CREATE TABLE config_lol (
     id_torneo    INT PRIMARY KEY,
@@ -104,9 +100,7 @@ CREATE TABLE config_tenis (
 ) ENGINE=InnoDB;
 
 
--- /////////////////////////////////////////////////
 -- EQUIPO + relación "integra" (M:N EQUIPO-USUARIO)
--- /////////////////////////////////////////////////
 
 CREATE TABLE equipo (
     id_equipo INT AUTO_INCREMENT PRIMARY KEY,
@@ -126,12 +120,10 @@ CREATE TABLE equipo_miembro (
 ) ENGINE=InnoDB;
 
 
--- //////////////////////////////////////////////////////////////
 -- Relaciones "participa (equipo)" y "participa (individual)":
 -- son dos relaciones M:N INDEPENDIENTES en el DER (dos rombos
 -- distintos, sin atributos propios), no una sola tabla con XOR.
 -- Se modelan como dos tablas puente separadas.
--- //////////////////////////////////////////////////////////////
 
 CREATE TABLE torneo_equipo (
     id_torneo INT NOT NULL,
@@ -158,9 +150,8 @@ CREATE TABLE torneo_usuario (
 ) ENGINE=InnoDB;
 
 
--- /////////////////////////////////////////////
+
 -- Relación "genera": TORNEO (1) -> PARTIDO (N)
--- /////////////////////////////////////////////
 
 CREATE TABLE partido (
     id_partido INT AUTO_INCREMENT PRIMARY KEY,
@@ -172,10 +163,8 @@ CREATE TABLE partido (
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- ////////////////////
--- Índices adicionales
--- ////////////////////
 
+-- Índices adicionales
 CREATE INDEX idx_torneo_categoria      ON torneo(id_categoria);
 CREATE INDEX idx_torneo_deporte        ON torneo(id_deporte);
 CREATE INDEX idx_torneo_formato        ON torneo(id_formato);
