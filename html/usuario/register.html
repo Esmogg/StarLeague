@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starleague</title>
+
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <header>
+        <button id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="../../index.html">
+          <img src="../../images/logo.png" alt="Logo Starleague" class="logo" />
+        </a>
+
+        <div class="title">☆ Registro ☆</div>
+      </header>
+
+      <div class="contenido">
+        <div id="menuOverlay"></div>
+        <main>
+          <article>
+            <h1>Registrarse</h1>
+
+            <form action="../../php/register.php" method="post">
+              <div>
+                <label for="user">User</label>
+                <input type="text" name="new_user" id="new_user" />
+              </div>
+              <div>
+                <label for="mail">Gmail</label>
+                <input type="email" name="mail" id="mail" />
+              </div>
+              <div>
+                <label for="pass">Contraseña</label>
+                <input type="password" name="new_pass" id="new_pass" />
+              </div>
+              <div>
+                <label for="pass">Repetir Contraseña</label>
+                <input type="password" name="new_pass2" id="new_pass2" />
+              </div>
+
+              <input type="submit" value="login" />
+            </form>
+          </article>
+        </main>
+      </div>
+    </div>
+
+    <button id="btnSubir">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script src="../../js/script.js" defer></script>
+  </body>
+</html>
