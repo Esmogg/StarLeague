@@ -1,6 +1,6 @@
 <?php
 $user = $_POST["new_user"];
-$mail = $_POST["mail"];
+$mail = $_POST["mail"]; // 1. Esto ya estaba, captura el email del formulario
 $pass = $_POST["new_pass"];
 $pass2 = $_POST["new_pass2"];
 
@@ -19,22 +19,26 @@ class Usuarios {
         $this->bd = $conexionBD;
     }
 
-    // 1. Buscamos usando el nombre de columna real: username
-    public function existeUsuario(string $user): bool {
-        $sql = "SELECT id FROM usuarios WHERE username = :user LIMIT 1";
+    // 2. MODIFICADO: Ahora verifica si ya existe el usuario O el email
+    public function existeUsuario(string $user, string $mail): bool {
+        $sql = "SELECT id FROM usuarios WHERE username = :user OR email = :mail LIMIT 1";
         $stmt = $this->bd->prepare($sql);
-        $stmt->execute([':user' => $user]);
+        $stmt->execute([
+            ':user' => $user,
+            ':mail' => $mail
+        ]);
         
         return $stmt->fetch() !== false;
     }
 
-    // 2. Insertamos usando exactamente las columnas que tiene tu tabla
-    public function registrar(string $user, string $hash): bool {
-        $sql = "INSERT INTO usuarios (username, password_hash) VALUES (:user, :pass)";
+    // 3. MODIFICADO: Añadimos 'email' en la sentencia INSERT y en los parámetros
+    public function registrar(string $user, string $mail, string $hash): bool {
+        $sql = "INSERT INTO usuarios (username, email, password_hash) VALUES (:user, :mail, :pass)";
         $stmt = $this->bd->prepare($sql);
         
         return $stmt->execute([
             ':user' => $user,
+            ':mail' => $mail,
             ':pass' => $hash
         ]);
     }
@@ -46,10 +50,12 @@ try {
 
     $gestionUsuarios = new Usuarios($pdo);
 
-    if ($gestionUsuarios->existeUsuario($user)) {
-        echo "El nombre de usuario ya está registrado.";
+    // 4. MODIFICADO: Pasamos también la variable $mail a la función de verificación
+    if ($gestionUsuarios->existeUsuario($user, $mail)) {
+        echo "El nombre de usuario o el correo electrónico ya están registrados.";
     } else {
-        if ($gestionUsuarios->registrar($user, $hash)) {
+        // 5. MODIFICADO: Pasamos el $mail a la función registrar
+        if ($gestionUsuarios->registrar($user, $mail, $hash)) {
             echo "¡Usuario registrado con éxito!";
         } else {
             echo "Hubo un error al registrar el usuario.";
