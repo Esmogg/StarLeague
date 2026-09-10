@@ -82,6 +82,7 @@ body.dark-mode main span {
 body {
   display: flex;
   font-family: Outfit, sans-serif;
+  justify-content: center;
 
   padding: 0;
   background-image: url("../images/bg/fondoDiaMobile.jpg");
