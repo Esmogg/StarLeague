@@ -10,7 +10,7 @@ USE starleague;
 -- Entidades base
 CREATE TABLE usuario (
     id_usuario     INT AUTO_INCREMENT PRIMARY KEY,
-    nombre         VARCHAR(100)  NOT NULL,
+    nombre         VARCHAR(100)  NOT NULL UNIQUE,
     email          VARCHAR(150)  NOT NULL UNIQUE,
     contrasena     VARCHAR(255)  NOT NULL,
     rol            ENUM('admin', 'organizador', 'jugador') NOT NULL DEFAULT 'jugador'
@@ -177,3 +177,30 @@ CREATE INDEX idx_torneo_equipo_equipo   ON torneo_equipo(id_equipo);
 CREATE INDEX idx_torneo_usuario_usuario ON torneo_usuario(id_usuario);
 CREATE INDEX idx_deporte_categoria      ON deporte(id_categoria);
 CREATE INDEX idx_rol_deporte_deporte    ON rol_deporte(id_deporte);
+
+INSERT INTO categoria (nombre) VALUES ('eSports'), ('Deporte Tradicional');
+
+INSERT INTO deporte (nombre, id_categoria, tipo_participante, titulares, suplentes)
+SELECT 'League of Legends', id_categoria, 'equipos', 5, 5
+FROM categoria WHERE nombre = 'eSports';
+
+INSERT INTO deporte (nombre, id_categoria, tipo_participante, titulares, suplentes)
+SELECT 'Valorant', id_categoria, 'equipos', 5, 2
+FROM categoria WHERE nombre = 'eSports';
+
+INSERT INTO deporte (nombre, id_categoria, tipo_participante, titulares, suplentes)
+SELECT 'Ajedrez', id_categoria, 'individual', 1, 0
+FROM categoria WHERE nombre = 'Deporte Tradicional';
+
+INSERT INTO deporte (nombre, id_categoria, tipo_participante, titulares, suplentes)
+SELECT 'Tenis', id_categoria, 'individual', 1, 0
+FROM categoria WHERE nombre = 'Deporte Tradicional';
+
+ALTER TABLE equipo 
+ADD COLUMN tag VARCHAR(50) NULL AFTER nombre,
+ADD COLUMN descripcion TEXT NULL AFTER tag,
+ADD COLUMN pais VARCHAR(100) NULL AFTER descripcion,
+ADD COLUMN logo_path VARCHAR(255) NULL AFTER pais;
+
+ALTER TABLE equipo 
+ADD COLUMN id_deporte INT NOT NULL AFTER logo_path;

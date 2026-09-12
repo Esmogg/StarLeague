@@ -661,8 +661,6 @@ async function enviarFormulario(event) {
   event.preventDefault();
 
   try {
-    /*Obtener datos del formulario*/
-
     const datos = Object.fromEntries(new FormData(formulario));
 
     if (!validarNombre(datos.nombre)) {
@@ -673,91 +671,64 @@ async function enviarFormulario(event) {
       throw "La descripción contiene caracteres no permitidos.";
     }
 
-    /*Obtener archivos*/
-
     const inputLogo = document.getElementById("logo");
     const inputBanner = document.getElementById("banner");
     const archivoLogo = inputLogo.files[0] || null;
     const archivoBanner = inputBanner.files[0] || null;
 
-    /*Validar logo*/
-
     await validarImagen(archivoLogo, "Logo", 300, 300, 2 * 1024 * 1024);
-
-    /*Validar banner*/
-
     await validarImagen(archivoBanner, "Banner", 800, 180, 5 * 1024 * 1024);
 
-    /*Convertir imágenes*/
-
     datos.logo = await convertirImagenBase64(archivoLogo);
-
     datos.banner = await convertirImagenBase64(archivoBanner);
 
-    /*Obtener información del deporte*/
-
-    const deporte = catalogos.deportes.find((deporte) => {
-      return deporte.id === datos.deporte;
-    });
-
+    // Mapear los IDs de select al nombre real que espera el PHP
+    const deporte = catalogos.deportes.find((d) => d.id === datos.deporte);
     if (deporte) {
-      datos.tipoParticipante = deporte.tipoParticipante;
-
-      if (deporte.tipoParticipante === "equipos") {
-        datos.cantidadEquipos = datos.cantidadParticipantes;
-      } else {
-        datos.cantidadJugadores = datos.cantidadParticipantes;
-      }
-
-      delete datos.cantidadParticipantes;
+      datos.deporte = deporte.nombre; 
     }
 
-    /* EQUIPOS DEL TORNEO */
+    const formato = catalogos.formatos.find((f) => f.id === datos.formato);
+    if (formato) {
+      datos.formato = formato.nombre; 
+    }
 
-    datos.equipos = equiposSeleccionados.map((equipo) => ({
-      id: equipo.id,
-      nombre: equipo.nombre,
-      tag: equipo.tag,
-      logo: equipo.logo,
-    }));
+    // Recolectar campos dinámicos de configuración del deporte
+    datos.config = {};
+    const inputsConfig = configuracionDeporte.querySelectorAll("input, select");
+    inputsConfig.forEach((input) => {
+      if (input.name) {
+        datos.config[input.name] = input.value;
+      }
+    });
 
-    /* GENERAR ID DEL TORNEO */
+    // Enviar los datos al backend PHP mediante fetch
+    const respuesta = await fetch("../../php/crear_torneos.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    });
 
-    datos.id = crypto.randomUUID();
+    const resultado = await respuesta.json();
 
-    /*Guardar torneo*/
+    if (!resultado.ok) {
+      throw resultado.mensaje || "Error al registrar el torneo en el servidor.";
+    }
 
-    const torneos = JSON.parse(localStorage.getItem("torneos")) || [];
-
-    torneos.push(datos);
-
-    localStorage.setItem("torneos", JSON.stringify(torneos));
-
-    /*Mostrar datos en consola*/
-
-    console.log("Torneo creado:", datos);
-
-    /*Mostrar mensaje de éxito*/
-
-    mensaje.textContent = "¡Torneo creado con éxito!";
-
+    mensaje.textContent = resultado.mensaje;
     mensaje.classList.remove("error", "exito");
     mensaje.style.display = "none";
-
     void mensaje.offsetWidth;
-
     mensaje.classList.add("exito");
     mensaje.style.display = "block";
+
   } catch (error) {
-    /*Mostrar error*/
-
     mensaje.textContent = error;
-
     mensaje.classList.remove("error", "exito");
     mensaje.style.display = "none";
-
     void mensaje.offsetWidth;
-
     mensaje.classList.add("error");
     mensaje.style.display = "block";
   }

@@ -381,3 +381,50 @@ body.dark-mode .registro-login a {
     flex-wrap: wrap;
   }
 }
+
+/* MENSAJE (mismo criterio que css/equipos/crear-equipos.css, para el fetch de registro) */
+
+.mensaje {
+  color: #1a9b2a;
+  font-weight: bold;
+  display: none;
+  padding: 0px 0px 0px 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.mensaje.exito {
+  color: #1a9b2a;
+  animation: mensajeExito 0.4s ease;
+}
+
+body.dark-mode .mensaje.exito {
+  color: #28f140;
+}
+
+.mensaje.error {
+  color: #d32f2f;
+  animation: mensajeError 0.45s ease;
+}
+
+body.dark-mode .mensaje.error {
+  color: #ff5252;
+}
+
+@keyframes mensajeExito {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  70% { transform: translateY(2px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes mensajeError {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(8px); }
+  45% { transform: translateX(-7px); }
+  60% { transform: translateX(7px); }
+  75% { transform: translateX(-4px); }
+  90% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
