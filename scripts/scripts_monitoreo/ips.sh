@@ -14,6 +14,7 @@ while true; do
         1)
             read -p "Ingrese la IP a permitir: " ai
             firewall-cmd --add-rich-rule="rule family='ipv4' source address='$ai' accept"
+            firewall-cmd --permanent --add-rich-rule="rule family='ipv4' source address='$ai' accept"
             clear
             echo "La IP $ai ha sido permitida (accept)."
             read -p "Presione ENTER para continuar... " boton
@@ -21,6 +22,7 @@ while true; do
         2)
             read -p "Ingrese la IP a rechazar: " ri
             firewall-cmd --add-rich-rule="rule family='ipv4' source address='$ri' reject"
+            firewall-cmd --permanent --add-rich-rule="rule family='ipv4' source address='$ri' reject"
             clear
             echo "La IP $ri ha sido rechazada (reject)."
             read -p "Presione ENTER para continuar... " boton
