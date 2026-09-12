@@ -14,6 +14,7 @@ while true; do
         1)
             read -p "Ingrese el numero del puerto a abrir (ej. 80): " ap
             firewall-cmd --add-port=$ap/tcp
+            firewall-cmd --permanent --add-port=$ap/tcp
             clear
             echo "El puerto $ap/tcp ha sido abierto"
             read -p "Presione ENTER para continuar... " boton
@@ -21,6 +22,7 @@ while true; do
         2)
             read -p "Ingrese el numero del puerto a cerrar (ej. 80): " cp
             firewall-cmd --remove-port=$cp/tcp
+            firewall-cmd --permanent --remove-port=$cp/tcp
             clear
             echo "El puerto $cp/tcp ha sido cerrado"
             read -p "Presione ENTER para continuar... " boton
