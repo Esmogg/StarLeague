@@ -1,0 +1,383 @@
+body {
+  padding: 20px 130px;
+}
+
+/* Cuerpo Login / Registro */
+
+.login-body,
+.registro-body {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-right: 270px;
+  margin-left: 200px;
+}
+
+/* Personaje + Globo */
+
+.login-mascota,
+.registro-mascota {
+  position: relative;
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+
+  margin-right: 40px;
+}
+
+.login-globo,
+.registro-globo {
+  position: relative;
+  width: 100%;
+  margin-bottom: -16px;
+  z-index: 2;
+
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  pointer-events: none;
+}
+
+.globo-img {
+  width: 75%;
+  height: auto;
+  display: block;
+
+  pointer-events: none;
+}
+
+.registro-globo .globo-texto {
+  position: absolute;
+  top: 36%;
+  left: 7%;
+
+  width: 62%;
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.login-globo .globo-texto {
+  position: absolute;
+  top: 30%;
+  left: 6%;
+
+  width: 62%;
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+}
+
+body.dark-mode .globo-texto {
+  color: #000000;
+}
+
+.mascota-login,
+.mascota-registro {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  display: block;
+}
+
+/* FORMULARIO */
+
+.login-form,
+.registro-form {
+  flex: 1;
+  min-width: 250px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Campos */
+
+.seccionFormulario {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.campoFormulario {
+  width: 100%;
+}
+
+.campoFormulario label {
+  display: block;
+}
+
+.campoFormulario input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ACCIONES */
+
+.login-acciones,
+.registro-acciones {
+  gap: 14px;
+  flex-wrap: nowrap;
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* Botones */
+
+.btn-login,
+.btn-registro,
+.btn-regresar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 7px 15px;
+
+  font-size: 1rem;
+  font-family: inherit;
+  text-decoration: none;
+
+  color: var(--color-texto-claro);
+
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-third)
+  );
+
+  border: 2px solid var(--color-boton-border);
+  border-radius: 6px;
+
+  box-shadow: 3px 3px 5px 0px #3670975b;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease-in-out;
+}
+
+.btn-login:hover,
+.btn-registro:hover,
+.btn-regresar:hover {
+  background: linear-gradient(
+    to bottom,
+    var(--color-boton-hover1),
+    var(--color-boton-hover2),
+    var(--color-boton-hover1)
+  );
+
+  transform: rotate(-2deg);
+  border-color: #0d75bb;
+  cursor: pointer;
+}
+
+body.dark-mode .btn-login,
+body.dark-mode .btn-registro,
+body.dark-mode .btn-regresar {
+  box-shadow: 3px 3px 5px 0px #0811275b;
+}
+
+body.dark-mode .btn-login:hover,
+body.dark-mode .btn-registro:hover,
+body.dark-mode .btn-regresar:hover {
+  background: linear-gradient(
+    to bottom,
+    var(--color-boton-hover1),
+    var(--color-boton-hover2),
+    var(--color-boton-hover1)
+  );
+
+  border-color: #212735;
+}
+
+/* Enlace Login / Registro */
+
+.login-registro,
+.registro-login {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.login-registro a,
+.registro-login a {
+  color: var(--color-secondary);
+  font-weight: 700;
+  text-decoration: underline;
+  padding: 0 0 0 6px;
+}
+
+body.dark-mode .login-registro a,
+body.dark-mode .registro-login a {
+  color: #90cdff;
+}
+
+/* Tablets */
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  body {
+    padding: 15px 30px;
+  }
+
+  .login-body,
+  .registro-body {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 750px;
+
+    gap: 25px;
+  }
+
+  .login-mascota,
+  .registro-mascota {
+    flex: 0 0 180px;
+    margin-right: 10px;
+  }
+
+  .mascota-login,
+  .mascota-registro {
+    max-width: 160px;
+  }
+
+  .login-form,
+  .registro-form {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+/* Moviles */
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .contenido {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .contenido main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Cuerpo */
+
+  .login-body,
+  .registro-body {
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 350px;
+
+    margin: 0 auto;
+    gap: 20px;
+
+    box-sizing: border-box;
+  }
+
+  /* Mascota */
+
+  .login-mascota,
+  .registro-mascota {
+    flex: none;
+    width: 180px;
+    max-width: 180px;
+    margin: 0;
+  }
+
+  .mascota-login,
+  .mascota-registro {
+    width: 100%;
+    max-width: 160px;
+  }
+
+  .login-globo,
+  .registro-globo {
+    width: 100%;
+    margin-bottom: -12px;
+  }
+
+  .globo-img {
+    width: 75%;
+  }
+
+  .login-globo .globo-texto,
+  .registro-globo .globo-texto {
+    font-size: 1rem;
+  }
+
+  /* Formulario */
+
+  .login-form,
+  .registro-form {
+    width: 80%;
+    min-width: 0;
+    max-width: 350px;
+
+    box-sizing: border-box;
+  }
+
+  .seccionFormulario {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .campoFormulario {
+    width: 100%;
+  }
+
+  .campoFormulario input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Botones */
+
+  .login-acciones,
+  .registro-acciones {
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-login,
+  .btn-registro,
+  .btn-regresar {
+    padding: 7px 12px;
+  }
+
+  /* Enlace */
+
+  .login-registro,
+  .registro-login {
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+}

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starleague</title>
+    <title>Starleague - Registro</title>
 
     <link rel="icon" type="image/png" href="../../images/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,6 +14,8 @@
     />
 
     <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/usuario/login-register.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -23,10 +25,6 @@
   <body>
     <div class="contenedor">
       <header>
-        <button id="menuBtn">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-
         <a href="../../index.html">
           <img src="../../images/logo.png" alt="Logo Starleague" class="logo" />
         </a>
@@ -36,31 +34,69 @@
 
       <div class="contenido">
         <div id="menuOverlay"></div>
+
         <main>
-          <article>
-            <h1>Registrarse</h1>
+          <div class="registro-body">
+            <div class="registro-mascota">
+              <div class="registro-globo">
+                <img
+                  src="../../images/mascota/globo.png"
+                  alt="Globo de texto"
+                  class="globo-img"
+                />
 
-            <form action="../../php/register.php" method="post">
-              <div>
-                <label for="user">User</label>
-                <input type="text" name="new_user" id="new_user" />
-              </div>
-              <div>
-                <label for="mail">Gmail</label>
-                <input type="email" name="mail" id="mail" />
-              </div>
-              <div>
-                <label for="pass">Contraseña</label>
-                <input type="password" name="new_pass" id="new_pass" />
-              </div>
-              <div>
-                <label for="pass">Repetir Contraseña</label>
-                <input type="password" name="new_pass2" id="new_pass2" />
+                <p class="globo-texto">¡Bienvenido!</p>
               </div>
 
-              <input type="submit" value="login" />
+              <img
+                src="../../images/mascota/mascota-registro.png"
+                alt="Mascota Starleague"
+                class="mascota-registro"
+              />
+            </div>
+
+            <form
+              action="../../php/register.php"
+              method="post"
+              class="registro-form"
+            >
+              <fieldset class="seccionFormulario">
+                <div class="campoFormulario">
+                  <label for="new_user">Nombre de Usuario</label>
+                  <input type="text" name="new_user" id="new_user" />
+                </div>
+
+                <div class="campoFormulario">
+                  <label for="mail">Correo Electronico</label>
+                  <input type="email" name="mail" id="mail" />
+                </div>
+
+                <div class="campoFormulario">
+                  <label for="new_pass">Contraseña</label>
+                  <input type="password" name="new_pass" id="new_pass" />
+                </div>
+
+                <div class="campoFormulario">
+                  <label for="new_pass2">Repetir Contraseña</label>
+                  <input type="password" name="new_pass2" id="new_pass2" />
+                </div>
+              </fieldset>
+
+              <div class="accionesFormulario registro-acciones">
+                <input type="submit" value="Registrarse" class="btn-registro" />
+
+                <a href="../../index.html" class="btn-regresar">
+                  Regresar
+                  <i class="fa-solid fa-right-to-bracket"></i>
+                </a>
+              </div>
+
+              <p class="registro-login">
+                ¿Ya tienes una cuenta?
+                <a href="../usuario/login.html">Inicia sesión!</a>
+              </p>
             </form>
-          </article>
+          </div>
         </main>
       </div>
     </div>
