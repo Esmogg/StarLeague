@@ -46,7 +46,7 @@ if id "$usuario" &>/dev/null; then
             ;;
 
         2)
-            echo "Grupos disponibles (arquitectura del sistema):"
+            echo "---== Grupos disponibles (arquitectura del sistema) ==---"
             echo "1) admin (root / superusuario del sistema)"
             echo "2) dba (administrador de base de datos)"
             echo "3) backend_api (cuenta de servicio de la aplicación)"

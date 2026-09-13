@@ -67,7 +67,7 @@ deshabilitar() {
 }
 
 listar() {
-    echo "==== Servicios Activos ===="
+    echo "---== Servicios Activos ==---"
 
     systemctl list-units --type=service --state=running
 }
