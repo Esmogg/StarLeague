@@ -3,11 +3,11 @@
 clear
 
 echo "---== GESTION DE USUARIOS ==---"
-echo "1- Crear usuario"
-echo "2- Leer usuario"
-echo "3- Modificar usuario"
-echo "4- Eliminar usuario"
-echo "5- Salir"
+echo "1) Crear usuario"
+echo "2) Leer usuario"
+echo "3) Modificar usuario"
+echo "4) Eliminar usuario"
+echo "5) Salir"
 echo ""
 
 read -p "Seleccione una opcion: " opcion

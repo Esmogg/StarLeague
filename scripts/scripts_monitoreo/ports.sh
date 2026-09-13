@@ -2,11 +2,11 @@
 
 while true; do
     clear
-    echo "----------------- Administracion de Puertos -----------------"
+    echo "---== Administracion de Puertos ==---"
     echo "1) Abrir Puerto (TCP)"
     echo "2) Cerrar Puerto (TCP)"
     echo "0) Salir"
-    echo -e "---------------------------------------------------------\n"
+    echo ""
     
     read -p "Elija una opcion: " opc
 

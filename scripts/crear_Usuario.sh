@@ -5,11 +5,13 @@ LOG="/home/uits/gestion_Usuarios/gestion_usuarios.log"
 echo "Ingresando al Script de Creacion de usuarios"
 read -p "Ingrese Usuario: " usuario
 
-echo "Grupo de arquitectura del sistema:"
-echo "1 - admin (root / superusuario del sistema)"
-echo "2 - dba (administrador de base de datos)"
-echo "3 - backend_api (cuenta de servicio de la aplicacion)"
-echo "4 - auditoria (usuario de monitoreo, solo lectura)"
+echo "---== Grupo de arquitectura del sistema ==---"
+echo "1) admin (root / superusuario del sistema)"
+echo "2) dba (administrador de base de datos)"
+echo "3) backend_api (cuenta de servicio de la aplicacion)"
+echo "4) auditoria (usuario de monitoreo, solo lectura)"
+echo ""
+
 read -p "Seleccione grupo: " opcion_grupo
 
 case $opcion_grupo in

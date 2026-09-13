@@ -1,11 +1,12 @@
 #!/bin/bash
 
 clear
-echo "=== Ingresando al menu de monitoreo ==="
-echo "Desea: "
+echo "---== Ingresando al menu de monitoreo ==---"
 echo "1- Administrar procesos"
 echo "2- Gestionar el firewall"
 echo "3- Salir"
+echo ""
+
 read -p "Ingrese una opcion" opcion
 
 case $opcion in

@@ -12,8 +12,8 @@ clear
 
 echo -e "Ingresando al menu de Finalizar tareas"
 echo -e "\nDesea:"
-echo "1- Usar SIGTERM"
-echo "2- Usar SIGKILL"
+echo "1) Usar SIGTERM"
+echo "2) Usar SIGKILL"
 
 read -p "Seleccione una opcion: " op
 

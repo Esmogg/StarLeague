@@ -86,7 +86,7 @@ while true
 do
     clear
 
-    echo -e "\n========== GESTIÓN DE SERVICIOS =========="
+    echo -e "\n---== GESTIÓN DE SERVICIOS ==---"
     echo "1) Ver estado de un servicio"
     echo "2) Iniciar un servicio"
     echo "3) Detener un servicio"
@@ -96,7 +96,7 @@ do
     echo "7) Listar servicios activos"
     echo "8) Ver logs de un servicio"
     echo "9) Salir"
-    echo "======================================"
+    echo ""
 
     read -p "Seleccione una opción: " opcion
 

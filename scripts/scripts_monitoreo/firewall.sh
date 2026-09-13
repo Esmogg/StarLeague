@@ -3,14 +3,16 @@
 while true; do
 
 clear
-echo "==== Administracion del Firewall ===="
-echo "1- Administrar puertos"
-echo "2- Administrar IP's"
-echo "3- Administrar Servicios"
-echo "4- Ver Configuracion"
-echo "5- Recargar Cambios"
-echo "6- Dejar cambios como Permanente"
-echo "7- Salir al menu principal"
+echo "---== Administracion del Firewall ==---"
+echo "1) Administrar puertos"
+echo "2) Administrar IP's"
+echo "3) Administrar Servicios"
+echo "4) Ver Configuracion"
+echo "5) Recargar Cambios"
+echo "6) Dejar cambios como Permanente"
+echo "7) Salir al menu principal"
+echo ""
+
 read -p "Ingrese una opcion: " opc
 case $opc in
 1) ./ports.sh ;;

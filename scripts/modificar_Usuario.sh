@@ -19,9 +19,9 @@ fi
 
 if id "$usuario" &>/dev/null; then
 
-    echo "1 - Cambiar nombre de usuario"
-    echo "2 - Cambiar de grupo"
-    echo "3 - Salir"
+    echo "1) Cambiar nombre de usuario"
+    echo "2) Cambiar de grupo"
+    echo "3) Salir"
 
     read -p "Seleccione una opción: " opcion
 
@@ -47,10 +47,10 @@ if id "$usuario" &>/dev/null; then
 
         2)
             echo "Grupos disponibles (arquitectura del sistema):"
-            echo "1 - admin (root / superusuario del sistema)"
-            echo "2 - dba (administrador de base de datos)"
-            echo "3 - backend_api (cuenta de servicio de la aplicación)"
-            echo "4 - auditoria (usuario de monitoreo, solo lectura)"
+            echo "1) admin (root / superusuario del sistema)"
+            echo "2) dba (administrador de base de datos)"
+            echo "3) backend_api (cuenta de servicio de la aplicación)"
+            echo "4) auditoria (usuario de monitoreo, solo lectura)"
 
             read -p "Seleccione grupo: " grupo
 

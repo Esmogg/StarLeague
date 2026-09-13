@@ -2,11 +2,11 @@
 
 while true; do
     clear
-    echo "----------------- Configurar IP's -----------------"
-    echo "[1] Permitir IP (Agregar regla Accept)"
-    echo "[2] Rechazar IP (Agregar regla Reject)"
-    echo "[0] Salir"
-    echo -e "--------------------------------------------------\n"
+    echo "---== Configurar IP's ==---"
+    echo "1) Permitir IP (Agregar regla Accept)"
+    echo "2) Rechazar IP (Agregar regla Reject)"
+    echo "0) Salir"
+    echo ""
     
     read -p "Elija una opcion: " opc
 
