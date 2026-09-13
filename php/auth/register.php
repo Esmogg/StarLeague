@@ -1,4 +1,5 @@
 <?php
+//ESTE PHP ES UN PHP CON FUNCIONES BETA, SUS FUNCIONES FUERON REMPLAZADAR POR EL CREAR USUARIO Y QUEDARON SIN FUNCION REAL
 $user = $_POST["new_user"];
 $mail = $_POST["mail"]; // 1. Esto ya estaba, captura el email del formulario
 $pass = $_POST["new_pass"];
