@@ -37,27 +37,45 @@ StarLeague-sgdm/
 │
 ├── css/
 │   ├── equipos/
-│   └── torneos/
-│
-├── js/
-│   ├── equipos/
-│   └── torneos/
-│
-├── html/
-│   ├── equipos/
 │   ├── torneos/
-│   ├── configuracion/
 │   └── usuario/
-│
-├── images/
-│   └── bg/
-│
-├── scripts/
-│   └── scripts_monitoreo/
 │
 ├── database/
 │
+├── html/
+│   ├── configuracion/
+│   ├── equipos/
+│   ├── login/
+│   │   ├── configuracion/
+│   │   ├── equipos/
+│   │   ├── torneos/
+│   │   └── usuario/
+│   ├── nologin/
+│   │   ├── configuracion/
+│   │   ├── equipos/
+│   │   ├── torneos/
+│   │   └── usuario/
+│   ├── torneos/
+│   └── usuario/
+│       └── cuenta/
+│
+├── images/
+│   ├── bg/
+│   └── mascota/
+│
+├── js/
+│   ├── equipos/
+│   ├── torneos/
+│   └── usuario/
+│
 ├── php/
+│   ├── auth/
+│   ├── equipos/
+│   └── torneos/
+│
+├── scripts/
+│   ├── respaldos/
+│   └── scripts_monitoreo/
 │
 ├── .gitattributes
 └── README.md
