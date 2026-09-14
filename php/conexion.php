@@ -5,10 +5,10 @@ $user = "root";
 $pass = "";
 $database = "starleague";
 
-$conexion= new mysqli($server, $user, $pass, $database);
-if ($conexion->connect_error) {
-    die("Connection failed: " . $conexion->connect_error);
-    }else {
-    echo "Conectado";
-    }
+try{
+$conexion= new PDO("mysql:host=10.0.0.129;dbname=$database;charset=utf8", $user, $pass);
+$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+echo "Conectado";
+}catch (PDOException $e) {
+die("Connection failed: " . $e->getMessage()
 ?>
