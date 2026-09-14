@@ -1,7 +1,4 @@
 /* Modo oscuro */
-/* Se ejecuta primero y de forma aislada para que, aunque falte algun
-   elemento del menu en una pagina puntual, el tema guardado siempre
-   se aplique. */
 const darkModeToggle = document.getElementById("darkModeToggle");
 
 /* Cargar preferencia guardada */

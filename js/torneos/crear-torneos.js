@@ -1,3 +1,11 @@
+const RUTA_SCRIPT_TORNEOS = document.currentScript
+  ? document.currentScript.src
+  : "";
+const URL_CREAR_TORNEO = new URL(
+  "../../php/torneos/crear_torneos.php",
+  RUTA_SCRIPT_TORNEOS,
+).href;
+
 const formulario = document.getElementById("formCrearTorneo");
 
 const selectCategoria = document.getElementById("categoria");
@@ -685,25 +693,29 @@ async function enviarFormulario(event) {
     // Mapear los IDs de select al nombre real que espera el PHP
     const deporte = catalogos.deportes.find((d) => d.id === datos.deporte);
     if (deporte) {
-      datos.deporte = deporte.nombre; 
+      datos.deporte = deporte.nombre;
     }
 
     const formato = catalogos.formatos.find((f) => f.id === datos.formato);
     if (formato) {
-      datos.formato = formato.nombre; 
+      datos.formato = formato.nombre;
     }
 
     // Recolectar campos dinámicos de configuración del deporte
     datos.config = {};
     const inputsConfig = configuracionDeporte.querySelectorAll("input, select");
     inputsConfig.forEach((input) => {
-      if (input.name) {
-        datos.config[input.name] = input.value;
+      if (!input.name) {
+        return;
       }
+      // Un checkbox no representa su estado en .value (siempre trae el
+      // value del atributo, o "on"); hay que leer .checked.
+      datos.config[input.name] =
+        input.type === "checkbox" ? input.checked : input.value;
     });
 
     // Enviar los datos al backend PHP mediante fetch
-    const respuesta = await fetch("../../php/crear_torneos.php", {
+    const respuesta = await fetch(URL_CREAR_TORNEO, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -723,7 +735,6 @@ async function enviarFormulario(event) {
     void mensaje.offsetWidth;
     mensaje.classList.add("exito");
     mensaje.style.display = "block";
-
   } catch (error) {
     mensaje.textContent = error;
     mensaje.classList.remove("error", "exito");

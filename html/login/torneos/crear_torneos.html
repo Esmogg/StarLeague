@@ -28,7 +28,11 @@
         </button>
 
         <a href="../index.html">
-          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
         </a>
 
         <div class="title">☆ Crear Torneos ☆</div>
@@ -36,7 +40,7 @@
 
       <div class="contenido">
         <div class="barra-lateral">
-           <nav>
+          <nav>
             <ul>
               <li>
                 <a href="../index.html">
@@ -53,12 +57,14 @@
 
                 <ul class="submenu">
                   <li>
-                    <a href="ver_torneos.html">
-                      ★ Ver Torneos
-                    </a>
+                    <a href="ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
                   <li><a href="torneos_resultados.html">Resultados</a></li>
-                  <li><a class="activo" href="crear_torneos.html"> ★ Crear Torneo </a></li>
+                  <li>
+                    <a class="activo" href="crear_torneos.html">
+                      ★ Crear Torneo
+                    </a>
+                  </li>
                 </ul>
               </li>
 
@@ -87,7 +93,7 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>                
+                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
                 </ul>
               </li>
               <li>
@@ -99,7 +105,6 @@
           </nav>
         </div>
         <div id="menuOverlay"></div>
-
         <div id="overlaySeleccionEquipos" class="overlay-seleccion-equipos">
           <div
             id="modalSeleccionEquipos"
@@ -172,7 +177,7 @@
         </div>
         <main>
           <article>
-            <form id="formCrearTorneo">
+            <form action="../../../php/torneos/crear_torneos.php" method="post">
               <!-- Información General -->
               <fieldset
                 class="seccionFormulario"
@@ -209,7 +214,6 @@
                   </div>
                 </div>
               </fieldset>
-
               <!-- Configuración del Torneo -->
               <fieldset
                 class="seccionFormulario"
@@ -275,18 +279,6 @@
                     />
                   </div>
 
-                  <!-- Estado -->
-                  <div class="campoFormulario">
-                    <label for="estadoTorneo">Inscripciones:</label>
-
-                    <select id="estadoTorneo" name="estadoTorneo">
-                      <option value="inscripciones">
-                        Inscripciones abiertas
-                      </option>
-                      <option value="proximamente">Próximamente</option>
-                    </select>
-                  </div>
-
                   <!-- Fechas -->
                   <div class="campoFormulario">
                     <label for="fechaInicio">Fecha de inicio:</label>
@@ -299,158 +291,13 @@
 
                     <input type="date" id="fechaFin" name="fechaFin" />
                   </div>
-
-                  <!-- Visibilidad -->
-                  <div class="campoFormulario">
-                    <label for="visibilidad">Visibilidad:</label>
-
-                    <select id="visibilidad" name="visibilidad">
-                      <option value="publico">Público</option>
-                      <option value="privado">Privado</option>
-                    </select>
-                  </div>
-
-                  <!-- Inscripción automática -->
-                  <div class="campoFormulario campoCheckbox">
-                    <label for="inscripcionAutomatica">
-                      Permitir inscripción automática:
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      id="inscripcionAutomatica"
-                      name="inscripcionAutomatica"
-                    />
-                  </div>
-
-                  <!-- Generación automática -->
-                  <div class="campoFormulario campoCheckbox">
-                    <label for="generarPartidas">
-                      Generar enfrentamientos automáticamente:
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      id="generarPartidas"
-                      name="generarPartidas"
-                    />
-                  </div>
-
-                  <!-- Tercer puesto -->
-                  <div class="campoFormulario campoCheckbox">
-                    <label for="tercerPuesto"> Disputar tercer puesto: </label>
-
-                    <input
-                      type="checkbox"
-                      id="tercerPuesto"
-                      name="tercerPuesto"
-                    />
-                  </div>
                 </div>
               </fieldset>
-
-              <!-- APARIENCIA -->
-              <fieldset class="seccionFormulario">
-                <legend>Apariencia</legend>
-                <div class="previsualizacion">
-                  <div
-                    class="preview-banner"
-                    id="previewBanner"
-                    title="Haz clic para seleccionar un banner"
-                  >
-                    <div
-                      class="preview-logo"
-                      id="previewLogo"
-                      title="Haz clic para seleccionar un logo"
-                    >
-                      <i class="fa-solid fa-image"></i>
-                      <span>Logo</span>
-                    </div>
-
-                    <div class="preview-info">
-                      <h3 id="previewNombre">[TÍTULO AQUÍ]</h3>
-                      <p>[BANNER AQUÍ]</p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Inputs reales, pero ocultos -->
-
-                <input
-                  type="file"
-                  id="logo"
-                  name="logo"
-                  accept="image/png, image/jpeg, image/webp"
-                  hidden
-                />
-
-                <input
-                  type="file"
-                  id="banner"
-                  name="banner"
-                  accept="image/png, image/jpeg, image/webp"
-                  hidden
-                />
-
-                <p class="ayuda-imagen">
-                  Haz clic sobre el logo o el banner para seleccionar una
-                  imagen.
-                </p>
-
-                <p class="ayuda-imagen">
-                  Logo: PNG, JPG o WEBP · mínimo 300×300px · máximo 2 MB
-                </p>
-
-                <p class="ayuda-imagen">
-                  Banner: PNG, JPG o WEBP · mínimo 800×180px · máximo 5 MB
-                </p>
-
-                <p class="ayuda-imagen">
-                  Tamaños recomendados para el BANNER: 800×180px | 1600x360px |
-                  3200x720px
-                </p>
-              </fieldset>
-
-              <!-- Configuración del Deporte -->
-              <fieldset class="seccionFormulario">
-                <legend>Configuración del Deporte</legend>
-
-                <div class="seccionFormulario">
-                  <div class="camposFormulario" id="configuracionDeporte">
-                    <p>Seleccione una disciplina.</p>
-                  </div>
-                </div>
-              </fieldset>
-
-              <!-- Participantes -->
-              <fieldset class="seccionFormulario" id="seccionParticipantes">
-                <legend>Participantes</legend>
-
-                <div class="camposFormulario" id="participantes">
-                  <div class="accionesFormulario">
-                    <button type="button" class="btnAgregarEquipo">
-                      <i class="fa-solid fa-plus"></i>
-                      Agregar equipo
-                    </button>
-                  </div>
-
-                  <div class="campoFormulario">
-                    <span>Equipos agregados:</span>
-
-                    <div id="listaEquipos">
-                      <div class="estado-vacio-equipos">
-                        <i class="fa-solid fa-users"></i>
-                        <p>No hay equipos agregados.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-
               <!-- Botón de enviar -->
               <div class="accionesFormulario">
                 <button type="submit" class="botonEnviar">
                   <i class="fa-solid fa-floppy-disk"></i>
+
                   Crear Torneo
                 </button>
 

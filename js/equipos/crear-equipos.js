@@ -46,6 +46,20 @@ const jugadores = [
   },
 ];
 
+/*
+ * URL del endpoint de creación de equipo, calculada a partir de la
+ * ubicación real de este script (js/equipos/crear-equipos.js) y no de la
+ * página que lo incluye. Así funciona igual desde html/equipos/,
+ * html/login/equipos/, etc., sin depender de cuántos "../" tenga cada HTML.
+ */
+const RUTA_SCRIPT_EQUIPOS = document.currentScript
+  ? document.currentScript.src
+  : "";
+const URL_CREAR_EQUIPO = new URL(
+  "../../php/equipos/crear_equipo.php",
+  RUTA_SCRIPT_EQUIPOS,
+).href;
+
 /* ELEMENTOS DEL HTML */
 
 const formulario = document.getElementById("formCrearEquipo");
@@ -487,25 +501,29 @@ async function enviarFormulario(event) {
 
     datos.integrantes = integrantes;
 
-    /* Generar ID del equipo */
+    /* Enviar los datos al backend PHP mediante fetch */
 
-    datos.id = crypto.randomUUID();
+    const respuesta = await fetch(URL_CREAR_EQUIPO, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    });
 
-    /* Guardar equipo */
+    const resultado = await respuesta.json();
 
-    const equipos = JSON.parse(localStorage.getItem("equipos")) || [];
+    if (!resultado.ok) {
+      throw resultado.mensaje || "Error al registrar el equipo en el servidor.";
+    }
 
-    equipos.push(datos);
+    /* Mostrar mensaje de éxito (más las advertencias del backend, si hay) */
 
-    localStorage.setItem("equipos", JSON.stringify(equipos));
+    const advertencias = resultado.data?.advertencias || [];
 
-    /* Mostrar datos en consola */
-
-    console.log("Equipo creado:", datos);
-
-    /* Mostrar mensaje de éxito */
-
-    mensaje.textContent = "¡Equipo creado con éxito!";
+    mensaje.textContent = advertencias.length
+      ? `${resultado.mensaje} ${advertencias.join(" ")}`
+      : resultado.mensaje;
 
     mensaje.classList.remove("error", "exito");
     mensaje.style.display = "none";

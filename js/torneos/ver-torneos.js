@@ -77,13 +77,6 @@ function eliminarTorneo(torneo) {
 }
 
 /*OBTENER UN VALOR DEL TORNEO*/
-
-/*
-   Como todavía estamos trabajando sin base de datos,
-   esta función permite encontrar los datos aunque
-   algunos campos tengan nombres diferentes.
-*/
-
 function obtenerValor(torneo, nombres, valorPorDefecto = "") {
   for (const nombre of nombres) {
     if (

@@ -294,4 +294,3 @@ const catalogos = {
         `,
   },
 };
-
