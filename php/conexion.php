@@ -1,8 +1,8 @@
 <?php
 
 $server = "localhost";
-$user = "root";
-$pass = "";
+$user = "uits";
+$pass = "UsuarioITS";
 $database = "starleague";
 
 try{
