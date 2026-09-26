@@ -1,0 +1,306 @@
+#formCrearEquipo {
+  width: 100%;
+}
+
+#formCrearEquipo .seccionFormulario {
+  margin-bottom: 25px;
+}
+
+#informacionIntegrantes {
+  margin-bottom: 15px;
+  padding: 12px 15px;
+  background-color: rgba(255, 255, 255, 0.45);
+  border-radius: 8px;
+  color: #333333;
+}
+
+body.dark-mode #informacionIntegrantes {
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #eeeeee;
+}
+
+#listaIntegrantes {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.integrante {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.integrante label {
+  min-width: 120px;
+  font-weight: bold;
+}
+
+.integrante select {
+  flex: 1;
+  min-width: 0;
+}
+
+/* MENSAJE */
+
+#mensaje {
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* MENSAJE */
+
+.mensaje {
+  color: #1a9b2a;
+  font-weight: bold;
+  display: none;
+  padding: 0px 0px 0px 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* MENSAJE DE ÉXITO */
+
+.mensaje.exito {
+  color: #1a9b2a;
+  animation: mensajeExito 0.4s ease;
+}
+
+body.dark-mode .mensaje.exito {
+  color: #28f140;
+}
+
+/* MENSAJE DE ERROR */
+
+.mensaje.error {
+  color: #d32f2f;
+  animation: mensajeError 0.45s ease;
+}
+
+body.dark-mode .mensaje.error {
+  color: #ff5252;
+}
+
+/* ANIMACIÓN DE ÉXITO */
+
+@keyframes mensajeExito {
+  0% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-8px);
+  }
+
+  70% {
+    transform: translateY(2px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ANIMACIÓN DE ERROR */
+
+@keyframes mensajeError {
+  0% {
+    transform: translateX(0);
+  }
+
+  15% {
+    transform: translateX(-8px);
+  }
+
+  30% {
+    transform: translateX(8px);
+  }
+
+  45% {
+    transform: translateX(-7px);
+  }
+
+  60% {
+    transform: translateX(7px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  90% {
+    transform: translateX(4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.previsualizacion-equipo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.preview-equipo {
+  width: 280px;
+  min-height: 340px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 25px 20px;
+
+  background-color: #ffffff;
+  border: 2px solid var(--color-boton-border);
+  border-radius: 20px;
+
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+body.dark-mode .preview-equipo {
+  background-color: #1c1d2b;
+  border-color: var(--color-boton-border);
+}
+
+.preview-equipo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.preview-equipo-logo {
+  width: 170px;
+  height: 170px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  background-color: #c2c2c2;
+  border-radius: 16px;
+
+  color: #555555;
+  font-size: 18px;
+
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    filter 0.2s;
+}
+
+body.dark-mode .preview-equipo-logo {
+  background-color: #0b0b13;
+  color: #ffffff;
+}
+
+.preview-equipo-logo i {
+  font-size: 40px;
+}
+
+.preview-equipo-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-equipo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.preview-equipo-logo:hover {
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+.preview-equipo-info {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  margin-top: 20px;
+
+  min-width: 0;
+}
+
+#previewNombre {
+  margin: 0;
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body.dark-mode #previewNombre {
+  color: #ffffff;
+}
+
+body.dark-mode #previewNombre {
+  color: #ffffff;
+}
+
+#previewTag {
+  margin: 6px 0 0;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  color: #555555;
+}
+
+body.dark-mode #previewTag {
+  color: #c5c9d5;
+}
+
+@media (max-width: 768) {
+  .preview-equipo {
+    width: 240px;
+    min-height: 300px;
+    padding: 20px 15px;
+  }
+
+  .preview-equipo-logo {
+    width: 145px;
+    height: 145px;
+  }
+
+  #previewNombre {
+    font-size: 21px;
+  }
+
+  #previewTag {
+    font-size: 16px;
+  }
+}
