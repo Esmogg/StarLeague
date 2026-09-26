@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starleague</title>
 
-    <link rel="icon" type="image/png" href="../../images/logo.png" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
 
-    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -21,11 +21,11 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-        <a href="../../index.html">
-          <img src="../../images/logo.png" alt="Logo Starleague" class="logo" />
+        <a href="../index.html">
+          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
         </a>
 
-        <div class="title">☆ Partidas Resultados ☆</div>
+        <div class="title">☆ Inscribir a Torneos ☆</div>
       </header>
 
       <div class="contenido">
@@ -33,7 +33,7 @@
           <nav>
             <ul>
               <li>
-                <a href="../../index.html">
+                <a href="../index.html">
                   <i class="fa-solid fa-house"></i>
                   Inicio
                 </a>
@@ -46,13 +46,14 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="ver_torneos.html"> ★ Ver Torneos </a></li>
                   <li>
-                    <a class="activo" href="torneos_resultados.html"
-                      >Resultados</a
-                    >
+                    <a href="ver_torneos.html">
+                      ★ Ver Torneos
+                    </a>
                   </li>
+                  <li><a href="torneos_resultados.html">Resultados</a></li>
                   <li><a href="crear_torneos.html"> ★ Crear Torneo </a></li>
+                  <li><a class="activo" href="inscribir_torneos.html"> Inscribir a Torneo</a></li>
                 </ul>
               </li>
 
@@ -69,7 +70,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="../equipos/crear_equipos.html"> ★ Crear Equipo </a>
+                    <a href="../equipos/crear_equipos.html">★ Crear Equipo </a>
                   </li>
                 </ul>
               </li>
@@ -81,8 +82,7 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
-                  <li><a href="../usuario/login.html">★ Login</a></li>
+                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>               
                 </ul>
               </li>
               <li>
@@ -94,19 +94,48 @@
           </nav>
         </div>
         <div id="menuOverlay"></div>
-        <main>
-          <article>
-            <h1>Resultados</h1>
-            <p></p>
-          </article>
-        </main>
+<main>
+  <article>
+    <h1>Torneos</h1>
+    <p>Seleccione el Torneo a inscribir: </p>
+    
+    <!-- Agregamos el formulario que enviará los datos -->
+   <!-- Dentro de tu inscribir_torneos.html -->
+<form action="../../../php/torneos/procesar_inscripcion.php" method="POST">
+  <!-- 1. Seleccionar Torneo -->
+  <div class="campoFormulario">
+    <label for="id_torneo">Seleccionar Torneo:</label>
+    <select id="id_torneo" name="id_torneo" required>
+      <option value="">Cargando torneos...</option>
+    </select>
+  </div>
+
+  <!-- 2. Seleccionar Participante (se activa al elegir un torneo) -->
+  <div class="campoFormulario">
+    <label id="label_participante" for="id_participante">Seleccionar Participante:</label>
+    <select id="id_participante" name="id_participante" disabled required>
+      <option value="">Primero seleccione un torneo</option>
+    </select>
+  </div>
+
+  <!-- Campo oculto para avisar al backend si estamos inscribiendo un 'usuario' o 'equipo' -->
+  <input type="hidden" id="tipo_inscripcion" name="tipo_inscripcion" value="">
+
+  <div class="accionesFormulario">
+    <button type="submit" class="botonEnviar">
+      <i class="fa-solid fa-check"></i> Registrar Inscripción
+    </button>
+  </div>
+</form>
+  </article>
+</main>
       </div>
     </div>
 
     <button id="btnSubir">
       <i class="fa-solid fa-chevron-up"></i>
     </button>
-
-    <script src="../../js/script.js" defer></script>
+    <script src="../../../js/torneos/mostrar.js"></script>
+    <script src="../../../js/script.js" defer></script>
   </body>
 </html>

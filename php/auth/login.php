@@ -1,4 +1,6 @@
 <?php
+session_start(); // Inicia la sesión para almacenar el ID del usuario
+
 $user_input = $_POST["user"] ?? '';
 $mail_input = $_POST["mail"] ?? '';
 $pass = $_POST["pass"] ?? '';
@@ -10,22 +12,19 @@ class LoginManager {
         $this->bd = $conexionBD;
     }
 
-    // Método POO adaptado para recibir tanto usuario como correo del formulario
     public function autenticar(string $user, string $mail, string $password): ?array {
-        // Determinamos cuál de los dos campos llenó el usuario
         $identificador = !empty($user) ? $user : $mail;
 
         if (empty($identificador)) {
             return null;
         }
 
-        // Buscamos en la BD si coincide con el username o con el email
-        $sql = "SELECT nombre, email, contrasena FROM usuario WHERE nombre = :id OR email = :id LIMIT 1";
+        // Se incluye id_usuario en la consulta para poder rescatarlo
+        $sql = "SELECT id_usuario, nombre, email, contrasena FROM usuario WHERE nombre = :id OR email = :id LIMIT 1";
         $stmt = $this->bd->prepare($sql);
         $stmt->execute([':id' => $identificador]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verificamos el hash de la contraseña
         if ($usuario && password_verify($password, $usuario['contrasena'])) {
             return $usuario; 
         }
@@ -39,16 +38,18 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $auth = new LoginManager($pdo);
-    // Pasamos las variables correspondientes al método
     $resultado = $auth->autenticar($user_input, $mail_input, $pass);
 
     if ($resultado) {
-        echo "¡Bienvenido, " . htmlspecialchars($resultado['nombre']) . "!";
-        // header("Location: ../html/usuario/dashboard.html");
+        // Se guardan los datos clave en las variables de sesión
+        $_SESSION['id_usuario'] = $resultado['id_usuario'];
+        $_SESSION['nombre'] = $resultado['nombre'];
+
+        // Redirección exitosa solicitada
+        header("Location: ../../html/login/");
         exit();
     } else {
         echo "Usuario, correo o contraseña incorrectos.";
-        // header("Location: ../html/usuario/login.html");
         exit();
     }
 
