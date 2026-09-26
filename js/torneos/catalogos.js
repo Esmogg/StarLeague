@@ -3,11 +3,11 @@ const catalogos = {
 
   categorias: [
     {
-      id: "esports",
-      nombre: "eSports",
+      id: "E-Sports",
+      nombre: "E-Sports",
     },
     {
-      id: "tradicional",
+      id: "Tradicional",
       nombre: "Deporte Tradicional",
     },
   ],
@@ -18,7 +18,7 @@ const catalogos = {
   {
     id: "lol",
     nombre: "League of Legends",
-    categoria: "esports",
+    categoria: "E-Sports",
     tipoParticipante: "equipos",
 
     configuracionEquipo: {
@@ -37,7 +37,7 @@ const catalogos = {
   {
     id: "valorant",
     nombre: "Valorant",
-    categoria: "esports",
+    categoria: "E-Sports",
     tipoParticipante: "equipos",
 
     configuracionEquipo: {
@@ -56,7 +56,7 @@ const catalogos = {
   {
     id: "ajedrez",
     nombre: "Ajedrez",
-    categoria: "tradicional",
+    categoria: "Tradicional",
     tipoParticipante: "individual",
 
     configuracionEquipo: {
@@ -71,7 +71,7 @@ const catalogos = {
   {
     id: "tenis",
     nombre: "Tenis",
-    categoria: "tradicional",
+    categoria: "Tradicional",
     tipoParticipante: "individual",
 
     configuracionEquipo: {
@@ -294,3 +294,4 @@ const catalogos = {
         `,
   },
 };
+
