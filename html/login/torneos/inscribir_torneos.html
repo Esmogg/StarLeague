@@ -6,7 +6,12 @@
     <title>Starleague</title>
 
     <link rel="icon" type="image/png" href="../../../images/logo.png" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../../css/style.css" />
     <link
       rel="stylesheet"
@@ -22,7 +27,11 @@
         </button>
 
         <a href="../index.html">
-          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
         </a>
 
         <div class="title">☆ Inscribir a Torneos ☆</div>
@@ -47,13 +56,15 @@
 
                 <ul class="submenu">
                   <li>
-                    <a href="ver_torneos.html">
-                      ★ Ver Torneos
-                    </a>
+                    <a href="ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
                   <li><a href="torneos_resultados.html">Resultados</a></li>
                   <li><a href="crear_torneos.html"> ★ Crear Torneo </a></li>
-                  <li><a class="activo" href="inscribir_torneos.html"> Inscribir a Torneo</a></li>
+                  <li>
+                    <a class="activo" href="inscribir_torneos.html">
+                      Inscribir a Torneo</a
+                    >
+                  </li>
                 </ul>
               </li>
 
@@ -82,7 +93,7 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>               
+                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
                 </ul>
               </li>
               <li>
@@ -94,41 +105,56 @@
           </nav>
         </div>
         <div id="menuOverlay"></div>
-<main>
-  <article>
-    <h1>Torneos</h1>
-    <p>Seleccione el Torneo a inscribir: </p>
-    
-    <!-- Agregamos el formulario que enviará los datos -->
-   <!-- Dentro de tu inscribir_torneos.html -->
-<form action="../../../php/torneos/procesar_inscripcion.php" method="POST">
-  <!-- 1. Seleccionar Torneo -->
-  <div class="campoFormulario">
-    <label for="id_torneo">Seleccionar Torneo:</label>
-    <select id="id_torneo" name="id_torneo" required>
-      <option value="">Cargando torneos...</option>
-    </select>
-  </div>
+        <main>
+          <article>
+            <!-- Agregamos el formulario que enviará los datos -->
+            <!-- Dentro de inscribir_torneos.html -->
+            <form action="../../../php/torneos/procesar_inscripcion.php" method="POST">
+              <fieldset class="seccionFormulario" id="seccionInformacionGeneral">
+                <legend>Información General</legend>
+                <div class="camposFormulario" id="informacionGeneral">
+                  <!-- 1. Seleccionar Torneo -->
+                  <div class="campoFormulario">
+                    <label for="id_torneo">Seleccionar torneo a inscribir:</label>
+                    <select id="id_torneo" name="id_torneo" required>
+                      <option value="">Cargando torneos...</option>
+                    </select>
+                  </div>
 
-  <!-- 2. Seleccionar Participante (se activa al elegir un torneo) -->
-  <div class="campoFormulario">
-    <label id="label_participante" for="id_participante">Seleccionar Participante:</label>
-    <select id="id_participante" name="id_participante" disabled required>
-      <option value="">Primero seleccione un torneo</option>
-    </select>
-  </div>
+                  <!-- 2. Seleccionar Participante (se activa al elegir un torneo) -->
+                  <div class="campoFormulario">
+                    <label id="label_participante" for="id_participante"
+                      >Seleccionar Participante:</label
+                    >
+                    <select
+                      id="id_participante"
+                      name="id_participante"
+                      disabled
+                      required
+                    >
+                      <option value="">Primero seleccione un torneo</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
 
-  <!-- Campo oculto para avisar al backend si estamos inscribiendo un 'usuario' o 'equipo' -->
-  <input type="hidden" id="tipo_inscripcion" name="tipo_inscripcion" value="">
+                <!-- Campo oculto para avisar al backend si estamos inscribiendo un 'usuario' o 'equipo' -->
+                <input
+                  type="hidden"
+                  id="tipo_inscripcion"
+                  name="tipo_inscripcion"
+                  value=""
+                />
 
-  <div class="accionesFormulario">
-    <button type="submit" class="botonEnviar">
-      <i class="fa-solid fa-check"></i> Registrar Inscripción
-    </button>
-  </div>
-</form>
-  </article>
-</main>
+              <div class="accionesFormulario">
+                <button type="submit" class="botonEnviar">
+                  <i class="fa-solid fa-check"></i> Registrar Inscripción
+                </button>
+              </div>
+
+            </form>
+          </article>
+        </main>
       </div>
     </div>
 

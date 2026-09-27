@@ -6,7 +6,12 @@
     <title>Starleague</title>
 
     <link rel="icon" type="image/png" href="../../../images/logo.png" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../../css/style.css" />
     <link
       rel="stylesheet"
@@ -49,15 +54,9 @@
                   <li>
                     <a href="../torneos/ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
-                  <li>
-                    <a href="../torneos/torneos_resultados.html"
-                      >Resultados</a
-                    >
-                  </li>
-                  <li>
-                    <a href="../torneos/crear_torneos.html">
-                      ★ Crear Torneo
-                    </a>
+                  <li><a href="../torneos/torneos_resultados.html">Resultados</a></li>
+                  <li><a href="../torneos/crear_torneos.html">★ Crear Torneo</a>
+                  <li><a href="../tornoes/inscribir_torneos.html"> Inscribir a Torneo</a></li>                    
                   </li>
                 </ul>
               </li>
@@ -103,51 +102,43 @@
         <div id="menuOverlay"></div>
         <main>
           <article>
-             <legend>Información General</legend>
-          
+              <form action="../../../php/equipos/crear_equipos.php" method="post">        
+                <fieldset class="seccionFormulario" id="seccionInformacionGeneral">     
+                  <legend>Información General</legend>
+                    <div class="campoFormulario">
+                      <label for="nombre"> Nombre del equipo: </label>
 
-          <div>
-            <form action="../../../php/equipos/crear_equipos.php" method="post">
-              <fieldset class="seccionFormulario">
-                 
-                <div class="campoFormulario">
-                    <label for="nombre"> Nombre del equipo: </label>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Ej: Nova Esports"
+                        maxlength="50"
+                        required
+                      />
+                    </div>
 
-                    <input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      placeholder="Ej: Nova Esports"
-                      maxlength="50"
-                      required
-                    />
-                  </div>
+                    <div class="campoFormulario">
+                      <label for="deporte"> Disciplina: </label>
 
+                      <select id="deporte" name="deporte" required>
+                        <option value="">Seleccione una disciplina</option>
+                      </select>
+                    </div>
+                </fieldset>
 
+                <!-- BOTÓN -->
+                <div class="accionesFormulario">
+                  <button type="submit" class="botonEnviar">
+                    <i class="fa-solid fa-floppy-disk"></i>
 
-              <div class="campoFormulario">
-                    <label for="deporte"> Disciplina: </label>
+                    Crear Equipo
+                  </button>
 
-                    <select id="deporte" name="deporte" required>
-                      <option value="">Seleccione una disciplina</option>
-                    </select>
-                  </div>
-                  </fieldset>
-                                <!-- BOTÓN -->
-              <div class="accionesFormulario">
-                <button type="submit" class="botonEnviar">
-                  <i class="fa-solid fa-floppy-disk"></i>
-
-                  Crear Equipo
-                </button>
-
-                <p id="mensaje" class="mensaje"></p>
-              </div>
-            </form>
-</article>
-
-</div>
-
+                  <p id="mensaje" class="mensaje"></p>
+                </div>
+              </form>
+          </article>
         </main>
       </div>
     </div>
