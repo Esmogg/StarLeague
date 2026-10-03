@@ -60,6 +60,9 @@ try {
     $pdo = new PDO("mysql:host=localhost;dbname=starleague;charset=utf8", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // Las fechas de creación se registran en horario de Uruguay.
+    $pdo->exec("SET time_zone = '-03:00'");
+
     $gestor = new GestorUsuarios($pdo);
 
     if ($gestor->existeUsuario($user, $mail)) {

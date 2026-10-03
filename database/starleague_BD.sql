@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     nombre VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(150) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
-    rol ENUM('admin', 'organizador', 'jugador') NOT NULL DEFAULT 'jugador'
+    rol ENUM('admin', 'organizador', 'jugador') NOT NULL DEFAULT 'jugador',
+    fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 

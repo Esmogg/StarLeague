@@ -13,6 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/usuario/perfil.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -105,8 +106,50 @@
         </div>
         <div id="menuOverlay"></div>
         <main>
-          <article>
-            <h1>Futuro perfil del usuario aqui.</h1>
+          <article class="perfil-usuario">
+            <!-- Identidad del usuario -->
+            <section class="perfil-identidad" aria-labelledby="nombreUsuario">
+              <div class="perfil-banner">
+                <img
+                  id="bannerUsuario"
+                  src="../../../images/user/user-banner-default.jpg"
+                  alt="Banner predeterminado del usuario"
+                />
+              </div>
+
+              <div class="perfil-datos">
+                <img
+                  id="logoUsuario"
+                  class="perfil-logo"
+                  src="../../../images/user/user-pfp-400x400.webp"
+                  alt="Imagen de perfil predeterminada"
+                />
+
+                <div class="perfil-nombre-contenedor">
+                  <h1 id="nombreUsuario">Usuario</h1>
+                  <p id="fechaCreacion" class="fecha-creacion">
+                    Fecha de Creacion: Cargando...
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Cada sección futura del perfil tendrá su propio contenedor -->
+            <section
+              class="perfil-seccion"
+              id="seccionInscripciones"
+              aria-labelledby="tituloInscripciones"
+            >
+              <div class="titulo-seccion-perfil">
+                <h2 id="tituloInscripciones">Inscripciones</h2>
+              </div>
+
+              <div class="contenido-inscripciones" id="contenidoInscripciones">
+                <p class="estado-inscripciones" id="estadoInscripciones">
+                  Cargando inscripciones...
+                </p>
+              </div>
+            </section>
           </article>
         </main>
       </div>
@@ -117,5 +160,6 @@
     </button>
 
     <script src="../../../js/script.js" defer></script>
+    <script src="../../../js/usuario/perfil.js" defer></script>
   </body>
 </html>
