@@ -16,7 +16,7 @@ ALTER USER '${MYSQL_USER}'@'%'
 
 GRANT SELECT, INSERT         ON \`${MYSQL_DATABASE}\`.usuario        TO '${MYSQL_USER}'@'%';
 GRANT SELECT, INSERT, DELETE ON \`${MYSQL_DATABASE}\`.Torneo         TO '${MYSQL_USER}'@'%';
-GRANT SELECT, INSERT         ON \`${MYSQL_DATABASE}\`.Equipo         TO '${MYSQL_USER}'@'%';
+GRANT SELECT, INSERT, DELETE ON \`${MYSQL_DATABASE}\`.Equipo         TO '${MYSQL_USER}'@'%';
 GRANT SELECT, INSERT         ON \`${MYSQL_DATABASE}\`.CrearEquipo    TO '${MYSQL_USER}'@'%';
 GRANT SELECT, INSERT         ON \`${MYSQL_DATABASE}\`.UnirseEquipo   TO '${MYSQL_USER}'@'%';
 GRANT SELECT, INSERT         ON \`${MYSQL_DATABASE}\`.ParticipaIndv  TO '${MYSQL_USER}'@'%';
