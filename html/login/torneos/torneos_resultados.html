@@ -13,6 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/torneos/resultados.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -22,8 +23,6 @@
   <body>
     <div class="contenedor">
       <header>
-        <button id="menuBtn" aria-label="Abrir menú">
-          <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
 
         <a href="../index.html">
@@ -109,16 +108,45 @@
         <main>
           <article>
             <h1>Resultados</h1>
-            <p></p>
+
+            <div class="resultados-filtros">
+              <select id="filtroTorneo">
+                <option value="">Todos los torneos</option>
+              </select>
+
+              <input
+                type="search"
+                id="buscarPartido"
+                placeholder="Buscar torneo o resultado..."
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="tabla-resultados-contenedor">
+              <table class="tabla-resultados">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Torneo</th>
+                    <th>Disciplina</th>
+                    <th>Resultado</th>
+                  </tr>
+                </thead>
+                <tbody id="cuerpoResultados"></tbody>
+              </table>
+            </div>
+
+            <p id="sinResultados" class="sin-resultados" hidden>
+              No hay resultados para mostrar.
+            </p>
           </article>
         </main>
       </div>
     </div>
 
-    <button id="btnSubir" aria-label="Volver al inicio">
-      <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
     </button>
 
     <script src="../../../js/script.js" defer></script>
+    <script src="../../../js/torneos/resultados.js" defer></script>
   </body>
 </html>

@@ -16,16 +16,36 @@ const cerrarModal = document.getElementById("cerrarModalEquipo");
 
 /* OBTENER EQUIPOS */
 
-function obtenerEquipos() {
-  try {
-    const equipos = JSON.parse(localStorage.getItem("equipos")) || [];
+/*
+   Los equipos ahora vienen de la base de datos (php/equipos/listar_equipos.php).
+   Se guardan en esta lista para que el buscador y las tarjetas
+   puedan usarlos sin volver a pedirlos al servidor.
+*/
 
-    return equipos;
+let equiposCargados = [];
+
+function obtenerEquipos() {
+  return equiposCargados;
+}
+
+async function cargarEquipos() {
+  try {
+    const respuesta = await fetch("../../../php/equipos/listar_equipos.php");
+
+    const datos = await respuesta.json();
+
+    if (!datos.ok) {
+      throw new Error(datos.mensaje || "Error al cargar los equipos.");
+    }
+
+    equiposCargados = datos.equipos;
   } catch (error) {
     console.error("No se pudieron cargar los equipos:", error);
 
-    return [];
+    equiposCargados = [];
   }
+
+  mostrarEquipos(equiposCargados);
 }
 
 /* OBTENER VALOR */
@@ -53,7 +73,7 @@ function obtenerNombreEquipo(equipo) {
 /* TAG */
 
 function obtenerTagEquipo(equipo) {
-  return obtenerValor(equipo, ["tag"], "SIN TAG");
+  return obtenerValor(equipo, ["tag"], "");
 }
 
 /* LOGO */
@@ -136,7 +156,9 @@ function mostrarEquipos(lista = obtenerEquipos()) {
 
     tag.className = "tarjeta-equipo-tag";
 
-    tag.textContent = `[${obtenerTagEquipo(equipo)}]`;
+    tag.textContent = obtenerTagEquipo(equipo)
+      ? `[${obtenerTagEquipo(equipo)}]`
+      : "";
 
     const disciplina = document.createElement("p");
 
@@ -216,7 +238,7 @@ function abrirModal(equipo) {
     : [];
 
   /* Eliminar Equipo */
-  function eliminarEquipo(equipo) {
+  async function eliminarEquipo(equipo) {
     const nombre = obtenerNombreEquipo(equipo);
 
     const confirmar = confirm(
@@ -227,35 +249,39 @@ function abrirModal(equipo) {
       return;
     }
 
-    const equipos = obtenerEquipos();
+    try {
+      const respuesta = await fetch(
+        "../../../php/equipos/eliminar_equipo.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id_equipo: equipo.id_equipo }),
+        },
+      );
 
-    const equiposActualizados = equipos.filter((item) => {
-      return item.id !== equipo.id;
-    });
+      const datos = await respuesta.json();
 
-    localStorage.setItem("equipos", JSON.stringify(equiposActualizados));
-
-    cerrarVentana();
-
-    const textoBusqueda = buscarEquipo
-      ? buscarEquipo.value.trim().toLowerCase()
-      : "";
-
-    if (!textoBusqueda) {
-      mostrarEquipos(equiposActualizados);
+      if (!datos.ok) {
+        alert(datos.mensaje || "No se pudo eliminar el equipo.");
+        return;
+      }
+    } catch (error) {
+      console.error("Error al eliminar el equipo:", error);
+      alert("No se pudo conectar con el servidor.");
       return;
     }
 
-    const resultados = equiposActualizados.filter((item) => {
-      const nombreEquipo = obtenerNombreEquipo(item).toLowerCase();
-      const tag = obtenerTagEquipo(item).toLowerCase();
+    cerrarVentana();
 
-      return (
-        nombreEquipo.includes(textoBusqueda) || tag.includes(textoBusqueda)
-      );
-    });
+    equiposCargados = equiposCargados.filter(
+      (item) => item.id_equipo !== equipo.id_equipo,
+    );
 
-    mostrarEquipos(resultados);
+    if (buscarEquipo && buscarEquipo.value.trim()) {
+      buscarEquipo.dispatchEvent(new Event("input"));
+    } else {
+      mostrarEquipos(equiposCargados);
+    }
   }
 
   /* LIMPIAR */
@@ -316,7 +342,7 @@ function abrirModal(equipo) {
 
   textoTag.className = "modal-equipo-tag";
 
-  textoTag.textContent = `[${tag}]`;
+  textoTag.textContent = tag ? `[${tag}]` : "";
 
   headerInfo.appendChild(titulo);
 
@@ -422,16 +448,21 @@ function abrirModal(equipo) {
 
   contenidoModal.appendChild(seccionIntegrantes);
 
-  const botonEliminar = document.createElement("button");
+  /* Solo lo ve quien creó el equipo o un administrador */
 
-  botonEliminar.className = "boton-eliminar-equipo";
-  botonEliminar.innerHTML = '<i class="fa-solid fa-trash"></i><span>Eliminar</span>';
+  if (equipo.puede_eliminar) {
+    const botonEliminar = document.createElement("button");
 
-  botonEliminar.addEventListener("click", () => {
-    eliminarEquipo(equipo);
-  });
+    botonEliminar.className = "boton-eliminar-equipo";
+    botonEliminar.innerHTML =
+      '<i class="fa-solid fa-trash"></i><span>Eliminar</span>';
 
-  contenidoModal.appendChild(botonEliminar);
+    botonEliminar.addEventListener("click", () => {
+      eliminarEquipo(equipo);
+    });
+
+    contenidoModal.appendChild(botonEliminar);
+  }
 
   /* MOSTRAR */
 
@@ -484,4 +515,4 @@ if (overlay) {
 
 /* CARGAR EQUIPOS */
 
-mostrarEquipos();
+cargarEquipos();

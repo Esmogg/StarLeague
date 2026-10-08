@@ -1,60 +1,115 @@
 <?php
 session_start();
-include("../conexion.php");
+header('Content-Type: application/json; charset=utf-8');
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['id_usuario'])) {
-    die("Acceso denegado. Debes iniciar sesión para crear un equipo.");
+function responder(int $codigo, bool $ok, string $mensaje, array $advertencias = []): void {
+    http_response_code($codigo);
+    echo json_encode([
+        'ok'      => $ok,
+        'mensaje' => $mensaje,
+        'data'    => ['advertencias' => $advertencias],
+    ], JSON_UNESCAPED_UNICODE);
+    exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = trim($_POST['nombre']);
-    // CORREGIDO: Se usa 'deporte' que es el name que viene del formulario HTML
-    $disciplina = trim($_POST['deporte'] ?? '');
-    $id_usuario = $_SESSION['id_usuario'];
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    responder(405, false, 'Método no permitido.');
+}
 
-    if (!empty($nombre) && !empty($disciplina)) {
-        // 1. Insertar el equipo con su nombre y disciplina
-        $sqlEquipo = "INSERT INTO Equipo (nombre, disciplina) VALUES (?, ?)";
-        
-        if ($stmt = $conexion->prepare($sqlEquipo)) {
-            $stmt->bind_param("ss", $nombre, $disciplina);
-            
-            try {
-                if ($stmt->execute()) {
-                    $id_equipo = $conexion->insert_id;
-                    $stmt->close();
+if (!isset($_SESSION['id_usuario'])) {
+    responder(401, false, 'Acceso denegado. Debes iniciar sesión para crear un equipo.');
+}
 
-                    // 2. Registrar en CrearEquipo
-                    $sqlCrear = "INSERT INTO CrearEquipo (id_equipo, id_usuario) VALUES (?, ?)";
-                    if ($stmtCrear = $conexion->prepare($sqlCrear)) {
-                        $stmtCrear->bind_param("ii", $id_equipo, $id_usuario);
-                        $stmtCrear->execute();
-                        $stmtCrear->close();
-                    }
+/*
+ * crear-equipos.js envía los datos como JSON (fetch).
+ * Si llegara un formulario clásico, se leen de $_POST.
+ */
+$datos = json_decode(file_get_contents('php://input'), true);
+if (!is_array($datos)) {
+    $datos = $_POST;
+}
 
-                    // 3. Registrar en UnirseEquipo
-                    $sqlUnirse = "INSERT INTO UnirseEquipo (id_equipo, id_usuario) VALUES (?, ?)";
-                    if ($stmtUnirse = $conexion->prepare($sqlUnirse)) {
-                        $stmtUnirse->bind_param("ii", $id_equipo, $id_usuario);
-                        $stmtUnirse->execute();
-                        $stmtUnirse->close();
-                    }
+$id_usuario = (int) $_SESSION['id_usuario'];
+$nombre     = trim((string) ($datos['nombre'] ?? ''));
+$disciplina = trim((string) ($datos['deporte'] ?? ''));
+$integrantes = (isset($datos['integrantes']) && is_array($datos['integrantes']))
+    ? $datos['integrantes'] : [];
 
-                    echo "¡Equipo creado exitosamente!";
-                }
-            } catch (mysqli_sql_exception $e) {
-                if ($e->getCode() == 1062) {
-                    echo "El nombre del equipo ya está en uso. Por favor, elige otro.";
-                } else {
-                    echo "Error al registrar el equipo: " . $e->getMessage();
-                }
-            }
+$disciplinas = ['Ajedrez', 'Valorant', 'Tenis', 'League of Legends'];
+
+if ($nombre === '' || $disciplina === '') {
+    responder(400, false, 'Por favor, completa todos los campos (incluyendo la disciplina).');
+}
+if (mb_strlen($nombre) > 50) {
+    responder(400, false, 'El nombre del equipo no puede superar los 50 caracteres.');
+}
+if (!in_array($disciplina, $disciplinas, true)) {
+    responder(400, false, 'Disciplina inválida.');
+}
+
+require_once '../conexion.php';
+
+try {
+    $conexion->set_charset('utf8mb4');
+    $conexion->begin_transaction();
+
+    // 1. El equipo
+    $stmt = $conexion->prepare("INSERT INTO Equipo (nombre, disciplina) VALUES (?, ?)");
+    $stmt->bind_param('ss', $nombre, $disciplina);
+    $stmt->execute();
+    $id_equipo = $conexion->insert_id;
+    $stmt->close();
+
+    // 2. Quién lo creó
+    $stmt = $conexion->prepare("INSERT INTO CrearEquipo (id_equipo, id_usuario) VALUES (?, ?)");
+    $stmt->bind_param('ii', $id_equipo, $id_usuario);
+    $stmt->execute();
+    $stmt->close();
+
+    // 3. El creador también es integrante
+    $stmt = $conexion->prepare("INSERT IGNORE INTO UnirseEquipo (id_equipo, id_usuario) VALUES (?, ?)");
+    $stmt->bind_param('ii', $id_equipo, $id_usuario);
+    $stmt->execute();
+
+    // 4. Los demás integrantes (solo si el usuario existe en la base)
+    $advertencias = [];
+    $verificar = $conexion->prepare("SELECT id_usuario FROM usuario WHERE id_usuario = ?");
+
+    foreach ($integrantes as $integrante) {
+        $id_jugador = (int) ($integrante['jugadorId'] ?? 0);
+        $etiqueta   = (string) ($integrante['jugador'] ?? $id_jugador);
+
+        if ($id_jugador <= 0) {
+            continue;
         }
-    } else {
-        echo "Por favor, completa todos los campos (incluyendo la disciplina).";
+
+        $verificar->bind_param('i', $id_jugador);
+        $verificar->execute();
+
+        if ($verificar->get_result()->num_rows === 0) {
+            $advertencias[] = "El jugador \"$etiqueta\" no existe y no se agregó al equipo.";
+            continue;
+        }
+
+        $stmt->bind_param('ii', $id_equipo, $id_jugador);
+        $stmt->execute();
     }
 
+    $verificar->close();
+    $stmt->close();
+
+    $conexion->commit();
     $conexion->close();
+
+    responder(200, true, '¡Equipo creado exitosamente!', $advertencias);
+
+} catch (mysqli_sql_exception $e) {
+    $conexion->rollback();
+
+    if ($e->getCode() === 1062) {
+        responder(409, false, 'El nombre del equipo ya está en uso. Por favor, elige otro.');
+    }
+    error_log('crear_equipos.php: ' . $e->getMessage());
+    responder(500, false, 'Error al registrar el equipo en el servidor.');
 }
-?>

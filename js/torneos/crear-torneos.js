@@ -12,7 +12,23 @@ const URL_CREAR_TORNEO = new URL(
   RUTA_SCRIPT_TORNEOS,
 ).href;
 
-const formulario = document.getElementById("formCrearTorneo");
+/*
+ * Elementos opcionales: si la página no los tiene (por ejemplo logo, banner,
+ * vistas previas o ventanas de selección de equipos), se usa un elemento
+ * suelto en memoria para que el resto del script siga funcionando.
+ */
+const obtener = (id, etiqueta = "div") => {
+  const elemento =
+    document.getElementById(id) || document.createElement(etiqueta);
+  // Un <input> suelto de logo/banner necesita ser de archivos para tener .files
+  if (!elemento.id && etiqueta === "input" && id !== "nombre") {
+    elemento.type = "file";
+  }
+  return elemento;
+};
+
+const formulario =
+  document.getElementById("formCrearTorneo") || document.querySelector("form");
 
 const selectCategoria = document.getElementById("categoria");
 const selectDeporte = document.getElementById("deporte");
@@ -23,15 +39,15 @@ const inputCantidad = document.getElementById("cantidadParticipantes");
 
 const mensaje = document.getElementById("mensaje");
 
-const configuracionDeporte = document.getElementById("configuracionDeporte");
+const configuracionDeporte = obtener("configuracionDeporte");
 
-const inputLogo = document.getElementById("logo");
-const inputBanner = document.getElementById("banner");
+const inputLogo = obtener("logo", "input");
+const inputBanner = obtener("banner", "input");
 
-const previewLogo = document.getElementById("previewLogo");
-const previewBanner = document.getElementById("previewBanner");
+const previewLogo = obtener("previewLogo");
+const previewBanner = obtener("previewBanner");
 
-const previewNombre = document.getElementById("previewNombre");
+const previewNombre = obtener("previewNombre");
 
 /*INICIALIZACIÓN*/
 
@@ -54,13 +70,13 @@ selectDeporte.addEventListener("change", actualizarConfiguracionDeporte);
 
 /* SELECCIÓN DE EQUIPOS */
 
-const overlayInfoEquipo = document.getElementById("overlayInfoEquipo");
+const overlayInfoEquipo = obtener("overlayInfoEquipo");
 
-const modalInfoEquipo = document.getElementById("modalInfoEquipo");
+const modalInfoEquipo = obtener("modalInfoEquipo");
 
-const contenidoInfoEquipo = document.getElementById("contenidoInfoEquipo");
+const contenidoInfoEquipo = obtener("contenidoInfoEquipo");
 
-const cerrarInfoEquipo = document.getElementById("cerrarInfoEquipo");
+const cerrarInfoEquipo = obtener("cerrarInfoEquipo");
 
 cerrarInfoEquipo.addEventListener("click", cerrarModalInfoEquipo);
 
@@ -70,29 +86,22 @@ overlayInfoEquipo.addEventListener("click", (event) => {
   }
 });
 
-const botonAgregarEquipo = document.querySelector(".btnAgregarEquipo");
+const botonAgregarEquipo =
+  document.querySelector(".btnAgregarEquipo") || document.createElement("button");
 
-const overlaySeleccionEquipos = document.getElementById(
-  "overlaySeleccionEquipos",
-);
+const overlaySeleccionEquipos = obtener("overlaySeleccionEquipos");
 
-const modalSeleccionEquipos = document.getElementById("modalSeleccionEquipos");
+const modalSeleccionEquipos = obtener("modalSeleccionEquipos");
 
-const listaSeleccionEquipos = document.getElementById("listaSeleccionEquipos");
+const listaSeleccionEquipos = obtener("listaSeleccionEquipos");
 
-const cerrarSeleccionEquipos = document.getElementById(
-  "cerrarSeleccionEquipos",
-);
+const cerrarSeleccionEquipos = obtener("cerrarSeleccionEquipos");
 
-const cancelarSeleccionEquipos = document.getElementById(
-  "cancelarSeleccionEquipos",
-);
+const cancelarSeleccionEquipos = obtener("cancelarSeleccionEquipos");
 
-const confirmarSeleccionEquipos = document.getElementById(
-  "confirmarSeleccionEquipos",
-);
+const confirmarSeleccionEquipos = obtener("confirmarSeleccionEquipos");
 
-const listaEquipos = document.getElementById("listaEquipos");
+const listaEquipos = obtener("listaEquipos");
 
 /*
  * Equipos que actualmente están agregados al torneo.
@@ -685,8 +694,6 @@ async function enviarFormulario(event) {
       throw "La descripción contiene caracteres no permitidos.";
     }
 
-    const inputLogo = document.getElementById("logo");
-    const inputBanner = document.getElementById("banner");
     const archivoLogo = inputLogo.files[0] || null;
     const archivoBanner = inputBanner.files[0] || null;
 
@@ -821,7 +828,7 @@ inputBanner.addEventListener("change", async () => {
   }
 });
 
-const inputNombre = document.getElementById("nombre");
+const inputNombre = obtener("nombre", "input");
 
 inputNombre.addEventListener("input", () => {
   if (inputNombre.value.trim() === "") {

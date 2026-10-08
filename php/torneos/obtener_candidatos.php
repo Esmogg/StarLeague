@@ -1,24 +1,13 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
-require_once '../conexion.php'; 
+declare(strict_types=1);
+require_once __DIR__ . '/../config/bootstrap.php';
 
-$tipo = $_GET['tipo'] ?? ''; // 'equipo' o 'usuario'
-
-if ($tipo === 'equipo') {
-    $sql = "SELECT id_equipo AS id, nombre FROM Equipo ORDER BY nombre ASC";
-} else {
-    $sql = "SELECT id_usuario AS id, nombre FROM usuario ORDER BY nombre ASC";
+try {
+    $tipo = $_GET['tipo'] ?? '';
+    responderJson($tipo === 'equipo'
+        ? (new EquipoRepository())->listarCandidatos()
+        : (new UsuarioRepository())->listarCandidatos());
+} catch (Throwable $e) {
+    error_log('[StarLeague] obtener_candidatos: ' . $e->getMessage());
+    responderJson([], 500);
 }
-
-$resultado = $conexion->query($sql);
-$data = array();
-
-if ($resultado && $resultado->num_rows > 0) {
-    while($fila = $resultado->fetch_assoc()) {
-        $data[] = $fila;
-    }
-}
-
-$conexion->close();
-echo json_encode($data);
-?>

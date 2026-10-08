@@ -56,7 +56,7 @@ const RUTA_SCRIPT_EQUIPOS = document.currentScript
   ? document.currentScript.src
   : "";
 const URL_CREAR_EQUIPO = new URL(
-  "../../php/equipos/crear_equipo.php",
+  "../../php/equipos/crear_equipos.php",
   RUTA_SCRIPT_EQUIPOS,
 ).href;
 

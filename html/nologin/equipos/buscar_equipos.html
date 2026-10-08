@@ -13,7 +13,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../../css/style.css" />
-    <link rel="stylesheet" href="../../../css/torneos/resultados.css" />
+    <link rel="stylesheet" href="../../../css/equipos/buscar-equipos.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -23,15 +24,15 @@
   <body>
     <div class="contenedor">
       <header>
-        <button id="menuBtn" aria-label="Abrir menú">
-          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        <button id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
         </button>
 
         <a href="../../../index.html">
           <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
         </a>
 
-        <div class="title">☆ Partidas Resultados ☆</div>
+        <div class="title">☆ Buscar Equipos ☆</div>
       </header>
 
       <div class="contenido">
@@ -53,12 +54,10 @@
 
                 <ul class="submenu">
                   <li>
-                    <a href="ver_torneos.html"> ★ Ver Torneos </a>
+                    <a href="../torneos/ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
                   <li>
-                    <a class="activo" href="torneos_resultados.html"
-                      >Resultados</a
-                    >
+                    <a href="../torneos/torneos_resultados.html">Resultados</a>
                   </li>
                 </ul>
               </li>
@@ -71,7 +70,7 @@
 
                 <ul class="submenu">
                   <li>
-                    <a href="../equipos/buscar_equipos.html"> <!--A arreglar-->
+                    <a class="activo" href="buscar_equipos.html">
                       ★ Buscar Equipos
                     </a>
                   </li>
@@ -85,8 +84,7 @@
                 </div>
 
                 <ul class="submenu">
-
-                  <li><a href="../usuario/login.html">★ Login</a></li>                  
+                  <li><a href="../usuario/login.html">★ Login</a></li>
                 </ul>
               </li>
               <li>
@@ -98,50 +96,70 @@
           </nav>
         </div>
         <div id="menuOverlay"></div>
+
         <main>
-          <article>
-            <h1>Resultados</h1>
+          <!-- BUSCADOR -->
 
-            <div class="resultados-filtros">
-              <select id="filtroTorneo">
-                <option value="">Todos los torneos</option>
-              </select>
+          <div class="buscador-equipos">
+            <i class="fa-solid fa-magnifying-glass"></i>
 
-              <input
-                type="search"
-                id="buscarPartido"
-                placeholder="Buscar torneo o resultado..."
-                autocomplete="off"
-              />
-            </div>
+            <input
+              type="search"
+              id="buscarEquipo"
+              placeholder="BUSCAR..."
+              autocomplete="off"
+            />
+          </div>
 
-            <div class="tabla-resultados-contenedor">
-              <table class="tabla-resultados">
-                <thead>
-                  <tr>
-                    <th>Fecha</th>
-                    <th>Torneo</th>
-                    <th>Disciplina</th>
-                    <th>Resultado</th>
-                  </tr>
-                </thead>
-                <tbody id="cuerpoResultados"></tbody>
-              </table>
-            </div>
+          <!-- GRID -->
 
-            <p id="sinResultados" class="sin-resultados" hidden>
-              No hay resultados para mostrar.
-            </p>
-          </article>
+          <section id="gridEquipos" class="grid-equipos">
+            <!--
+              Las tarjetas se generan
+              mediante JavaScript.
+            -->
+          </section>
+
+          <!-- SIN EQUIPOS -->
+
+          <div id="sinEquipos" class="sin-equipos">
+            <i class="fa-solid fa-users"></i>
+
+            <h2>No hay equipos para mostrar</h2>
+
+            <p>Los equipos que crees aparecerán aquí.</p>
+          </div>
         </main>
       </div>
     </div>
 
-    <button id="btnSubir" aria-label="Volver al inicio">
-      <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+    <!-- BOTÓN SUBIR -->
+
+    <button id="btnSubir">
+      <i class="fa-solid fa-chevron-up"></i>
     </button>
 
+    <!-- OVERLAY -->
+
+    <div id="equipoOverlay" class="equipo-overlay"></div>
+
+    <!-- MODAL -->
+
+    <div id="modalEquipo" class="modal-equipo">
+      <button id="cerrarModalEquipo" class="cerrar-modal-equipo">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="contenidoModalEquipo" class="contenido-modal-equipo">
+        <!--
+          La información completa del equipo
+          será generada mediante JavaScript.
+        -->
+      </div>
+    </div>
+
     <script src="../../../js/script.js" defer></script>
-    <script src="../../../js/torneos/resultados.js" defer></script>
+    <script src="../../../js/torneos/catalogos.js"></script>
+    <script src="../../../js/equipos/buscar-equipos.js" defer></script>
   </body>
 </html>

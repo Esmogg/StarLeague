@@ -1,0 +1,73 @@
+/* RESULTADOS DE PARTIDOS */
+
+.resultados-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 20px;
+}
+
+.resultados-filtros select,
+.resultados-filtros input {
+  flex: 1 1 220px;
+  height: 44px;
+  padding: 0 14px;
+
+  font-family: inherit;
+  font-size: 16px;
+  color: #1a1a1a;
+
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+body.dark-mode .resultados-filtros select,
+body.dark-mode .resultados-filtros input {
+  color: #ffffff;
+  background: #4b5878;
+}
+
+.tabla-resultados-contenedor {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.tabla-resultados {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.tabla-resultados th,
+.tabla-resultados td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 16px;
+  color: #1a1a1a;
+  border-bottom: 1px solid var(--color-boton-border);
+}
+
+.tabla-resultados th {
+  background: var(--color-secondary);
+  color: #ffffff;
+}
+
+.tabla-resultados tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+body.dark-mode .tabla-resultados td {
+  color: #ffffff;
+}
+
+body.dark-mode .tabla-resultados tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sin-resultados {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 18px;
+}

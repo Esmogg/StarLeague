@@ -1,0 +1,7 @@
+.git
+.env
+scripts
+database
+apache
+README.md
+php/config/config.local.php

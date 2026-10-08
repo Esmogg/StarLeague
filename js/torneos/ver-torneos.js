@@ -16,34 +16,41 @@ const cerrarModal = document.getElementById("cerrarModalTorneo");
 
 /*OBTENER TORNEOS*/
 
+/*
+   Los torneos ahora vienen de la base de datos (php/torneos/listar_torneos.php).
+   Se guardan en esta lista para que el buscador y las tarjetas
+   puedan usarlos sin volver a pedirlos al servidor.
+*/
+
+let torneosCargados = [];
+
 function obtenerTorneos() {
+  return torneosCargados;
+}
+
+async function cargarTorneos() {
   try {
-    const torneos = JSON.parse(localStorage.getItem("torneos")) || [];
+    const respuesta = await fetch("../../../php/torneos/listar_torneos.php");
 
-    let huboCambios = false;
+    const datos = await respuesta.json();
 
-    torneos.forEach((torneo) => {
-      if (!torneo.id) {
-        torneo.id = crypto.randomUUID();
-        huboCambios = true;
-      }
-    });
-
-    if (huboCambios) {
-      localStorage.setItem("torneos", JSON.stringify(torneos));
+    if (!datos.ok) {
+      throw new Error(datos.mensaje || "Error al cargar los torneos.");
     }
 
-    return torneos;
+    torneosCargados = datos.torneos;
   } catch (error) {
     console.error("No se pudieron cargar los torneos:", error);
 
-    return [];
+    torneosCargados = [];
   }
+
+  mostrarTorneos(torneosCargados);
 }
 
 /* ELIMINAR TORNEO */
 
-function eliminarTorneo(torneo) {
+async function eliminarTorneo(torneo) {
   const nombre = obtenerNombreTorneo(torneo);
 
   const confirmar = confirm(
@@ -54,22 +61,32 @@ function eliminarTorneo(torneo) {
     return;
   }
 
-  const torneos = obtenerTorneos();
+  try {
+    const respuesta = await fetch("../../../php/torneos/eliminar_torneo.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_torneo: torneo.id_torneo }),
+    });
 
-  const indice = torneos.findIndex((item) => item.id === torneo.id);
+    const datos = await respuesta.json();
 
-  if (indice === -1) {
-    console.error("No se encontró el torneo para eliminar.");
+    if (!datos.ok) {
+      alert(datos.mensaje || "No se pudo eliminar el torneo.");
+      return;
+    }
+  } catch (error) {
+    console.error("Error al eliminar el torneo:", error);
+    alert("No se pudo conectar con el servidor.");
     return;
   }
 
-  torneos.splice(indice, 1);
-
-  localStorage.setItem("torneos", JSON.stringify(torneos));
-
   cerrarVentana();
 
-  mostrarTorneos(torneos);
+  torneosCargados = torneosCargados.filter(
+    (item) => item.id_torneo !== torneo.id_torneo,
+  );
+
+  mostrarTorneos(torneosCargados);
 
   if (buscarTorneo && buscarTorneo.value.trim()) {
     buscarTorneo.dispatchEvent(new Event("input"));
@@ -366,21 +383,31 @@ function abrirModal(torneo) {
 
   /* BOTÓN ELIMINAR */
 
-  const botonEliminar = document.createElement("button");
+  /* Se saca el botón de una apertura anterior para que no se acumulen */
 
-  botonEliminar.className = "eliminar-modal-torneo";
+  modalTorneo
+    .querySelectorAll(".eliminar-modal-torneo")
+    .forEach((boton) => boton.remove());
 
-  botonEliminar.innerHTML = `
+  /* Solo lo ve quien creó el torneo o un administrador */
+
+  if (torneo.puede_eliminar) {
+    const botonEliminar = document.createElement("button");
+
+    botonEliminar.className = "eliminar-modal-torneo";
+
+    botonEliminar.innerHTML = `
     <i class="fa-solid fa-trash"></i>
     <span>Eliminar</span>
   `;
 
-  botonEliminar.addEventListener("click", (event) => {
-    event.stopPropagation();
-    eliminarTorneo(torneo);
-  });
+    botonEliminar.addEventListener("click", (event) => {
+      event.stopPropagation();
+      eliminarTorneo(torneo);
+    });
 
-  modalTorneo.appendChild(botonEliminar);
+    modalTorneo.appendChild(botonEliminar);
+  }
 
   /*BANNER*/
 
@@ -446,6 +473,26 @@ function abrirModal(torneo) {
     agregarDatoModal(seccionGeneral, "Tipo de participante", tipoParticipante);
   }
 
+  if (torneo.inscriptos !== undefined) {
+    agregarDatoModal(
+      seccionGeneral,
+      "Inscriptos",
+      `${torneo.inscriptos} de ${torneo.cantidadEquipos ?? torneo.cantidadJugadores ?? "?"}`,
+    );
+  }
+
+  if (torneo.fecha_inicio && torneo.fecha_fin) {
+    agregarDatoModal(
+      seccionGeneral,
+      "Fechas",
+      `${formatearFecha(torneo.fecha_inicio)} al ${formatearFecha(torneo.fecha_fin)}`,
+    );
+  }
+
+  if (torneo.organizador) {
+    agregarDatoModal(seccionGeneral, "Organizador", torneo.organizador);
+  }
+
   contenidoModal.appendChild(seccionGeneral);
 
   /*DESCRIPCION*/
@@ -475,6 +522,18 @@ function abrirModal(torneo) {
   modalTorneo.classList.add("activo");
 
   document.body.style.overflow = "hidden";
+}
+
+/*FORMATEAR FECHA (AAAA-MM-DD -> DD/MM/AAAA)*/
+
+function formatearFecha(fecha) {
+  const partes = String(fecha).split("-");
+
+  if (partes.length !== 3) {
+    return fecha;
+  }
+
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
 /*AGREGAR DATO AL MODAL*/
@@ -518,4 +577,4 @@ if (overlay) {
 }
 
 /*CARGAR TORNEOS*/
-mostrarTorneos();
+cargarTorneos();

@@ -1,79 +1,32 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+declare(strict_types=1);
+require_once __DIR__ . '/../config/bootstrap.php';
 
-/*
- * Mismo trabajo que register.php (crear el usuario), pero el objeto llega
- * como JSON por fetch() en vez de $_POST de un <form> con submit nativo.
- */
-$json  = file_get_contents('php://input');
-$datos = json_decode($json, true);
+/** Registro de usuario: el objeto llega como JSON por fetch(). */
+$datos = leerJson();
 
-if (!is_array($datos)) {
-    http_response_code(400);
-    echo json_encode(["ok" => false, "mensaje" => "No se recibió un objeto JSON válido."]);
-    exit();
+$nombre = trim((string) ($datos['new_user']  ?? ''));
+$email  = trim((string) ($datos['mail']      ?? ''));
+$pass   = (string) ($datos['new_pass']  ?? '');
+$pass2  = (string) ($datos['new_pass2'] ?? '');
+
+if ($nombre === '' || $pass === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    responderJson(['ok' => false, 'mensaje' => 'Completa todos los campos con datos válidos.']);
 }
-
-$user  = $datos['new_user']  ?? '';
-$mail  = $datos['mail']      ?? '';
-$pass  = $datos['new_pass']  ?? '';
-$pass2 = $datos['new_pass2'] ?? '';
-
 if ($pass !== $pass2) {
-    echo json_encode(["ok" => false, "mensaje" => "Las contraseñas no coinciden."]);
-    exit();
-}
-
-$hash = password_hash($pass, PASSWORD_DEFAULT);
-
-class GestorUsuarios {
-    private $bd;
-
-    public function __construct(PDO $conexionBD) {
-        $this->bd = $conexionBD;
-    }
-
-    public function existeUsuario(string $user, string $mail): bool {
-        $sql = "SELECT id_usuario FROM usuario WHERE nombre = :user OR email = :mail LIMIT 1";
-        $stmt = $this->bd->prepare($sql);
-        $stmt->execute([
-            ':user' => $user,
-            ':mail' => $mail,
-        ]);
-
-        return $stmt->fetch() !== false;
-    }
-
-    public function registrar(string $user, string $mail, string $hash): bool {
-        $sql = "INSERT INTO usuario (nombre, email, contrasena) VALUES (:user, :mail, :pass)";
-        $stmt = $this->bd->prepare($sql);
-
-        return $stmt->execute([
-            ':user' => $user,
-            ':mail' => $mail,
-            ':pass' => $hash,
-        ]);
-    }
+    responderJson(['ok' => false, 'mensaje' => 'Las contraseñas no coinciden.']);
 }
 
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=starleague;charset=utf8", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $usuarios = new UsuarioRepository();
 
-    // Las fechas de creación se registran en horario de Uruguay.
-    $pdo->exec("SET time_zone = '-03:00'");
-
-    $gestor = new GestorUsuarios($pdo);
-
-    if ($gestor->existeUsuario($user, $mail)) {
-        echo json_encode(["ok" => false, "mensaje" => "El nombre de usuario o el correo electrónico ya están registrados."]);
-    } elseif ($gestor->registrar($user, $mail, $hash)) {
-        echo json_encode(["ok" => true, "mensaje" => "¡Usuario registrado con éxito!"]);
-    } else {
-        echo json_encode(["ok" => false, "mensaje" => "Hubo un error al registrar el usuario."]);
+    if ($usuarios->existe($nombre, $email)) {
+        responderJson(['ok' => false, 'mensaje' => 'El nombre de usuario o el correo electrónico ya están registrados.']);
     }
 
-} catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(["ok" => false, "mensaje" => "Error de conexión: " . $e->getMessage()]);
+    $usuarios->registrar($nombre, $email, password_hash($pass, PASSWORD_DEFAULT));
+    responderJson(['ok' => true, 'mensaje' => '¡Usuario registrado con éxito!']);
+} catch (Throwable $e) {
+    error_log('[StarLeague] crear_usuario: ' . $e->getMessage());
+    responderJson(['ok' => false, 'mensaje' => 'Hubo un error al registrar el usuario.'], 500);
 }

@@ -1,0 +1,46 @@
+# StarLeague - configuración de Apache (requiere mod_rewrite, mod_headers y AllowOverride All)
+
+Options -Indexes -MultiViews +FollowSymLinks
+DirectoryIndex index.html
+
+# --- Seguridad ---------------------------------------------------------
+# Archivos ocultos (.git, .env, .htaccess), salvo .well-known
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+
+# Scripts, SQL, documentación y configuración no se sirven nunca
+<FilesMatch "\.(sql|sh|md|log|ini|bak)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Carpetas internas: acceso directo prohibido
+    RewriteRule ^(database|scripts|apache)(/|$) - [F,L]
+    RewriteRule ^(Dockerfile|docker-compose\.yml)$ - [F,L]
+    RewriteRule ^php/(config|models|repositories)(/|$) - [F,L]
+
+    # URLs limpias de la API -> endpoints PHP
+    RewriteRule ^api/usuario/registro/?$   php/auth/crear_usuario.php          [L,QSA]
+    RewriteRule ^api/usuario/login/?$      php/auth/login.php                  [L,QSA]
+    RewriteRule ^api/usuario/perfil/?$     php/auth/perfil.php                 [L,QSA]
+    RewriteRule ^api/equipos/crear/?$      php/equipos/crear_equipos.php       [L,QSA]
+    RewriteRule ^api/torneos/?$            php/torneos/obtener_torneos.php     [L,QSA]
+    RewriteRule ^api/torneos/listado/?$    php/torneos/listar_torneos.php      [L,QSA]
+    RewriteRule ^api/torneos/eliminar/?$   php/torneos/eliminar_torneo.php     [L,QSA]
+    RewriteRule ^api/resultados/?$         php/torneos/listar_resultados.php   [L,QSA]
+    RewriteRule ^api/torneos/crear/?$      php/torneos/crear_torneos.php       [L,QSA]
+    RewriteRule ^api/torneos/candidatos/?$ php/torneos/obtener_candidatos.php  [L,QSA]
+    RewriteRule ^api/torneos/inscribir/?$  php/torneos/procesar_inscripcion.php [L,QSA]
+</IfModule>
+
+ErrorDocument 403 "Acceso denegado."
+ErrorDocument 404 "Recurso no encontrado."

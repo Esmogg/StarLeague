@@ -1,21 +1,10 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
-require_once '../conexion.php'; 
+declare(strict_types=1);
+require_once __DIR__ . '/../config/bootstrap.php';
 
-// Eliminamos la restricción de fecha para traer todos los torneos registrados
-$sql = "SELECT id_torneo, nombre, disciplina, cantParticipantes FROM Torneo ORDER BY fecha_inicio ASC";
-$resultado = $conexion->query($sql);
-
-$torneos = array();
-if ($resultado && $resultado->num_rows > 0) {
-    while($fila = $resultado->fetch_assoc()) {
-        // Definimos qué disciplinas se juegan en equipo
-        $disciplinas_equipo = ['Valorant', 'League of Legends'];
-        $fila['es_equipo'] = in_array($fila['disciplina'], $disciplinas_equipo);
-        $torneos[] = $fila;
-    }
+try {
+    responderJson((new TorneoRepository())->listar());
+} catch (Throwable $e) {
+    error_log('[StarLeague] obtener_torneos: ' . $e->getMessage());
+    responderJson([], 500);
 }
-
-$conexion->close();
-echo json_encode($torneos);
-?>
