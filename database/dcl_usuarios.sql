@@ -26,7 +26,7 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'app_starleague'@'localhost';
 -- Solo lo que el código realmente hace (ver php/repositories/):
 GRANT SELECT, INSERT ON starleague.usuario        TO 'app_starleague'@'localhost';
 GRANT SELECT, INSERT, DELETE ON starleague.Torneo TO 'app_starleague'@'localhost';  -- DELETE: eliminar_torneo.php (los hijos se borran por ON DELETE CASCADE)
-GRANT SELECT, INSERT ON starleague.Equipo         TO 'app_starleague'@'localhost';
+GRANT SELECT, INSERT, DELETE ON starleague.Equipo TO 'app_starleague'@'localhost';  -- DELETE: eliminar_equipo.php (los hijos se borran por ON DELETE CASCADE)
 GRANT SELECT, INSERT ON starleague.CrearEquipo    TO 'app_starleague'@'localhost';
 GRANT SELECT, INSERT ON starleague.UnirseEquipo   TO 'app_starleague'@'localhost';
 GRANT SELECT, INSERT ON starleague.ParticipaIndv  TO 'app_starleague'@'localhost';
