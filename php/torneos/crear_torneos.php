@@ -79,6 +79,17 @@ require_once '../conexion.php';
 try {
     $conexion->set_charset('utf8mb4');
 
+    // Solo administradores y organizadores pueden crear torneos
+    $stmt = $conexion->prepare("SELECT rol FROM usuario WHERE id_usuario = ?");
+    $stmt->bind_param('i', $id_usuario);
+    $stmt->execute();
+    $fila = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+
+    if (!$fila || !in_array($fila['rol'], ['admin', 'organizador'], true)) {
+        responder(403, false, 'No tienes permiso para crear torneos.');
+    }
+
     $sql = "INSERT INTO Torneo
             (id_usuario, nombre, descripcion, categoria, disciplina, formato,
              cantParticipantes, fecha_inicio, fecha_fin)
@@ -95,7 +106,7 @@ try {
     $conexion->close();
 
     responder(200, true, '¡Torneo creado exitosamente!');
-
+    
 } catch (mysqli_sql_exception $e) {
     if ($e->getCode() === 1062) {
         responder(409, false, 'El nombre del torneo ya está en uso. Por favor, elige otro.');
