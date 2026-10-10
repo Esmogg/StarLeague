@@ -39,17 +39,15 @@ final class Database
         return self::$instancia;
     }
 
-  private static function cargarConfiguracion(): array
+    private static function cargarConfiguracion(): array
     {
         $porDefecto = [
-            'host'    => 'db',    # <-- CAMBIA 'localhost' POR 'db' AQUÍ
+            'host'    => 'localhost',
             'name'    => 'starleague',
             'user'    => 'app_starleague',
             'pass'    => 'StarLeague2026!Pass',
             'charset' => 'utf8mb4',
         ];
-
-        // ... (deja el resto del archivo exactamente igual)    
 
         $archivo = __DIR__ . '/config.local.php';
         if (is_file($archivo)) {

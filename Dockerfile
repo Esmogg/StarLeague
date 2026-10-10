@@ -1,8 +1,7 @@
 FROM php:8.2-apache
 
-# Instala mysqli y pdo_mysql para asegurar compatibilidad total con tu código
-RUN docker-php-ext-install mysqli pdo_mysql
-
+# Todo el acceso a datos usa PDO (ya no se usa mysqli)
+RUN docker-php-ext-install pdo pdo_mysql
 
 # mod_rewrite (URLs limpias /api/...) y mod_headers (cabeceras de seguridad)
 RUN a2enmod rewrite headers

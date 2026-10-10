@@ -94,9 +94,9 @@ cp .env.example .env      # y cambiar las contraseñas
 docker compose up --build
 ```
 
-Abre <http://localhost>. La primera vez se crean el esquema (`starleague_BD.sql`), los datos de prueba (`starleague_seed.sql`, todos con contraseña `Test1234`; el administrador es `admin`) y el DCL (`03_dcl_docker.sh`). Si cambias algo de la base, borra el volumen: `docker compose down -v`.
+Abre <http://localhost> (si el puerto 80 está ocupado, agrega `WEB_PORT=8080` al `.env` y abre <http://localhost:8080>). La primera vez se crean el esquema (`starleague_BD.sql`), los datos de prueba (`starleague_seed.sql`, todos con contraseña `Test1234`; el administrador es `admin`) y el DCL (`03_dcl_docker.sh`). Si cambias algo de la base, borra el volumen: `docker compose down -v`.
 
-La aplicación se conecta con `DB_USER` (no con root) y ese usuario solo tiene `SELECT`/`INSERT` en cada tabla, más `DELETE` en `Torneo`, con límites de consultas y conexiones. La base no se expone fuera de la red de Docker.
+La aplicación se conecta con `DB_USER` (no con root) y ese usuario solo tiene `SELECT`/`INSERT` en cada tabla, más `DELETE` en `Torneo` y `Equipo`, con límites de consultas y conexiones. La base no se expone fuera de la red de Docker.
 
 ### Sin Docker (XAMPP / Apache)
 

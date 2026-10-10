@@ -2,7 +2,7 @@ services:
   web:
     build: .
     ports:
-      - "127.0.0.1:8080:80"
+      - "${WEB_PORT:-80}:80"
     environment:
       DB_HOST: db
       DB_NAME: ${DB_NAME}
@@ -15,7 +15,6 @@ services:
 
   db:
     image: mysql:8.0
-    command: --lower_case_table_names=1
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
@@ -24,11 +23,12 @@ services:
       TZ: America/Montevideo
     volumes:
       - dbdata:/var/lib/mysql
-      # Se ejecutan en orden y SOLO la primera vez (cuando el volumen esta vacio)
-      - ./database/starleague_BD.sql:/docker-entrypoint-initdb.d/01_schema.sql:z,ro
-      - ./database/starleague_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:z,ro
+      # Se ejecutan en orden y SOLO la primera vez (cuando el volumen está vacío)
+      - ./database/starleague_BD.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./database/starleague_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
       # Quita privilegios sobrantes al usuario de la app (DCL, criterio 2 y 3)
-      - ./database/03_dcl_docker.sh:/docker-entrypoint-initdb.d/03_dcl.sh:z,ro
+      - ./database/03_dcl_docker.sh:/docker-entrypoint-initdb.d/03_dcl.sh:ro
+    # Sin "ports": la base queda solo en la red interna de Docker
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASS}"]
       interval: 5s

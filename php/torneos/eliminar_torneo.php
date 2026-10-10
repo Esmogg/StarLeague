@@ -1,69 +1,39 @@
 <?php
-session_start();
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+declare(strict_types=1);
+require_once __DIR__ . '/../config/bootstrap.php';
 
-function responder(int $codigo, bool $ok, string $mensaje): void {
-    http_response_code($codigo);
-    echo json_encode(['ok' => $ok, 'mensaje' => $mensaje], JSON_UNESCAPED_UNICODE);
-    exit();
+/** Elimina un torneo: solo el administrador o quien lo creó. */
+function responder(int $codigo, bool $ok, string $mensaje): never
+{
+    responderJson(['ok' => $ok, 'mensaje' => $mensaje], $codigo);
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder(405, false, 'Método no permitido.');
-}
-
+exigirMetodo('POST');
+iniciarSesion();
 if (!isset($_SESSION['id_usuario'])) {
     responder(401, false, 'Debes iniciar sesión para eliminar un torneo.');
 }
 
-$datos = json_decode(file_get_contents('php://input'), true);
-$id_torneo = is_array($datos) ? (int) ($datos['id_torneo'] ?? 0) : 0;
-
-if ($id_torneo <= 0) {
+$idSesion = (int) $_SESSION['id_usuario'];
+$idTorneo = (int) (leerCuerpo()['id_torneo'] ?? 0);
+if ($idTorneo <= 0) {
     responder(400, false, 'Torneo inválido.');
 }
 
-require_once '../conexion.php';
-
 try {
-    $id_sesion = (int) $_SESSION['id_usuario'];
+    $torneos = new TorneoRepository();
+    $dueno   = $torneos->duenoDe($idTorneo);
 
-    // Rol de quien pide la eliminación
-    $stmt = $conexion->prepare("SELECT rol FROM usuario WHERE id_usuario = ?");
-    $stmt->bind_param("i", $id_sesion);
-    $stmt->execute();
-    $usuario = $stmt->get_result()->fetch_assoc();
-    $stmt->close();
-
-    // Dueño del torneo
-    $stmt = $conexion->prepare("SELECT id_usuario FROM Torneo WHERE id_torneo = ?");
-    $stmt->bind_param("i", $id_torneo);
-    $stmt->execute();
-    $torneo = $stmt->get_result()->fetch_assoc();
-    $stmt->close();
-
-    if (!$torneo) {
+    if ($dueno === null) {
         responder(404, false, 'El torneo no existe.');
     }
-
-    $es_admin = ($usuario && $usuario['rol'] === 'admin');
-    $es_dueno = ((int) $torneo['id_usuario'] === $id_sesion);
-
-    if (!$es_admin && !$es_dueno) {
+    if ($dueno !== $idSesion && !(new UsuarioRepository())->esAdmin($idSesion)) {
         responder(403, false, 'No tienes permiso para eliminar este torneo.');
     }
 
-    // Las inscripciones y los partidos se borran solos (ON DELETE CASCADE)
-    $stmt = $conexion->prepare("DELETE FROM Torneo WHERE id_torneo = ?");
-    $stmt->bind_param("i", $id_torneo);
-    $stmt->execute();
-    $stmt->close();
-    $conexion->close();
-
+    $torneos->eliminar($idTorneo);
     responder(200, true, 'Torneo eliminado.');
-
 } catch (Throwable $e) {
-    error_log('eliminar_torneo.php: ' . $e->getMessage());
+    error_log('[StarLeague] eliminar_torneo: ' . $e->getMessage());
     responder(500, false, 'No se pudo eliminar el torneo.');
 }

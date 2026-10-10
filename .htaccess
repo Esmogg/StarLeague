@@ -33,6 +33,8 @@ DirectoryIndex index.html
     RewriteRule ^api/usuario/login/?$      php/auth/login.php                  [L,QSA]
     RewriteRule ^api/usuario/perfil/?$     php/auth/perfil.php                 [L,QSA]
     RewriteRule ^api/equipos/crear/?$      php/equipos/crear_equipos.php       [L,QSA]
+    RewriteRule ^api/equipos/listado/?$    php/equipos/listar_equipos.php      [L,QSA]
+    RewriteRule ^api/equipos/eliminar/?$   php/equipos/eliminar_equipo.php     [L,QSA]
     RewriteRule ^api/torneos/?$            php/torneos/obtener_torneos.php     [L,QSA]
     RewriteRule ^api/torneos/listado/?$    php/torneos/listar_torneos.php      [L,QSA]
     RewriteRule ^api/torneos/eliminar/?$   php/torneos/eliminar_torneo.php     [L,QSA]

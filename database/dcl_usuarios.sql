@@ -32,7 +32,7 @@ GRANT SELECT, INSERT ON starleague.UnirseEquipo   TO 'app_starleague'@'localhost
 GRANT SELECT, INSERT ON starleague.ParticipaIndv  TO 'app_starleague'@'localhost';
 GRANT SELECT, INSERT ON starleague.ParticipaEquip TO 'app_starleague'@'localhost';
 GRANT SELECT         ON starleague.Partido        TO 'app_starleague'@'localhost';
--- Sin UPDATE, DROP, ALTER, CREATE, GRANT ni FILE; DELETE solo sobre Torneo.
+-- Sin UPDATE, DROP, ALTER, CREATE, GRANT ni FILE; DELETE solo sobre Torneo y Equipo.
 
 -- =====================================================================
 -- 2. Usuario de auditoría / monitoreo (solo lectura)

@@ -61,4 +61,74 @@ final class EquipoRepository
         $stmt->execute([':e' => $idEquipo, ':u' => $idUsuario]);
         return $stmt->fetch() !== false;
     }
+
+    public function existe(int $idEquipo): bool
+    {
+        $stmt = $this->db->prepare('SELECT 1 FROM Equipo WHERE id_equipo = :e');
+        $stmt->execute([':e' => $idEquipo]);
+        return $stmt->fetch() !== false;
+    }
+
+    /** Los integrantes, el creador y las inscripciones se borran solos (ON DELETE CASCADE). */
+    public function eliminar(int $idEquipo): void
+    {
+        $stmt = $this->db->prepare('DELETE FROM Equipo WHERE id_equipo = :e');
+        $stmt->execute([':e' => $idEquipo]);
+    }
+
+    /**
+     * Listado para buscar-equipos.js: cada equipo con su creador e integrantes.
+     * `puede_eliminar` es verdadero para el administrador y para quien creó el equipo.
+     */
+    public function listarDetallado(int $idSesion, bool $esAdmin): array
+    {
+        $filas = $this->db->query(
+            'SELECT e.id_equipo, e.nombre, e.disciplina,
+                    ce.id_usuario AS id_creador, uc.nombre AS creador
+             FROM Equipo e
+             LEFT JOIN CrearEquipo ce ON ce.id_equipo = e.id_equipo
+             LEFT JOIN usuario uc     ON uc.id_usuario = ce.id_usuario
+             ORDER BY e.nombre ASC'
+        )->fetchAll();
+
+        $equipos   = [];
+        $creadores = [];
+        foreach ($filas as $f) {
+            $id = (int) $f['id_equipo'];
+            if (isset($equipos[$id])) {
+                continue; // si hubiera dos creadores, se queda con el primero
+            }
+            $idCreador     = $f['id_creador'] !== null ? (int) $f['id_creador'] : 0;
+            $creadores[$id] = $idCreador;
+            $equipos[$id]  = [
+                'id'             => $id,
+                'id_equipo'      => $id,
+                'nombre'         => $f['nombre'],
+                'deporte'        => $f['disciplina'],
+                'creador'        => $f['creador'],
+                'integrantes'    => [],
+                'puede_eliminar' => $esAdmin || ($idSesion > 0 && $idCreador === $idSesion),
+            ];
+        }
+
+        $miembros = $this->db->query(
+            'SELECT ue.id_equipo, u.id_usuario, u.nombre
+             FROM UnirseEquipo ue
+             INNER JOIN usuario u ON u.id_usuario = ue.id_usuario
+             ORDER BY ue.id_equipo ASC, u.nombre ASC'
+        )->fetchAll();
+
+        foreach ($miembros as $m) {
+            $id = (int) $m['id_equipo'];
+            if (!isset($equipos[$id])) {
+                continue;
+            }
+            $equipos[$id]['integrantes'][] = [
+                'jugador' => $m['nombre'],
+                'rol'     => ((int) $m['id_usuario'] === $creadores[$id]) ? 'Creador' : 'Jugador',
+            ];
+        }
+
+        return array_values($equipos);
+    }
 }

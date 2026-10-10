@@ -62,22 +62,36 @@ const URL_CREAR_EQUIPO = new URL(
 
 /* ELEMENTOS DEL HTML */
 
-const formulario = document.getElementById("formCrearEquipo");
+/*
+ * Elementos opcionales: si la página no los tiene (tag, logo, vistas previas,
+ * lista de integrantes), se usa un elemento suelto en memoria para que el
+ * resto del script siga funcionando.
+ */
+const obtener = (id, etiqueta = "div") => {
+  const elemento =
+    document.getElementById(id) || document.createElement(etiqueta);
+  if (!elemento.id && id === "logo") {
+    elemento.type = "file"; // un <input> suelto de logo necesita .files
+  }
+  return elemento;
+};
+
+
+const formulario =
+  document.getElementById("formCrearEquipo") || document.querySelector("form");
 
 const selectDeporte = document.getElementById("deporte");
 
-const listaIntegrantes = document.getElementById("listaIntegrantes");
-const informacionIntegrantes = document.getElementById(
-  "informacionIntegrantes",
-);
+const listaIntegrantes = obtener("listaIntegrantes");
+const informacionIntegrantes = obtener("informacionIntegrantes");
 
 const inputNombre = document.getElementById("nombre");
-const inputTag = document.getElementById("tag");
-const inputLogo = document.getElementById("logo");
+const inputTag = obtener("tag", "input");
+const inputLogo = obtener("logo", "input");
 
-const previewNombre = document.getElementById("previewNombre");
-const previewTag = document.getElementById("previewTag");
-const previewLogo = document.getElementById("previewLogo");
+const previewNombre = obtener("previewNombre");
+const previewTag = obtener("previewTag");
+const previewLogo = obtener("previewLogo");
 
 const mensaje = document.getElementById("mensaje");
 
@@ -440,13 +454,13 @@ async function enviarFormulario(event) {
 
     /* Validar tag */
 
-    if (!validarTag(datos.tag)) {
+    if (datos.tag !== undefined && !validarTag(datos.tag)) {
       throw "El tag contiene caracteres no permitidos.";
     }
 
     /* Validar descripción */
 
-    if (!validarDescripcion(datos.descripcion)) {
+    if (datos.descripcion !== undefined && !validarDescripcion(datos.descripcion)) {
       throw "La descripción contiene caracteres no permitidos.";
     }
 
