@@ -1,6 +1,4 @@
-/* ==============================
-   PERFIL DE USUARIO
-   ============================== */
+/*PERFIL DE USUARIO*/
 
 .perfil-usuario {
   width: 100%;
@@ -164,7 +162,7 @@ body.dark-mode .fecha-creacion {
 }
 
 body.dark-mode .tarjeta-inscripcion {
-  background: #a8171a;
+  background: #223edb;
 }
 
 .logo-inscripcion {
@@ -178,7 +176,7 @@ body.dark-mode .tarjeta-inscripcion {
 
   overflow: hidden;
 
-  background: #1641b8;
+  background: #5683ff;
   border-radius: 8px;
 }
 
@@ -206,7 +204,7 @@ body.dark-mode .tarjeta-inscripcion {
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  color: #f3ff00;
+  color: #ffffff;
   font-size: 1.15rem;
   font-weight: 800;
   line-height: 1.15;
