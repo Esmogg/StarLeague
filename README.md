@@ -82,8 +82,8 @@ StarLeague-sgdm/
 
 * __Primera entrega:__ 27 de Julio.
 * __Segunda entrega:__ 14 de Septiembre.
-* __Entrega final:__ 23 de Octubre.
-* __Defensa:__ 2-6 de Noviembre.
+* __Entrega final:__ 28 de Octubre.
+* __Defensa:__ 9-12 de Noviembre.
 
 ## Puesta en marcha
 
