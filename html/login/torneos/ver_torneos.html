@@ -18,6 +18,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -29,10 +32,25 @@
         </button>
 
         <a href="../index.html">
-          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
         </a>
 
         <div class="title">☆ Ver Torneos ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -58,7 +76,13 @@
                       ★ Ver Torneos
                     </a>
                   </li>
-                  <li><a href="torneos_resultados.html">Resultados</a></li>                
+                  <li><a href="torneos_resultados.html">★ Resultados</a></li>
+                  <li><a href="brackets.html">★ Brackets y posiciones</a></li>
+                  <li>
+                    <a href="verificar_comprobante.html"
+                      >★ Verificar comprobante</a
+                    >
+                  </li>
                 </ul>
               </li>
 
@@ -84,26 +108,47 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>             
+                  <li>
+                    <a href="../usuario/buscar_usuarios.html"
+                      >★ Buscar Usuarios</a
+                    >
+                  </li>
+                  <li><a href="../mensajes/mensajes.html">★ Mensajes</a></li>
+                  <li><a href="../usuario/usuario_perfil.html">★ Perfil</a></li>
+                  <li><a href="#" data-abrir-cerrar-sesion>★ Cerrar sesión</a></li>
                 </ul>
               </li>
-              <li>
-                <a href="../configuracion/config.html">
-                  <i class="fa-solid fa-cog"></i> Configuración
-                </a>
-              </li>
 
-              <li class="menu-grupo">
+              <li class="menu-grupo" data-roles="organizador admin" hidden>
                 <div class="menu-padre">
-                  <i class="fa-solid fa-shield-halved"></i>
-                  Admin
+                  <i class="fa-solid fa-clipboard-list"></i>
+                  Organización
                 </div>
                 <ul class="submenu">
                   <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
-                  <li><a href="../equipos/crear_equipos.html">★ Crear Equipo</a></li>   
-                  <li><a href="inscribir_torneos.html"> ★ Inscribir a Torneo</a></li>                                                
+                  <li>
+                    <a href="../equipos/crear_equipos.html">★ Crear Equipo</a>
+                  </li>
+                  <li>
+                    <a href="inscribir_torneos.html"> ★ Inscribir a Torneo</a>
+                  </li>
+                  <li>
+                    <a href="../equipos/inscribir_equipos.html">
+                      ★ Inscribir a Equipo</a
+                    >
+                  </li>
                 </ul>
-              </li>                   
+              </li>
+
+              <li class="menu-grupo" data-roles="admin" hidden>
+                <div class="menu-padre">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  Administración
+                </div>
+                <ul class="submenu">
+                  <li><a href="../admin/roles.html">★ Asignar roles</a></li>
+                </ul>
+              </li>
             </ul>
           </nav>
         </div>
@@ -139,9 +184,25 @@
 
             <h2>No hay torneos para mostrar</h2>
 
-            <p>Los torneos que crees aparecerán aquí.</p>
+            <p>Los torneos aparecerán aquí.</p>
           </div>
         </main>
+      </div>
+    </div>
+
+    <!-- Confirmación de cierre de sesión -->
+    <div id="overlayCerrarSesion" class="overlay-cerrar-sesion" hidden>
+      <div
+        class="modal-cerrar-sesion"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloCerrarSesion"
+      >
+        <p id="tituloCerrarSesion">¿Cerrar sesión?</p>
+        <div class="acciones-cerrar-sesion">
+          <button type="button" class="btn-cerrar-si" data-cerrar-sesion>Sí</button>
+          <button type="button" class="btn-cerrar-no" id="btnCerrarNo">No</button>
+        </div>
       </div>
     </div>
 

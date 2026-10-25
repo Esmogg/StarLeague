@@ -17,13 +17,13 @@ final class EquipoRepository
      * @param int[] $integrantes ids de usuario ya validados (el creador se agrega solo)
      * @throws DomainException si el nombre ya existe
      */
-    public function crear(Equipo $equipo, int $idCreador, array $integrantes = []): int
+    public function crear(Equipo $equipo, int $idCreador, array $integrantes = [], ?string $logo = null, ?string $banner = null): int
     {
         try {
             $this->db->beginTransaction();
 
-            $stmt = $this->db->prepare('INSERT INTO Equipo (nombre, disciplina) VALUES (:nombre, :disciplina)');
-            $stmt->execute([':nombre' => $equipo->nombre, ':disciplina' => $equipo->disciplina]);
+            $stmt = $this->db->prepare('INSERT INTO Equipo (nombre, disciplina, logo, banner) VALUES (:nombre, :disciplina, :logo, :banner)');
+            $stmt->execute([':nombre' => $equipo->nombre, ':disciplina' => $equipo->disciplina, ':logo' => $logo, ':banner' => $banner]);
             $idEquipo = (int) $this->db->lastInsertId();
 
             $stmt = $this->db->prepare('INSERT INTO CrearEquipo (id_equipo, id_usuario) VALUES (:e, :u)');
@@ -62,6 +62,33 @@ final class EquipoRepository
         return $stmt->fetch() !== false;
     }
 
+    /**
+     * Agrega al usuario como integrante del equipo (UnirseEquipo).
+     *
+     * @throws DomainException si el usuario ya es integrante
+     */
+    public function unirse(int $idEquipo, int $idUsuario): void
+    {
+        try {
+            $stmt = $this->db->prepare('INSERT INTO UnirseEquipo (id_equipo, id_usuario) VALUES (:e, :u)');
+            $stmt->execute([':e' => $idEquipo, ':u' => $idUsuario]);
+        } catch (PDOException $e) {
+            if ($e->getCode() === '23000' && str_contains($e->getMessage(), 'Duplicate')) {
+                throw new DomainException('Ya eres integrante de este equipo.');
+            }
+            throw $e;
+        }
+    }
+
+    /** @return array{logo:?string,banner:?string} */
+    public function imagenesDe(int $idEquipo): array
+    {
+        $stmt = $this->db->prepare('SELECT logo, banner FROM Equipo WHERE id_equipo = :e');
+        $stmt->execute([':e' => $idEquipo]);
+        $f = $stmt->fetch();
+        return ['logo' => $f['logo'] ?? null, 'banner' => $f['banner'] ?? null];
+    }
+
     public function existe(int $idEquipo): bool
     {
         $stmt = $this->db->prepare('SELECT 1 FROM Equipo WHERE id_equipo = :e');
@@ -83,7 +110,7 @@ final class EquipoRepository
     public function listarDetallado(int $idSesion, bool $esAdmin): array
     {
         $filas = $this->db->query(
-            'SELECT e.id_equipo, e.nombre, e.disciplina,
+            'SELECT e.id_equipo, e.nombre, e.disciplina, e.logo, e.banner,
                     ce.id_usuario AS id_creador, uc.nombre AS creador
              FROM Equipo e
              LEFT JOIN CrearEquipo ce ON ce.id_equipo = e.id_equipo
@@ -106,8 +133,11 @@ final class EquipoRepository
                 'nombre'         => $f['nombre'],
                 'deporte'        => $f['disciplina'],
                 'creador'        => $f['creador'],
+                'logo'           => ($l = rutaImagenPublica($f['logo'])) ? '../../../' . $l : '',
+                'banner'         => ($bn = rutaImagenPublica($f['banner'])) ? '../../../' . $bn : '',
                 'integrantes'    => [],
                 'puede_eliminar' => $esAdmin || ($idSesion > 0 && $idCreador === $idSesion),
+                'puede_unirse'   => false, // un participante no se une solo: se lo pide al organizador (Mensajes)
             ];
         }
 
@@ -123,6 +153,9 @@ final class EquipoRepository
             if (!isset($equipos[$id])) {
                 continue;
             }
+            if ($idSesion > 0 && (int) $m['id_usuario'] === $idSesion) {
+                $equipos[$id]['puede_unirse'] = false;
+            }
             $equipos[$id]['integrantes'][] = [
                 'jugador' => $m['nombre'],
                 'rol'     => ((int) $m['id_usuario'] === $creadores[$id]) ? 'Creador' : 'Jugador',
@@ -130,5 +163,29 @@ final class EquipoRepository
         }
 
         return array_values($equipos);
+    }
+
+    /**
+     * Equipos de los que un usuario forma parte (como integrante o creador), para su perfil público.
+     *
+     * @return array<int,array{id:int,nombre:string,disciplina:string}>
+     */
+    public function deUsuario(int $idUsuario): array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT e.id_equipo AS id, e.nombre, e.disciplina
+               FROM Equipo e JOIN UnirseEquipo ue ON ue.id_equipo = e.id_equipo
+              WHERE ue.id_usuario = :u1
+             UNION
+             SELECT e.id_equipo AS id, e.nombre, e.disciplina
+               FROM Equipo e JOIN CrearEquipo ce ON ce.id_equipo = e.id_equipo
+              WHERE ce.id_usuario = :u2
+             ORDER BY nombre ASC'
+        );
+        $stmt->execute([':u1' => $idUsuario, ':u2' => $idUsuario]);
+
+        return array_map(static fn (array $f): array => [
+            'id' => (int) $f['id'], 'nombre' => $f['nombre'], 'disciplina' => $f['disciplina'],
+        ], $stmt->fetchAll());
     }
 }

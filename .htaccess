@@ -18,6 +18,10 @@ DirectoryIndex index.html
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -31,10 +35,12 @@ DirectoryIndex index.html
     # URLs limpias de la API -> endpoints PHP
     RewriteRule ^api/usuario/registro/?$   php/auth/crear_usuario.php          [L,QSA]
     RewriteRule ^api/usuario/login/?$      php/auth/login.php                  [L,QSA]
+    RewriteRule ^api/usuario/csrf/?$       php/auth/csrf.php                   [L,QSA]
     RewriteRule ^api/usuario/perfil/?$     php/auth/perfil.php                 [L,QSA]
     RewriteRule ^api/equipos/crear/?$      php/equipos/crear_equipos.php       [L,QSA]
     RewriteRule ^api/equipos/listado/?$    php/equipos/listar_equipos.php      [L,QSA]
     RewriteRule ^api/equipos/eliminar/?$   php/equipos/eliminar_equipo.php     [L,QSA]
+    RewriteRule ^api/equipos/unirse/?$     php/equipos/unirse_equipo.php       [L,QSA]
     RewriteRule ^api/torneos/?$            php/torneos/obtener_torneos.php     [L,QSA]
     RewriteRule ^api/torneos/listado/?$    php/torneos/listar_torneos.php      [L,QSA]
     RewriteRule ^api/torneos/eliminar/?$   php/torneos/eliminar_torneo.php     [L,QSA]

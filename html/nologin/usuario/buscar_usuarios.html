@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starleague - Buscar usuarios</title>
+
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/usuario/buscar-usuarios.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <header>
+        <button id="menuBtn" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <a href="../../../index.html">
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
+        </a>
+
+        <div class="title">☆ Buscar Usuarios ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="contenido">
+        <div class="barra-lateral">
+          <nav>
+            <ul>
+              <li>
+                <a href="../../../index.html"
+                  ><i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="../torneos/ver_torneos.html"> ★ Ver Torneos </a>
+                  </li>
+                  <li>
+                    <a href="../torneos/torneos_resultados.html">★ Resultados</a>
+                  </li>
+                  <li>
+                    <a href="../torneos/brackets.html"
+                      >★ Brackets y posiciones</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="../equipos/buscar_equipos.html">
+                      ★ Buscar Equipos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a class="activo" href="buscar_usuarios.html"
+                      >★ Buscar Usuarios</a
+                    >
+                  </li>
+                  <li><a href="../usuario/login.html">★ Login</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div id="menuOverlay"></div>
+
+        <main>
+          <div class="buscador-usuarios">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input
+              type="search"
+              id="buscarUsuario"
+              placeholder="BUSCAR USUARIO..."
+              autocomplete="off"
+              maxlength="50"
+              aria-label="Buscar usuario por nombre"
+            />
+          </div>
+
+          <p
+            id="estadoUsuarios"
+            class="estado-usuarios"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
+
+          <section id="gridUsuarios" class="grid-usuarios">
+            <!-- Las tarjetas se generan con JavaScript -->
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="modalPerfil" class="modal-perfil" hidden>
+      <div
+        class="perfil-publico"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloPerfil"
+      >
+        <button
+          type="button"
+          id="cerrarPerfil"
+          class="cerrar-perfil"
+          aria-label="Cerrar perfil"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <div id="contenidoPerfil"></div>
+      </div>
+    </div>
+
+    <button id="btnSubir" aria-label="Volver al inicio">
+      <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <script src="../../../js/script.js" defer></script>
+    <script src="../../../js/usuario/buscar-usuarios.js" defer></script>
+  </body>
+</html>

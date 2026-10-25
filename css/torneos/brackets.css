@@ -1,0 +1,125 @@
+/* BRACKETS Y POSICIONES */
+
+.cuadros-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 20px;
+}
+
+.cuadros-filtros select,
+.cuadros-filtros input {
+  flex: 1 1 220px;
+  height: 44px;
+  padding: 0 14px;
+
+  font-family: inherit;
+  font-size: 16px;
+  color: #1a1a1a;
+
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+body.dark-mode .cuadros-filtros select,
+body.dark-mode .cuadros-filtros input {
+  color: #ffffff;
+  background: #4b5878;
+}
+
+.cuadros-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.cuadro-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+.cuadro-encabezado {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cuadro-encabezado h3 {
+  margin: 0;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.cuadro-estado {
+  flex: none;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 999px;
+}
+
+.cuadro-estado-en_curso {
+  background: rgba(30, 132, 73, 0.3);
+}
+
+.cuadro-estado-terminado {
+  background: rgba(241, 196, 15, 0.35);
+}
+
+.cuadro-meta,
+.cuadro-detalle {
+  margin: 0;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.cuadro-meta {
+  opacity: 0.8;
+}
+
+.cuadro-detalle {
+  font-weight: 600;
+}
+
+.cuadro-enlace {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 0 18px;
+
+  font-size: 16px;
+  color: var(--color-texto-claro);
+  text-decoration: none;
+
+  background: var(--color-secondary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+.cuadro-enlace:hover,
+.cuadro-enlace:focus-visible {
+  background: var(--color-boton-hover2);
+}
+
+.sin-cuadros[hidden] {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .cuadros-lista {
+    grid-template-columns: 1fr;
+  }
+}

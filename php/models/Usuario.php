@@ -11,6 +11,8 @@ final class Usuario
         public readonly string $contrasenaHash = '',
         public readonly string $rol = 'jugador',
         public readonly ?string $fechaCreacion = null,
+        public readonly ?string $fotoPerfil = null,
+        public readonly ?string $bannerPerfil = null,
     ) {}
 
     public static function desdeFila(array $f): self
@@ -22,6 +24,8 @@ final class Usuario
             $f['contrasena'] ?? '',
             $f['rol'] ?? 'jugador',
             $f['fecha_creacion'] ?? null,
+            $f['foto_perfil'] ?? null,
+            $f['banner_perfil'] ?? null,
         );
     }
 }

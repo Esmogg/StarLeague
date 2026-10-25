@@ -70,7 +70,7 @@ const URL_CREAR_EQUIPO = new URL(
 const obtener = (id, etiqueta = "div") => {
   const elemento =
     document.getElementById(id) || document.createElement(etiqueta);
-  if (!elemento.id && id === "logo") {
+  if (!elemento.id && (id === "logo" || id === "banner")) {
     elemento.type = "file"; // un <input> suelto de logo necesita .files
   }
   return elemento;
@@ -88,10 +88,12 @@ const informacionIntegrantes = obtener("informacionIntegrantes");
 const inputNombre = document.getElementById("nombre");
 const inputTag = obtener("tag", "input");
 const inputLogo = obtener("logo", "input");
+const inputBanner = obtener("banner", "input");
 
 const previewNombre = obtener("previewNombre");
 const previewTag = obtener("previewTag");
 const previewLogo = obtener("previewLogo");
+const previewBanner = obtener("previewBanner");
 
 const mensaje = document.getElementById("mensaje");
 
@@ -119,6 +121,12 @@ previewLogo.addEventListener("click", () => {
 
 // Detectar selección del logo
 inputLogo.addEventListener("change", actualizarPreviewLogo);
+
+// Detectar click y selección del banner
+previewBanner.addEventListener("click", () => {
+  inputBanner.click();
+});
+inputBanner.addEventListener("change", actualizarPreviewBanner);
 
 /* FUNCIONES */
 
@@ -303,10 +311,10 @@ function validarImagen(
 
     /* Comprobar formato */
 
-    const formatosPermitidos = ["image/png", "image/jpeg", "image/webp"];
+    const formatosPermitidos = ["image/png", "image/jpeg"];
 
     if (!formatosPermitidos.includes(archivo.type)) {
-      reject(`${nombreCampo}: solo se permiten imágenes PNG, JPG o WEBP.`);
+      reject(`${nombreCampo}: solo se permiten imágenes PNG o JPG.`);
 
       return;
     }
@@ -436,6 +444,27 @@ async function actualizarPreviewLogo() {
   }
 }
 
+/* PREVISUALIZACIÓN DEL BANNER */
+
+async function actualizarPreviewBanner() {
+  const archivo = inputBanner.files[0];
+
+  if (!archivo) {
+    return;
+  }
+
+  try {
+    await validarImagen(archivo, "Banner", 800, 180, 5 * 1024 * 1024);
+
+    previewBanner.style.backgroundImage = `url("${URL.createObjectURL(archivo)}")`;
+    previewBanner.classList.add("con-imagen");
+  } catch (error) {
+    alert(error);
+
+    inputBanner.value = "";
+  }
+}
+
 /* PROCESAR ENVÍO DEL FORMULARIO */
 
 async function enviarFormulario(event) {
@@ -448,8 +477,10 @@ async function enviarFormulario(event) {
 
     /* Validar nombre */
 
-    if (!validarNombre(datos.nombre)) {
-      throw "El nombre del equipo contiene caracteres no permitidos.";
+    const errorNombre = Validaciones.nombre(datos.nombre, "equipo");
+
+    if (errorNombre) {
+      throw errorNombre;
     }
 
     /* Validar tag */
@@ -475,6 +506,14 @@ async function enviarFormulario(event) {
     /* Convertir logo */
 
     datos.logo = await convertirImagenBase64(archivoLogo);
+
+    /* Banner (opcional) */
+
+    const archivoBanner = inputBanner.files[0] || null;
+
+    await validarImagen(archivoBanner, "Banner", 800, 180, 5 * 1024 * 1024);
+
+    datos.banner = await convertirImagenBase64(archivoBanner);
 
     /* Obtener información del deporte */
 

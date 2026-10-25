@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
   </head>
 
@@ -31,6 +31,10 @@
         </a>
 
         <div class="title">☆ Starleague ☆</div>
+      
+        <button id="themeToggleButton" class="theme-toggle" type="button" aria-label="Activar modo oscuro" aria-pressed="false" title="Activar modo oscuro">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -56,9 +60,10 @@
                   </li>
                   <li>
                     <a href="html/nologin/torneos/torneos_resultados.html"
-                      >Resultados</a
+                      >★ Resultados</a
                     >
                   </li>
+                  <li><a href="html/nologin/torneos/brackets.html">★ Brackets y posiciones</a></li>
                 </ul>
               </li>
 
@@ -84,13 +89,9 @@
                 </div>
 
                 <ul class="submenu">
+                  <li><a href="html/nologin/usuario/buscar_usuarios.html">★ Buscar Usuarios</a></li>
                   <li><a href="html/nologin/usuario/login.html">★ Login</a></li>                  
                 </ul>
-              </li>
-              <li>
-                <a href="html/nologin/configuracion/config.html">
-                  <i class="fa-solid fa-cog"></i> Configuración
-                </a>
               </li>
             </ul>
           </nav>
@@ -99,13 +100,13 @@
         <main>
           <article>
             <h1>¿Que es?</h1>
-            <p>
+            <p class="texto">
               Starleague es un Sistema de Gestión Deportiva Modular (SGDM), una
               plataforma web orientada a la organización, administración y
               seguimiento de competencias deportivas, mentales y electrónicas.
               El sistema permite gestionar para cada tipo de competencia.
             </p>
-            <p>
+            <p class="texto">
               Se desarrollará utilizando PHP para el backend. HTML, CSS y
               JavaScript para el frontend y MySQL como gestión de base de datos
               relacional. La arquitectura seguirá el patrón MVC (Modelo Vista
@@ -114,7 +115,7 @@
           </article>
           <article>
             <h2>¿Cuales son las funcionalidades?</h2>
-            <p>
+            <p class="texto">
               El SGDM contempla tres tipos de competencias: Liga (Sistema todos
               contra todos con tabla acumulativa de puntos), Eliminación directa
               (el perdedor queda eliminado) y Sistema Suizo (emparejamiento por
@@ -122,7 +123,7 @@
               generación de enfrentamiento y cálculo de posiciones, todo
               automatizado gracias al sistema.
             </p>
-            <p>
+            <p class="texto">
               Estará orientado a clubes deportivos, centros educativos,
               organizadores independientes y comunidades de deportes
               electrónicos o de mesa, permitiendo administrar participantes,

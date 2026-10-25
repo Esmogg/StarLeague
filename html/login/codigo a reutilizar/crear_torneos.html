@@ -17,6 +17,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -32,6 +35,17 @@
         </a>
 
         <div class="title">☆ Crear Torneos ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -53,7 +67,7 @@
 
                 <ul class="submenu">
                   <li><a href="ver_torneos.html"> ★ Ver Torneos </a></li>
-                  <li><a href="torneos_resultados.html">Resultados</a></li>
+                  <li><a href="torneos_resultados.html">★ Resultados</a></li>
                   <li>
                     <a class="activo" href="crear_torneos.html"
                       >★ Crear Torneo</a
@@ -87,14 +101,10 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
-                  <li><a href="../usuario/login.html">★ Login</a></li>                  
+                  <li><a href="../usuario/usuario_perfil.html">★ Perfil</a></li>
+                  <li><a href="#" data-abrir-cerrar-sesion>★ Cerrar sesión</a></li>
+                  <li><a href="../usuario/login.html">★ Login</a></li>
                 </ul>
-              </li>
-              <li>
-                <a href="../configuracion/config.html">
-                  <i class="fa-solid fa-cog"></i> Configuración
-                </a>
               </li>
             </ul>
           </nav>
@@ -460,6 +470,22 @@
             </form>
           </article>
         </main>
+      </div>
+    </div>
+
+    <!-- Confirmación de cierre de sesión -->
+    <div id="overlayCerrarSesion" class="overlay-cerrar-sesion" hidden>
+      <div
+        class="modal-cerrar-sesion"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloCerrarSesion"
+      >
+        <p id="tituloCerrarSesion">¿Cerrar sesión?</p>
+        <div class="acciones-cerrar-sesion">
+          <button type="button" class="btn-cerrar-si" data-cerrar-sesion>Sí</button>
+          <button type="button" class="btn-cerrar-no" id="btnCerrarNo">No</button>
+        </div>
       </div>
     </div>
 

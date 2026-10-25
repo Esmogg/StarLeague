@@ -1,0 +1,26 @@
+/* INSCRIBIR A EQUIPO */
+
+#mensajeInscripcion {
+  display: none;
+  margin-top: 12px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+#mensajeInscripcion.exito {
+  color: #1a9b2a;
+}
+
+#mensajeInscripcion.error {
+  color: #d32f2f;
+}
+
+body.dark-mode #mensajeInscripcion.exito {
+  color: #28f140;
+}
+
+body.dark-mode #mensajeInscripcion.error {
+  color: #ff5252;
+}

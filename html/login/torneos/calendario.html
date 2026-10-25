@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starleague - Calendario</title>
+
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/torneos/calendario.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <header>
+        <button id="menuBtn" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <a href="../index.html">
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
+        </a>
+
+        <div class="title">☆ Calendario del Torneo ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="contenido">
+        <div class="barra-lateral">
+          <nav>
+            <ul>
+              <li>
+                <a href="../index.html">
+                  <i class="fa-solid fa-house"></i>
+                  Inicio
+                </a>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-trophy"></i>
+                  Torneos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="ver_torneos.html"> ★ Ver Torneos </a>
+                  </li>
+                  <li><a href="torneos_resultados.html">★ Resultados</a></li>
+                  <li><a href="brackets.html">★ Brackets y posiciones</a></li>
+                  <li>
+                    <a href="verificar_comprobante.html"
+                      >★ Verificar comprobante</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-users"></i>
+                  Equipos
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="../equipos/buscar_equipos.html">
+                      ★ Buscar Equipos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo">
+                <div class="menu-padre">
+                  <i class="fa-solid fa-user"></i>
+                  Usuario
+                </div>
+
+                <ul class="submenu">
+                  <li>
+                    <a href="../usuario/buscar_usuarios.html"
+                      >★ Buscar Usuarios</a
+                    >
+                  </li>
+                  <li><a href="../mensajes/mensajes.html">★ Mensajes</a></li>
+                  <li><a href="../usuario/usuario_perfil.html">★ Perfil</a></li>
+                  <li><a href="#" data-abrir-cerrar-sesion>★ Cerrar sesión</a></li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo" data-roles="organizador admin" hidden>
+                <div class="menu-padre">
+                  <i class="fa-solid fa-clipboard-list"></i>
+                  Organización
+                </div>
+                <ul class="submenu">
+                  <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
+                  <li>
+                    <a href="../equipos/crear_equipos.html">★ Crear Equipo</a>
+                  </li>
+                  <li>
+                    <a href="inscribir_torneos.html"> ★ Inscribir a Torneo</a>
+                  </li>
+                  <li>
+                    <a href="../equipos/inscribir_equipos.html">
+                      ★ Inscribir a Equipo</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-grupo" data-roles="admin" hidden>
+                <div class="menu-padre">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  Administración
+                </div>
+                <ul class="submenu">
+                  <li><a href="../admin/roles.html">★ Asignar roles</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div id="menuOverlay"></div>
+        <main>
+          <article class="calendario">
+            <a class="calendario-volver" href="brackets.html">
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              Volver atras
+            </a>
+
+            <h2 id="calTitulo">Calendario</h2>
+            <p id="calMeta" class="calendario-meta"></p>
+
+            <div id="calAcciones" class="calendario-acciones" hidden>
+              <label class="calendario-opcion" id="calOpcionIdaVuelta">
+                <input type="checkbox" id="calIdaVuelta" />
+                Ida y vuelta
+              </label>
+              <button type="button" id="calGenerar" class="calendario-boton">
+                <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+                <span>Generar calendario</span>
+              </button>
+              <button
+                type="button"
+                id="calSiguiente"
+                class="calendario-boton"
+                hidden
+              >
+                <i class="fa-solid fa-forward-step" aria-hidden="true"></i>
+                <span>Generar siguiente ronda</span>
+              </button>
+            </div>
+
+            <p
+              id="calMensaje"
+              class="calendario-mensaje"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <div id="calJornadas" class="calendario-jornadas"></div>
+
+            <div id="calPosiciones" class="suizo" hidden></div>
+
+            <div id="calLlave" class="llave" hidden></div>
+
+            <div id="calSuizo" class="suizo" hidden></div>
+          </article>
+        </main>
+      </div>
+    </div>
+
+    <!-- Confirmación de cierre de sesión -->
+    <div id="overlayCerrarSesion" class="overlay-cerrar-sesion" hidden>
+      <div
+        class="modal-cerrar-sesion"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloCerrarSesion"
+      >
+        <p id="tituloCerrarSesion">¿Cerrar sesión?</p>
+        <div class="acciones-cerrar-sesion">
+          <button type="button" class="btn-cerrar-si" data-cerrar-sesion>Sí</button>
+          <button type="button" class="btn-cerrar-no" id="btnCerrarNo">No</button>
+        </div>
+      </div>
+    </div>
+
+    <button id="btnSubir" aria-label="Volver al inicio">
+      <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <script src="../../../js/script.js" defer></script>
+    <script src="../../../js/torneos/calendario.js" defer></script>
+  </body>
+</html>

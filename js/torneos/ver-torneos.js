@@ -189,8 +189,14 @@ function obtenerNombreTorneo(torneo) {
 
 /*OBTENER BANNER*/
 
+const BANNER_TORNEO_POR_DEFECTO = "../../../images/torneo-banner-default.jpg";
+
 function obtenerBannerTorneo(torneo) {
-  return obtenerValor(torneo, ["banner", "imagenBanner", "bannerTorneo"], "");
+  return obtenerValor(
+    torneo,
+    ["banner", "imagenBanner", "bannerTorneo"],
+    BANNER_TORNEO_POR_DEFECTO,
+  );
 }
 
 /*OBTENER LOGO*/
@@ -514,6 +520,45 @@ function abrirModal(torneo) {
   seccionDescripcion.appendChild(textoDescripcion);
 
   contenidoModal.appendChild(seccionDescripcion);
+
+  /*CALENDARIO / LLAVE / RONDAS (los tres formatos lo tienen)*/
+
+  const esLlave = ["Eliminacion Directa", "Eliminación Directa"].includes(
+    torneo.formato,
+  );
+
+  const esSuizo = torneo.formato === "Sistema Suizo";
+
+  if (torneo.formato === "Liga" || esLlave || esSuizo) {
+    const enlaceCalendario = document.createElement("a");
+
+    enlaceCalendario.className = "modal-calendario";
+
+    /* encodeURIComponent: el id nunca puede romper la dirección */
+    enlaceCalendario.href = `calendario.html?id_torneo=${encodeURIComponent(torneo.id_torneo)}`;
+
+    const icono = document.createElement("i");
+
+    icono.className = esLlave
+      ? "fa-solid fa-sitemap"
+      : esSuizo
+        ? "fa-solid fa-ranking-star"
+        : "fa-solid fa-calendar-days";
+
+    icono.setAttribute("aria-hidden", "true");
+
+    const textoEnlace = document.createElement("span");
+
+    textoEnlace.textContent = esLlave
+      ? "Ver llave"
+      : esSuizo
+        ? "Ver rondas y clasificación"
+        : "Ver calendario";
+
+    enlaceCalendario.append(icono, textoEnlace);
+
+    contenidoModal.appendChild(enlaceCalendario);
+  }
 
   /*MOSTRAR*/
 

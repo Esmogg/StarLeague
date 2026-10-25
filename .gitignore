@@ -1,3 +1,16 @@
 .env
 php/config/config.local.php
 *.log
+
+uploads/perfiles/*
+uploads/torneos/*
+uploads/equipos/*
+!uploads/equipos/.htaccess
+!uploads/equipos/index.html
+!uploads/torneos/.htaccess
+!uploads/torneos/index.html
+!uploads/perfiles/.htaccess
+!uploads/perfiles/index.html
+
+vendor/
+.phpunit.cache/

@@ -2,19 +2,24 @@ services:
   web:
     build: .
     ports:
-      - "${WEB_PORT:-80}:80"
+      - "127.0.0.1:${WEB_PORT:-80}:80"
     environment:
       DB_HOST: db
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+      FIRMA_CLAVE_PRIVADA: ${FIRMA_CLAVE_PRIVADA:-}
+    volumes:
+      - uploads:/var/www/html/uploads/perfiles
+      - uploads_torneos:/var/www/html/uploads/torneos
+      - uploads_equipos:/var/www/html/uploads/equipos
     depends_on:
       db:
         condition: service_healthy
     restart: unless-stopped
 
   db:
-    image: mysql:8.0
+    image: mysql:8.0.46
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
@@ -39,3 +44,6 @@ services:
 
 volumes:
   dbdata:
+  uploads:
+  uploads_torneos:
+  uploads_equipos:

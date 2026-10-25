@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.2.34-apache
 
 # Todo el acceso a datos usa PDO (ya no se usa mysqli)
 RUN docker-php-ext-install pdo pdo_mysql
@@ -19,6 +19,13 @@ COPY css    /var/www/html/css
 COPY js     /var/www/html/js
 COPY images /var/www/html/images
 COPY php    /var/www/html/php
+
+# Imágenes de perfil: solo se copia la protección; las fotos viven en un volumen (docker-compose)
+COPY uploads/perfiles/.htaccess uploads/perfiles/index.html /var/www/html/uploads/perfiles/
+COPY uploads/torneos/.htaccess uploads/torneos/index.html /var/www/html/uploads/torneos/
+COPY uploads/equipos/.htaccess uploads/equipos/index.html /var/www/html/uploads/equipos/
+RUN chown -R www-data:www-data /var/www/html/uploads \
+ && printf "upload_max_filesize=10M\npost_max_size=12M\n" > /usr/local/etc/php/conf.d/subidas.ini
 
 # Ocultar versión de Apache y PHP en las respuestas
 RUN printf "ServerTokens Prod\nServerSignature Off\n" > /etc/apache2/conf-available/seguridad.conf \

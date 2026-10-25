@@ -21,6 +21,8 @@ try {
             'id_usuario'     => $usuario->id,
             'nombre'         => $usuario->nombre,
             'fecha_creacion' => $fecha->format('d/m/Y \a \l\a\s H:i'),
+            'foto_perfil'    => $usuario->fotoPerfil,
+            'banner_perfil'  => $usuario->bannerPerfil,
         ],
         'inscripciones' => (new TorneoRepository())->inscripcionesDeUsuario($idUsuario),
     ]);

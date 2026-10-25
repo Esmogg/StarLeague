@@ -14,7 +14,8 @@
 .perfil-banner {
   position: relative;
   width: 100%;
-  height: 160px;
+  aspect-ratio: 1110 / 170;
+  height: auto;
   overflow: hidden;
   border: 1px solid var(--color-boton-border);
   background-color: #72d5ef;
@@ -145,7 +146,14 @@ body.dark-mode .fecha-creacion {
 
   overflow: hidden;
 
-  background: #d7191c;
+  background: linear-gradient(
+    to bottom,
+    var(--color-menu-titulo1),
+    #0267aa,
+    var(--color-menu-titulo3)
+  );
+
+  border: 3px solid var(--color-boton-border);
   border-radius: 8px;
 
   color: #fff;
@@ -162,7 +170,18 @@ body.dark-mode .fecha-creacion {
 }
 
 body.dark-mode .tarjeta-inscripcion {
-  background: #223edb;
+  background: linear-gradient(
+    to bottom,
+    var(--color-menu-titulo1),
+    #202635,
+    var(--color-menu-titulo3)
+  );
+
+  border: 3px solid var(--color-boton-border);
+}
+
+body.dark-mode .logo-inscripcion {
+  background-color: #346cb4;
 }
 
 .logo-inscripcion {
@@ -176,7 +195,7 @@ body.dark-mode .tarjeta-inscripcion {
 
   overflow: hidden;
 
-  background: #5683ff;
+  background: #173a68;
   border-radius: 8px;
 }
 
@@ -244,18 +263,10 @@ body.dark-mode .estado-inscripciones {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
-
-  .perfil-banner {
-    height: 145px;
-  }
 }
 
 /* Móvil */
 @media (max-width: 599px) {
-  .perfil-banner {
-    height: 125px;
-  }
-
   .perfil-datos {
     min-height: 125px;
     padding: 50px 10px 10px 10px;
@@ -287,4 +298,145 @@ body.dark-mode .estado-inscripciones {
   .tarjeta-inscripcion {
     min-height: 88px;
   }
+}
+
+/* Mensajes de validación y confirmación del perfil */
+.mensaje-perfil {
+  margin: 8px 0 12px;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.mensaje-perfil[hidden] {
+  display: none !important;
+}
+
+.mensaje-perfil.mensaje-perfil-error {
+  color: #a61b1b;
+  background: #fff0f0;
+  border-color: #e7a3a3;
+}
+
+.mensaje-perfil.mensaje-perfil-exito {
+  color: #176534;
+  background: #edfff2;
+  border-color: #9bd5ad;
+}
+
+body.dark-mode .mensaje-perfil.mensaje-perfil-error {
+  color: #ffb7b7;
+  background: #3a2024;
+  border-color: #87434b;
+}
+
+body.dark-mode .mensaje-perfil.mensaje-perfil-exito {
+  color: #a9f0bd;
+  background: #183526;
+  border-color: #34784c;
+}
+
+/* Edición de foto de perfil y banner */
+.editor-imagen {
+  cursor: pointer;
+}
+
+.perfil-banner > img,
+.editor-foto-perfil > .perfil-logo {
+  transition: filter 0.2s ease;
+}
+
+.editor-imagen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+.editor-imagen:hover::before {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.editor-imagen:hover > img {
+  filter: brightness(0.72);
+}
+
+.boton-editar-imagen {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background: rgba(20, 24, 35, 0.78);
+  color: #fff;
+  font-size: 19px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+}
+
+.editor-imagen:hover .boton-editar-imagen {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.editor-foto-perfil {
+  position: absolute;
+  z-index: 4;
+  left: 30px;
+  top: -43px;
+  width: 102px;
+  height: 102px;
+  border-radius: 50%;
+}
+
+.editor-foto-perfil .perfil-logo {
+  left: 0;
+  top: 0;
+}
+
+.editor-foto-perfil::before {
+  border-radius: 50%;
+}
+
+.editor-foto-perfil .boton-editar-imagen {
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+}
+
+.perfil-banner > .boton-editar-imagen {
+  top: 50%;
+}
+
+@media (max-width: 599px) {
+  .editor-foto-perfil {
+    left: 18px;
+    top: -43px;
+    width: 90px;
+    height: 90px;
+  }
+}
+
+
+
+/* El foco del botón no debe dejar pegado el oscurecimiento al salir con el mouse. */
+.boton-editar-imagen:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 3px;
 }

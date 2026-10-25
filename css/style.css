@@ -208,13 +208,61 @@ header {
   border-top-right-radius: 0em;
 }
 
+/* Boton circular de tema en el extremo derecho del encabezado. */
+header {
+  position: sticky;
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--color-boton-border);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
+  color: #26334b;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 12;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+body.dark-mode .theme-toggle {
+  background: #20283a;
+  color: #ffe08a;
+  border-color: #7889c5;
+}
+
+@media (max-width: 599px) {
+  .theme-toggle {
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+}
+
 /*Formularios*/
 
 .seccionFormulario {
   border: none;
   min-width: 0;
   padding: 0;
-  margin: 0 0 25px 0;
+  /*margin: 0 0 25px 0;*/
 }
 
 .seccionFormulario legend {
@@ -746,7 +794,7 @@ body.dark-mode h2 {
   text-shadow: 2px 4px #030c165b;
 }
 
-p {
+.texto {
   padding-bottom: 28px;
   padding-left: 8px;
 }
@@ -1044,4 +1092,167 @@ nav a:hover:not(.activo) {
     flex-direction: column;
     gap: 16px;
   }
+}
+
+/* Notificaciones en la página, en lugar de alert() del navegador. */
+.aviso-pagina {
+  position: fixed;
+  z-index: 10000;
+  top: 18px;
+  left: 50%;
+  width: max-content;
+  max-width: min(92vw, 620px);
+  padding: 13px 20px;
+  border: 1px solid #b8c7d8;
+  border-left: 5px solid #d32f2f;
+  border-radius: 10px;
+  background: #fff;
+  color: #b42318;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -12px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s;
+}
+.aviso-pagina.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+body.dark-mode .aviso-pagina {
+  background: #252b38;
+  border-color: #58657b;
+  border-left-color: #ff5252;
+  color: #ff7777;
+}
+
+.aviso-pagina.exito {
+  border-left-color: #16803c;
+  color: #16803c;
+}
+body.dark-mode .aviso-pagina.exito {
+  border-left-color: #35d36a;
+  color: #6be894;
+}
+
+/* Elementos que solo ve un rol: quedan ocultos hasta que script.js confirma el rol del usuario */
+[data-roles][hidden] {
+  display: none !important;
+}
+
+/* NOMBRES LARGOS: deslizamiento al pasar el mouse (lo activa js/script.js) */
+@keyframes deslizar-nombre {
+  0%,
+  7% {
+    text-indent: 0;
+  }
+
+  93%,
+  100% {
+    text-indent: calc(var(--desplazamiento) * -1);
+  }
+}
+
+.nombre-deslizante {
+  text-overflow: clip !important;
+  animation: deslizar-nombre var(--duracion, 3s) linear infinite alternate;
+}
+
+/* Ventana de confirmación de cierre de sesión */
+.overlay-cerrar-sesion {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.overlay-cerrar-sesion[hidden] {
+  display: none;
+}
+
+.modal-cerrar-sesion {
+  padding: 18px 28px 20px;
+  text-align: center;
+  color: #111;
+  background: #dce4f8;
+  border: 3px solid #3a7bc8;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+body.dark-mode .modal-cerrar-sesion {
+  color: #fff;
+  background: #2b3349;
+  border-color: #596783;
+}
+
+.modal-cerrar-sesion p {
+  margin: 0 0 14px;
+  font-family: inherit;
+  font-size: 1.7rem;
+}
+
+.acciones-cerrar-sesion {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.acciones-cerrar-sesion button {
+  min-width: 96px;
+  padding: 2px 14px;
+  font-family: inherit;
+  font-size: 1.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-cerrar-si {
+  color: #062335;
+  border: 2px solid #1f72a5;
+
+    background: linear-gradient(
+    to bottom,
+    #9bdff5,
+    #3a97bb,
+    #73cbe2
+  );
+  transition: ease-in-out 0.1s;
+}
+
+.btn-cerrar-no {
+  color: #720606;
+  border: 2px solid #c62828;
+  
+  background: linear-gradient(
+    to bottom,
+    #ff9494,
+    #c44545,
+    #e47171
+  );
+  transition: ease-in-out 0.1s;
+}
+
+.btn-cerrar-si:hover,
+.btn-cerrar-no:hover {
+  filter: brightness(1.2);
+}
+
+body.dark-mode .acciones-cerrar-sesion .btn-cerrar-si:hover {
+  border-color: #212735;
+}
+
+body.dark-mode .acciones-cerrar-sesion .btn-cerrar-no:hover {
+  border-color: #c62828;
 }

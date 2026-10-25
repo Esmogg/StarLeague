@@ -9,9 +9,21 @@ function responder(int $codigo, bool $ok, string $mensaje, array $advertencias =
 }
 
 exigirMetodo('POST');
+exigirCsrf();
 iniciarSesion();
 if (!isset($_SESSION['id_usuario'])) {
     responder(401, false, 'Acceso denegado. Debes iniciar sesión para crear un equipo.');
+}
+
+// Como en crear_torneos: primero el permiso y recién después los datos.
+try {
+    $rol = (new UsuarioRepository())->rolDe((int) $_SESSION['id_usuario']);
+} catch (Throwable $e) {
+    error_log('[StarLeague] crear_equipos rol: ' . $e->getMessage());
+    responder(500, false, 'Error al registrar el equipo en el servidor.');
+}
+if (!in_array($rol, ['admin', 'organizador'], true)) {
+    responder(403, false, 'No tienes permiso para crear equipos.');
 }
 
 $datos      = leerCuerpo();
@@ -19,11 +31,12 @@ $idCreador  = (int) $_SESSION['id_usuario'];
 $nombre     = trim((string) ($datos['nombre'] ?? ''));
 $disciplina = trim((string) ($datos['deporte'] ?? ''));
 
-if ($nombre === '' || $disciplina === '') {
+if ($disciplina === '') {
     responder(400, false, 'Por favor, completa todos los campos (incluyendo la disciplina).');
 }
-if (longitud($nombre) > 50) {
-    responder(400, false, 'El nombre del equipo no puede superar los 50 caracteres.');
+// Mismas reglas que js/validaciones.js (obligatorio, hasta 50 caracteres, solo letras, números y espacios)
+if (($error = Validador::nombre($nombre, 'equipo')) !== null) {
+    responder(400, false, $error);
 }
 if (!in_array($disciplina, Equipo::DISCIPLINAS, true)) {
     responder(400, false, 'Disciplina inválida.');
@@ -34,10 +47,11 @@ $pedidos = [];
 foreach ((array) ($datos['integrantes'] ?? []) as $i) {
     $id = (int) ($i['jugadorId'] ?? 0);
     if ($id > 0) {
-        $pedidos[$id] = (string) ($i['jugador'] ?? $id);
+        $pedidos[$id] = recortar((string) ($i['jugador'] ?? $id), 50);
     }
 }
 
+$rutaLogo = $rutaBanner = null;
 try {
     $existentes   = (new UsuarioRepository())->filtrarExistentes(array_keys($pedidos));
     $advertencias = [];
@@ -47,12 +61,23 @@ try {
         }
     }
 
-    (new EquipoRepository())->crear(new Equipo(null, $nombre, $disciplina), $idCreador, $existentes);
+    $rutaLogo   = guardarImagenTorneo($datos['logo'] ?? null, 'Logo', 2 * 1024 * 1024, 'equipos');
+    $rutaBanner = guardarImagenTorneo($datos['banner'] ?? null, 'Banner', 5 * 1024 * 1024, 'equipos');
 
+    (new EquipoRepository())->crear(new Equipo(null, $nombre, $disciplina), $idCreador, $existentes, $rutaLogo, $rutaBanner);
+
+    registrarEvento('equipo_creado', 'id' . $idCreador);
     responder(200, true, '¡Equipo creado exitosamente!', $advertencias);
+} catch (InvalidArgumentException $e) {
+    borrarImagenTorneo($rutaLogo);
+    responder(400, false, $e->getMessage());
 } catch (DomainException $e) {
+    borrarImagenTorneo($rutaLogo);
+    borrarImagenTorneo($rutaBanner);
     responder(409, false, $e->getMessage());
 } catch (Throwable $e) {
+    borrarImagenTorneo($rutaLogo);
+    borrarImagenTorneo($rutaBanner);
     error_log('[StarLeague] crear_equipos: ' . $e->getMessage());
     responder(500, false, 'Error al registrar el equipo en el servidor.');
 }

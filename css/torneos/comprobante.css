@@ -1,0 +1,84 @@
+/* Comprobante de inscripción firmado y página de verificación */
+
+.comprobante {
+  margin-top: 24px;
+  padding: 16px 20px;
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.comprobante[hidden] {
+  display: none;
+}
+
+.comprobante textarea,
+.verificacion textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.comprobante a,
+.verificacion a {
+  font-weight: 600;
+}
+
+#resultadoVerificacion {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+#resultadoVerificacion[hidden] {
+  display: none;
+}
+
+#resultadoVerificacion.valido {
+  background: #d4f5dc;
+  color: #145a2a;
+  border: 1px solid #2e9d52;
+}
+
+#resultadoVerificacion.invalido {
+  background: #fde0e0;
+  color: #7a1212;
+  border: 1px solid #c0392b;
+}
+
+#resultadoVerificacion dl {
+  margin: 8px 0 0;
+  font-weight: 400;
+}
+
+#resultadoVerificacion dt {
+  font-weight: 600;
+}
+
+#resultadoVerificacion dd {
+  margin: 0 0 6px;
+  word-break: break-word;
+}
+
+body.dark-mode .comprobante {
+  background: rgba(20, 24, 40, 0.6);
+}
+
+body.dark-mode #resultadoVerificacion.valido {
+  background: #123a22;
+  color: #b7f0c8;
+  border-color: #2e9d52;
+}
+
+body.dark-mode #resultadoVerificacion.invalido {
+  background: #4a1616;
+  color: #ffd0d0;
+  border-color: #c0392b;
+}
+
+body.dark-mode .comprobante a,
+body.dark-mode .verificacion a {
+  color: var(--color-primary);
+}

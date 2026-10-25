@@ -45,7 +45,7 @@ final class Database
             'host'    => 'localhost',
             'name'    => 'starleague',
             'user'    => 'app_starleague',
-            'pass'    => 'StarLeague2026!Pass',
+            'pass'    => '',
             'charset' => 'utf8mb4',
         ];
 

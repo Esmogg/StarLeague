@@ -1,0 +1,354 @@
+/* CALENDARIO DE UN TORNEO */
+
+.calendario h2 {
+  margin: 12px 0 4px;
+}
+
+.calendario-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.calendario-volver:hover,
+.calendario-volver:focus-visible {
+  text-decoration: underline;
+}
+
+.calendario-meta {
+  margin: 0 0 16px;
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+.calendario-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 16px;
+}
+
+.calendario-acciones[hidden] {
+  display: none;
+}
+
+.calendario-opcion {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.calendario-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--color-texto-claro);
+
+  background: var(--color-secondary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.calendario-boton:hover,
+.calendario-boton:focus-visible {
+  background: var(--color-boton-hover2);
+}
+
+.calendario-boton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.calendario-mensaje {
+  min-height: 24px;
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.calendario-mensaje.error {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.calendario-mensaje.exito {
+  color: #1e8449;
+  font-weight: 600;
+}
+
+body.dark-mode .calendario-mensaje.error {
+  color: #ff8a80;
+}
+
+body.dark-mode .calendario-mensaje.exito {
+  color: #7be495;
+}
+
+.calendario-jornadas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.calendario-jornada {
+  padding: 14px 16px;
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+.calendario-jornada h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.calendario-encuentros {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calendario-encuentros li {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+}
+
+body.dark-mode .calendario-encuentros li {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.calendario-local {
+  text-align: center;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.calendario-visitante {
+  text-align: center;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.calendario-vs {
+  font-size: 13px;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.calendario-descansa {
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.calendario-opcion[hidden],
+.calendario-boton[hidden],
+.llave[hidden],
+.suizo[hidden],
+.calendario-jornadas[hidden] {
+  display: none;
+}
+
+/* LLAVE DE ELIMINACIÓN DIRECTA */
+
+.llave-campeon {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  font-size: 20px;
+  font-weight: 700;
+  background: rgba(241, 196, 15, 0.2);
+  border: 1px solid rgba(241, 196, 15, 0.6);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.llave-rondas {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 12px;
+  overflow-x: auto;
+}
+
+.llave-ronda {
+  display: flex;
+  flex: 1 0 240px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.llave-ronda h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.llave-partidos {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 14px;
+}
+
+.llave-partido {
+  display: grid;
+  gap: 4px;
+  padding: 8px;
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+.llave-lado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px 10px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+}
+
+body.dark-mode .llave-lado {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.llave-nombre {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.llave-vacio {
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.llave-ganador {
+  background: rgba(30, 132, 73, 0.35);
+}
+
+.llave-ganador .llave-nombre::before {
+  content: "✔ ";
+}
+
+.llave-perdedor {
+  opacity: 0.55;
+}
+
+.llave-gana,
+.llave-deshacer {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-texto-claro);
+  background: var(--color-secondary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.llave-gana {
+  min-height: 32px;
+  padding: 0 12px;
+}
+
+.llave-deshacer {
+  min-height: 32px;
+  margin-top: 2px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.llave-gana:hover,
+.llave-gana:focus-visible,
+.llave-deshacer:hover,
+.llave-deshacer:focus-visible {
+  background: var(--color-boton-hover2);
+  color: var(--color-texto-claro);
+}
+
+/* SISTEMA SUIZO */
+
+.suizo-partido {
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.suizo-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.suizo-resultado {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+.suizo-empate {
+  font-style: italic;
+}
+
+.suizo-titulo-tabla {
+  margin: 24px 0 10px;
+  font-size: 20px;
+}
+
+.suizo-tabla-envoltorio {
+  overflow-x: auto;
+}
+
+.suizo-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  background: var(--color-primary);
+  border-radius: 12px;
+}
+
+.suizo-tabla th,
+.suizo-tabla td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-boton-border);
+}
+
+.suizo-tabla th {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.suizo-tabla .suizo-nombre {
+  font-weight: 600;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .calendario-jornadas {
+    grid-template-columns: 1fr;
+  }
+}

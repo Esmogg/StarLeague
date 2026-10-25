@@ -14,11 +14,14 @@
     />
 
     <link rel="stylesheet" href="../../../css/style.css" />
-    <link rel="stylesheet" href="../../../css/usuario/login-register.css" /> 
-    
+    <link rel="stylesheet" href="../../../css/usuario/login-register.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -26,10 +29,25 @@
     <div class="contenedor">
       <header>
         <a href="../../../index.html">
-          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
         </a>
 
         <div class="title">☆ Iniciar sesión ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
       <div class="contenido">
         <div id="menuOverlay"></div>
@@ -52,23 +70,49 @@
               />
             </div>
 
-            <form action="../../../php/auth/login.php" method="post" class="login-form">
+            <form id="formLogin" class="login-form" method="post" novalidate>
               <fieldset class="seccionFormulario">
                 <div class="campoFormulario">
-                  <label for="user">Nombre de Usuario</label>
-                  <input type="text" name="user" id="user" />
+                  <label for="user"
+                    >Nombre de Usuario <span aria-hidden="true">*</span></label
+                  >
+                  <input
+                    type="text"
+                    name="user"
+                    id="user"
+                    required
+                    autocomplete="username"
+                  />
                 </div>
 
                 <div class="campoFormulario">
-                  <label for="mail">Correo Electronico</label>
-                  <input type="email" name="mail" id="mail" />
+                  <label for="mail"
+                    >Correo Electrónico <span aria-hidden="true">*</span></label
+                  >
+                  <input
+                    type="email"
+                    name="mail"
+                    id="mail"
+                    required
+                    autocomplete="email"
+                  />
                 </div>
 
                 <div class="campoFormulario">
-                  <label for="pass">Contraseña</label>
-                  <input type="password" name="pass" id="pass" />
+                  <label for="pass"
+                    >Contraseña <span aria-hidden="true">*</span></label
+                  >
+                  <input
+                    type="password"
+                    name="pass"
+                    id="pass"
+                    required
+                    autocomplete="current-password"
+                  />
                 </div>
               </fieldset>
+
+              <p id="mensaje" class="mensaje"></p>
 
               <div class="accionesFormulario login-acciones">
                 <input type="submit" value="Iniciar sesión" class="btn-login" />
@@ -79,7 +123,7 @@
               </div>
 
               <p class="login-registro">
-                ¿No tienes una cuenta? 
+                ¿No tienes una cuenta?
                 <a href="../usuario/register.html">Regístrate!</a>
               </p>
             </form>
@@ -93,5 +137,6 @@
     </button>
 
     <script src="../../../js/script.js" defer></script>
+    <script src="../../../js/usuario/login.js" defer></script>
   </body>
 </html>

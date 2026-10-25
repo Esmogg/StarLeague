@@ -1,0 +1,484 @@
+[
+ {
+  "caso": "usuario válido",
+  "fn": "usuario",
+  "args": [
+   "bruno_lopez15"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "usuario con . - _",
+  "fn": "usuario",
+  "args": [
+   "a.b-c_1"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "usuario solo espacios",
+  "fn": "usuario",
+  "args": [
+   "  "
+  ],
+  "esperado": "El nombre de usuario es obligatorio."
+ },
+ {
+  "caso": "usuario muy corto",
+  "fn": "usuario",
+  "args": [
+   "ab"
+  ],
+  "esperado": "El nombre de usuario debe tener entre 3 y 30 caracteres."
+ },
+ {
+  "caso": "usuario de 31 caracteres",
+  "fn": "usuario",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "esperado": "El nombre de usuario debe tener entre 3 y 30 caracteres."
+ },
+ {
+  "caso": "usuario de 30 caracteres",
+  "fn": "usuario",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "usuario con espacio",
+  "fn": "usuario",
+  "args": [
+   "juan perez"
+  ],
+  "esperado": "El nombre de usuario solo puede tener letras, números, punto, guion y guion bajo."
+ },
+ {
+  "caso": "usuario con símbolos HTML",
+  "fn": "usuario",
+  "args": [
+   "<script>"
+  ],
+  "esperado": "El nombre de usuario solo puede tener letras, números, punto, guion y guion bajo."
+ },
+ {
+  "caso": "usuario con tilde",
+  "fn": "usuario",
+  "args": [
+   "josé"
+  ],
+  "esperado": "El nombre de usuario solo puede tener letras, números, punto, guion y guion bajo."
+ },
+ {
+  "caso": "email válido",
+  "fn": "email",
+  "args": [
+   "lucas@correo.com"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "email vacío",
+  "fn": "email",
+  "args": [
+   ""
+  ],
+  "esperado": "El correo electrónico es obligatorio."
+ },
+ {
+  "caso": "email sin dominio completo",
+  "fn": "email",
+  "args": [
+   "lucas@correo"
+  ],
+  "esperado": "El correo electrónico no es válido."
+ },
+ {
+  "caso": "email sin arroba",
+  "fn": "email",
+  "args": [
+   "lucas correo.com"
+  ],
+  "esperado": "El correo electrónico no es válido."
+ },
+ {
+  "caso": "email con espacio",
+  "fn": "email",
+  "args": [
+   "a b@correo.com"
+  ],
+  "esperado": "El correo electrónico no es válido."
+ },
+ {
+  "caso": "email de más de 150",
+  "fn": "email",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@x.com"
+  ],
+  "esperado": "El correo electrónico no puede superar los 150 caracteres."
+ },
+ {
+  "caso": "password de 8",
+  "fn": "password",
+  "args": [
+   "Abcdef1!"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "password de 7",
+  "fn": "password",
+  "args": [
+   "1234567"
+  ],
+  "esperado": "La contraseña debe tener al menos 8 caracteres."
+ },
+ {
+  "caso": "password de 72 bytes",
+  "fn": "password",
+  "args": [
+   "Aa1!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "password de 73 bytes",
+  "fn": "password",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "esperado": "La contraseña no puede superar los 72 bytes (las tildes y símbolos ocupan más de uno)."
+ },
+ {
+  "caso": "37 ñ = 74 bytes",
+  "fn": "password",
+  "args": [
+   "ñññññññññññññññññññññññññññññññññññññ"
+  ],
+  "esperado": "La contraseña no puede superar los 72 bytes (las tildes y símbolos ocupan más de uno)."
+ },
+ {
+  "caso": "password sin mayúscula",
+  "fn": "password",
+  "args": [
+   "abcdefg1!"
+  ],
+  "esperado": "La contraseña debe incluir al menos una letra mayúscula."
+ },
+ {
+  "caso": "password sin número",
+  "fn": "password",
+  "args": [
+   "Abcdefgh!"
+  ],
+  "esperado": "La contraseña debe incluir al menos un número."
+ },
+ {
+  "caso": "password sin carácter especial",
+  "fn": "password",
+  "args": [
+   "Abcdefg12"
+  ],
+  "esperado": "La contraseña debe incluir al menos un carácter especial (por ejemplo * ! $ #)."
+ },
+ {
+  "caso": "password con espacio",
+  "fn": "password",
+  "args": [
+   "Abcd 123!"
+  ],
+  "esperado": "La contraseña no puede contener espacios."
+ },
+ {
+  "caso": "password que contiene el usuario",
+  "fn": "password",
+  "args": [
+   "Lucas#2026",
+   "lucas"
+  ],
+  "esperado": "La contraseña no puede contener el nombre de usuario."
+ },
+ {
+  "caso": "password con el usuario en otras mayúsculas",
+  "fn": "password",
+  "args": [
+   "xxLUCAS1!x",
+   "Lucas"
+  ],
+  "esperado": "La contraseña no puede contener el nombre de usuario."
+ },
+ {
+  "caso": "password válida con ñ",
+  "fn": "password",
+  "args": [
+   "Contraseña#9",
+   "juan"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "password de prueba del informe",
+  "fn": "password",
+  "args": [
+   "Prueba#2026",
+   "prueba_hash1"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "password sin usuario informado",
+  "fn": "password",
+  "args": [
+   "Prueba#2026",
+   ""
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "nombre de equipo válido",
+  "fn": "nombre",
+  "args": [
+   "Nova Esports",
+   "equipo"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "nombre equipo vacío",
+  "fn": "nombre",
+  "args": [
+   "  ",
+   "equipo"
+  ],
+  "esperado": "El nombre del equipo es obligatorio."
+ },
+ {
+  "caso": "nombre de 50",
+  "fn": "nombre",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "equipo"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "nombre de 51",
+  "fn": "nombre",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "equipo"
+  ],
+  "esperado": "El nombre del equipo no puede superar los 50 caracteres."
+ },
+ {
+  "caso": "nombre con HTML",
+  "fn": "nombre",
+  "args": [
+   "Nova <b>",
+   "equipo"
+  ],
+  "esperado": "El nombre del equipo contiene caracteres no permitidos."
+ },
+ {
+  "caso": "nombre torneo con Ñ",
+  "fn": "nombre",
+  "args": [
+   "Copa Ñandú 2026",
+   "torneo"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "nombre torneo con ;",
+  "fn": "nombre",
+  "args": [
+   "Copa; DROP TABLE",
+   "torneo"
+  ],
+  "esperado": "El nombre del torneo contiene caracteres no permitidos."
+ },
+ {
+  "caso": "descripción válida",
+  "fn": "descripcion",
+  "args": [
+   "Torneo abierto, inscripción libre (cupos limitados)."
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "descripción vacía",
+  "fn": "descripcion",
+  "args": [
+   ""
+  ],
+  "esperado": "La descripción es obligatoria."
+ },
+ {
+  "caso": "descripción de 500",
+  "fn": "descripcion",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "descripción de 501",
+  "fn": "descripcion",
+  "args": [
+   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "esperado": "La descripción no puede superar los 500 caracteres."
+ },
+ {
+  "caso": "descripción con HTML",
+  "fn": "descripcion",
+  "args": [
+   "<img src=x onerror=alert(1)>"
+  ],
+  "esperado": "La descripción contiene caracteres no permitidos."
+ },
+ {
+  "caso": "participantes '8'",
+  "fn": "participantes",
+  "args": [
+   "8"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "participantes 8",
+  "fn": "participantes",
+  "args": [
+   8
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "participantes mínimo",
+  "fn": "participantes",
+  "args": [
+   "2"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "participantes 1",
+  "fn": "participantes",
+  "args": [
+   "1"
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "participantes máximo",
+  "fn": "participantes",
+  "args": [
+   "1024"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "participantes 1025",
+  "fn": "participantes",
+  "args": [
+   "1025"
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "participantes texto",
+  "fn": "participantes",
+  "args": [
+   "abc"
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "participantes decimal",
+  "fn": "participantes",
+  "args": [
+   "5.5"
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "participantes negativo",
+  "fn": "participantes",
+  "args": [
+   "-3"
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "participantes vacío",
+  "fn": "participantes",
+  "args": [
+   ""
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "participantes enorme",
+  "fn": "participantes",
+  "args": [
+   "99999999999"
+  ],
+  "esperado": "La cantidad de participantes debe ser un número entero entre 2 y 1024."
+ },
+ {
+  "caso": "fechas válidas",
+  "fn": "fechas",
+  "args": [
+   "2026-11-01",
+   "2026-11-30"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "mismo día",
+  "fn": "fechas",
+  "args": [
+   "2026-11-01",
+   "2026-11-01"
+  ],
+  "esperado": null
+ },
+ {
+  "caso": "fin antes de inicio",
+  "fn": "fechas",
+  "args": [
+   "2026-11-30",
+   "2026-11-01"
+  ],
+  "esperado": "La fecha de fin no puede ser anterior a la de inicio."
+ },
+ {
+  "caso": "30 de febrero",
+  "fn": "fechas",
+  "args": [
+   "2026-02-30",
+   "2026-03-05"
+  ],
+  "esperado": "Debes indicar una fecha de inicio y una de fin válidas."
+ },
+ {
+  "caso": "inicio vacío",
+  "fn": "fechas",
+  "args": [
+   "",
+   "2026-03-05"
+  ],
+  "esperado": "Debes indicar una fecha de inicio y una de fin válidas."
+ },
+ {
+  "caso": "formato dd/mm/aaaa",
+  "fn": "fechas",
+  "args": [
+   "01/11/2026",
+   "02/11/2026"
+  ],
+  "esperado": "Debes indicar una fecha de inicio y una de fin válidas."
+ }
+]

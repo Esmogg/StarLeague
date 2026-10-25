@@ -8,16 +8,22 @@ function responder(int $codigo, bool $ok, string $mensaje): never
     responderJson(['ok' => $ok, 'mensaje' => $mensaje], $codigo);
 }
 
-function fechaValida(string $f): bool
-{
-    $d = DateTime::createFromFormat('Y-m-d', $f);
-    return $d && $d->format('Y-m-d') === $f;
-}
-
 exigirMetodo('POST');
+exigirCsrf();
 iniciarSesion();
 if (!isset($_SESSION['id_usuario'])) {
     responder(401, false, 'Acceso denegado. Debes iniciar sesión para crear un torneo.');
+}
+
+// Primero se comprueba el permiso y recién después los datos: quien no puede crear torneos no recibe detalles de validación.
+try {
+    $rol = (new UsuarioRepository())->rolDe((int) $_SESSION['id_usuario']);
+} catch (Throwable $e) {
+    error_log('[StarLeague] crear_torneos rol: ' . $e->getMessage());
+    responder(500, false, 'Error al registrar el torneo en el servidor.');
+}
+if (!in_array($rol, ['admin', 'organizador'], true)) {
+    responder(403, false, 'No tienes permiso para crear torneos.');
 }
 
 $datos       = leerCuerpo();
@@ -31,14 +37,16 @@ $cant        = (int) ($datos['cantidadParticipantes'] ?? 0);
 $inicio      = trim((string) ($datos['fechaInicio'] ?? ''));
 $fin         = trim((string) ($datos['fechaFin'] ?? ''));
 
-if ($nombre === '' || $categoria === '' || $disciplina === '' || $formato === '') {
+if ($categoria === '' || $disciplina === '' || $formato === '') {
     responder(400, false, 'Por favor, completa todos los campos obligatorios.');
 }
-if (longitud($nombre) > 50) {
-    responder(400, false, 'El nombre del torneo no puede superar los 50 caracteres.');
-}
-if (longitud($descripcion) > 500) {
-    responder(400, false, 'La descripción no puede superar los 500 caracteres.');
+// Mismas reglas que js/validaciones.js; aquí se vuelven a comprobar porque el cliente no es confiable.
+$error = Validador::nombre($nombre, 'torneo')
+    ?? Validador::descripcion($descripcion)
+    ?? Validador::participantes($datos['cantidadParticipantes'] ?? '')
+    ?? Validador::fechas($inicio, $fin);
+if ($error !== null) {
+    responder(400, false, $error);
 }
 if (
     !in_array($categoria, Torneo::CATEGORIAS, true)
@@ -47,24 +55,28 @@ if (
 ) {
     responder(400, false, 'Categoría, disciplina o formato inválido.');
 }
-if ($cant < 2) {
-    responder(400, false, 'La cantidad de participantes debe ser al menos 2.');
-}
-if (!fechaValida($inicio) || !fechaValida($fin)) {
-    responder(400, false, 'Debes indicar una fecha de inicio y una de fin válidas.');
-}
-if ($fin < $inicio) {
-    responder(400, false, 'La fecha de fin no puede ser anterior a la de inicio.');
-}
 
+$rutaLogo = $rutaBanner = null;
 try {
+    $rutaLogo   = guardarImagenTorneo($datos['logo'] ?? null, 'Logo', 2 * 1024 * 1024);
+    $rutaBanner = guardarImagenTorneo($datos['banner'] ?? null, 'Banner', 5 * 1024 * 1024);
     (new TorneoRepository())->crear(
-        new Torneo(null, $idCreador, $nombre, $descripcion, $categoria, $disciplina, $formato, $cant, $inicio, $fin)
+        new Torneo(null, $idCreador, $nombre, $descripcion, $categoria, $disciplina, $formato, $cant, $inicio, $fin),
+        $rutaLogo,
+        $rutaBanner
     );
+    registrarEvento('torneo_creado', 'id' . $idCreador);
     responder(200, true, '¡Torneo creado exitosamente!');
+} catch (InvalidArgumentException $e) {
+    borrarImagenTorneo($rutaLogo);
+    responder(400, false, $e->getMessage());
 } catch (DomainException $e) {
+    borrarImagenTorneo($rutaLogo);
+    borrarImagenTorneo($rutaBanner);
     responder(409, false, $e->getMessage());
 } catch (Throwable $e) {
+    borrarImagenTorneo($rutaLogo);
+    borrarImagenTorneo($rutaBanner);
     error_log('[StarLeague] crear_torneos: ' . $e->getMessage());
     responder(500, false, 'Error al registrar el torneo en el servidor.');
 }

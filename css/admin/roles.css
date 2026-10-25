@@ -1,0 +1,151 @@
+/* ROLES DE USUARIOS */
+
+.roles h2 {
+  margin: 12px 0 4px;
+}
+
+.roles-intro {
+  margin: 0 0 16px;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.roles-mensaje {
+  min-height: 24px;
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.roles-mensaje.error {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.roles-mensaje.exito {
+  color: #1e8449;
+  font-weight: 600;
+}
+
+body.dark-mode .roles-mensaje.error {
+  color: #ff8a80;
+}
+
+body.dark-mode .roles-mensaje.exito {
+  color: #7be495;
+}
+
+.roles-mensaje[hidden],
+#rolesContenido[hidden] {
+  display: none;
+}
+
+.roles-buscar {
+  width: 100%;
+  max-width: 420px;
+  height: 44px;
+  margin: 0 0 16px;
+  padding: 0 14px;
+
+  font-family: inherit;
+  font-size: 16px;
+  color: #1a1a1a;
+
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 12px;
+}
+
+body.dark-mode .roles-buscar {
+  color: #ffffff;
+  background: #4b5878;
+}
+
+.roles-tabla-envoltorio {
+  overflow-x: auto;
+}
+
+.roles-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  background: var(--color-primary);
+  border-radius: 12px;
+}
+
+.roles-tabla th,
+.roles-tabla td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-boton-border);
+}
+
+.roles-tabla .roles-nombre {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.roles-tabla td:nth-child(2) {
+  overflow-wrap: anywhere;
+}
+
+.roles-tabla select {
+  min-height: 40px;
+  padding: 0 10px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #1a1a1a;
+  background: #ffffff;
+  border: 1px solid var(--color-boton-border);
+  border-radius: 8px;
+}
+
+body.dark-mode .roles-tabla select {
+  color: #ffffff;
+  background: #4b5878;
+}
+
+.roles-guardar {
+  min-height: 40px;
+  padding: 0 16px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--color-texto-claro);
+  background: var(--color-secondary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.roles-guardar:hover:not(:disabled),
+.roles-guardar:focus-visible {
+  background: var(--color-boton-hover2);
+}
+
+.roles-guardar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.roles-guardar[hidden] {
+  display: none;
+}
+
+/* Estado de la cuenta y acciones de bloqueo / eliminación */
+.roles-estado.bloqueado {
+  font-weight: 700;
+  color: #e0525e;
+}
+
+.roles-acciones button {
+  margin: 0 6px 6px 0;
+}
+
+.roles-guardar.roles-peligro {
+  border-color: #e0525e;
+}
+
+.roles-guardar.roles-peligro:hover:not(:disabled),
+.roles-guardar.roles-peligro:focus-visible {
+  color: #fff;
+  background: #c0392b;
+}

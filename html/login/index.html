@@ -16,6 +16,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -31,6 +34,17 @@
         </a>
 
         <div class="title">☆ Starleague ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -51,8 +65,20 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="torneos/ver_torneos.html"> ★ Ver Torneos </a></li>
-                  <li><a href="torneos/torneos_resultados.html">Resultados</a></li>                
+                  <li>
+                    <a href="torneos/ver_torneos.html"> ★ Ver Torneos </a>
+                  </li>
+                  <li>
+                    <a href="torneos/torneos_resultados.html">Resultados</a>
+                  </li>
+                  <li>
+                    <a href="torneos/brackets.html">★ Brackets y posiciones</a>
+                  </li>
+                  <li>
+                    <a href="torneos/verificar_comprobante.html"
+                      >★ Verificar comprobante</a
+                    >
+                  </li>
                 </ul>
               </li>
 
@@ -62,8 +88,9 @@
                   Equipos
                 </div>
                 <ul class="submenu">
-                  <li><a href="equipos/buscar_equipos.html">★ Buscar Equipos</a></li>
-
+                  <li>
+                    <a href="equipos/buscar_equipos.html">★ Buscar Equipos</a>
+                  </li>
                 </ul>
               </li>
 
@@ -74,22 +101,49 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="usuario/usuario_perfil.html">Perfil</a></li>               
+                  <li>
+                    <a href="usuario/buscar_usuarios.html">★ Buscar Usuarios</a>
+                  </li>
+                  <li><a href="mensajes/mensajes.html">★ Mensajes</a></li>
+                  <li><a href="usuario/usuario_perfil.html">★ Perfil</a></li>
+                  <li><a href="usuario/usuario_perfil.html">★ Cerrar sesión</a></li>
                 </ul>
               </li>
-              <li><a href="configuracion/config.html"><i class="fa-solid fa-cog"></i> Configuración</a></li>
 
-              <li class="menu-grupo">
+              <li class="menu-grupo" data-roles="organizador admin" hidden>
                 <div class="menu-padre">
-                  <i class="fa-solid fa-shield-halved"></i>
-                  Admin
+                  <i class="fa-solid fa-clipboard-list"></i>
+                  Organización
                 </div>
                 <ul class="submenu">
-                  <li><a href="torneos/crear_torneos.html">★ Crear Torneo</a></li>
-                  <li><a href="equipos/crear_equipos.html">★ Crear Equipo</a></li>   
-                  <li><a href="torneos/inscribir_torneos.html"> ★ Inscribir a Torneo</a></li>                                                
+                  <li>
+                    <a href="torneos/crear_torneos.html">★ Crear Torneo</a>
+                  </li>
+                  <li>
+                    <a href="equipos/crear_equipos.html">★ Crear Equipo</a>
+                  </li>
+                  <li>
+                    <a href="torneos/inscribir_torneos.html">
+                      ★ Inscribir a Torneo</a
+                    >
+                  </li>
+                  <li>
+                    <a href="equipos/inscribir_equipos.html">
+                      ★ Inscribir a Equipo</a
+                    >
+                  </li>
                 </ul>
-              </li>              
+              </li>
+
+              <li class="menu-grupo" data-roles="admin" hidden>
+                <div class="menu-padre">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  Administración
+                </div>
+                <ul class="submenu">
+                  <li><a href="admin/roles.html">★ Asignar roles</a></li>
+                </ul>
+              </li>
             </ul>
           </nav>
         </div>
@@ -97,13 +151,13 @@
         <main>
           <article>
             <h1>¿Que es?</h1>
-            <p>
+            <p class="texto">
               Starleague es un Sistema de Gestión Deportiva Modular (SGDM), una
               plataforma web orientada a la organización, administración y
               seguimiento de competencias deportivas, mentales y electrónicas.
               El sistema permite gestionar para cada tipo de competencia.
             </p>
-            <p>
+            <p class="texto">
               Se desarrollará utilizando PHP para el backend. HTML, CSS y
               JavaScript para el frontend y MySQL como gestión de base de datos
               relacional. La arquitectura seguirá el patrón MVC (Modelo Vista
@@ -112,7 +166,7 @@
           </article>
           <article>
             <h2>¿Cuales son las funcionalidades?</h2>
-            <p>
+            <p class="texto">
               El SGDM contempla tres tipos de competencias: Liga (Sistema todos
               contra todos con tabla acumulativa de puntos), Eliminación directa
               (el perdedor queda eliminado) y Sistema Suizo (emparejamiento por
@@ -120,7 +174,7 @@
               generación de enfrentamiento y cálculo de posiciones, todo
               automatizado gracias al sistema.
             </p>
-            <p>
+            <p class="texto">
               Estará orientado a clubes deportivos, centros educativos,
               organizadores independientes y comunidades de deportes
               electrónicos o de mesa, permitiendo administrar participantes,

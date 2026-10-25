@@ -13,9 +13,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/equipos/crear-equipos.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -27,10 +31,25 @@
         </button>
 
         <a href="../index.html">
-          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
         </a>
 
         <div class="title">☆ Crear Equipo ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -54,7 +73,19 @@
                   <li>
                     <a href="../torneos/ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
-                  <li><a href="../torneos/torneos_resultados.html">Resultados</a></li>                  
+                  <li>
+                    <a href="../torneos/torneos_resultados.html">★ Resultados</a>
+                  </li>
+                  <li>
+                    <a href="../torneos/brackets.html"
+                      >★ Brackets y posiciones</a
+                    >
+                  </li>
+                  <li>
+                    <a href="../torneos/verificar_comprobante.html"
+                      >★ Verificar comprobante</a
+                    >
+                  </li>
                 </ul>
               </li>
 
@@ -66,9 +97,7 @@
 
                 <ul class="submenu">
                   <li>
-                    <a href="buscar_equipos.html">
-                      ★ Buscar Equipos
-                    </a>
+                    <a href="buscar_equipos.html"> ★ Buscar Equipos </a>
                   </li>
                 </ul>
               </li>
@@ -80,70 +109,161 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>               
+                  <li>
+                    <a href="../usuario/buscar_usuarios.html"
+                      >★ Buscar Usuarios</a
+                    >
+                  </li>
+                  <li><a href="../mensajes/mensajes.html">★ Mensajes</a></li>
+                  <li><a href="../usuario/usuario_perfil.html">★ Perfil</a></li>
+                  <li><a href="#" data-abrir-cerrar-sesion>★ Cerrar sesión</a></li>
                 </ul>
-              </li>
-              <li>
-                <a href="../configuracion/config.html">
-                  <i class="fa-solid fa-cog"></i> Configuración
-                </a>
               </li>
 
-              <li class="menu-grupo">
+              <li class="menu-grupo" data-roles="organizador admin" hidden>
                 <div class="menu-padre">
-                  <i class="fa-solid fa-shield-halved"></i>
-                  Admin
+                  <i class="fa-solid fa-clipboard-list"></i>
+                  Organización
                 </div>
                 <ul class="submenu">
-                  <li><a href="../torneos/crear_torneos.html">★ Crear Torneo</a></li>
-                  <li><a class="activo" href="crear_equipos.html">★ Crear Equipo</a></li>   
-                  <li><a href="../torneos/inscribir_torneos.html"> ★ Inscribir a Torneo</a></li>                                                
+                  <li>
+                    <a href="../torneos/crear_torneos.html">★ Crear Torneo</a>
+                  </li>
+                  <li>
+                    <a class="activo" href="crear_equipos.html"
+                      >★ Crear Equipo</a
+                    >
+                  </li>
+                  <li>
+                    <a href="../torneos/inscribir_torneos.html">
+                      ★ Inscribir a Torneo</a
+                    >
+                  </li>
+                  <li>
+                    <a href="inscribir_equipos.html"> ★ Inscribir a Equipo</a>
+                  </li>
                 </ul>
-              </li>                   
+              </li>
+
+              <li class="menu-grupo" data-roles="admin" hidden>
+                <div class="menu-padre">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  Administración
+                </div>
+                <ul class="submenu">
+                  <li><a href="../admin/roles.html">★ Asignar roles</a></li>
+                </ul>
+              </li>
             </ul>
           </nav>
         </div>
         <div id="menuOverlay"></div>
         <main>
           <article>
-              <form id="formCrearEquipo" action="../../../php/equipos/crear_equipos.php" method="post">        
-                <fieldset class="seccionFormulario" id="seccionInformacionGeneral">     
-                  <legend>Información General</legend>
-                    <div class="campoFormulario">
-                      <label for="nombre"> Nombre del equipo: </label>
+            <form
+              id="formCrearEquipo"
+              action="../../../php/equipos/crear_equipos.php"
+              method="post"
+            >
+              <fieldset
+                class="seccionFormulario"
+                id="seccionInformacionGeneral"
+              >
+                <legend>Información General</legend>
+                <div class="campoFormulario">
+                  <label for="nombre"> Nombre del equipo: </label>
 
-                      <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        placeholder="Ej: Nova Esports"
-                        maxlength="50"
-                        required
-                      />
-                    </div>
-
-                    <div class="campoFormulario">
-                      <label for="deporte"> Disciplina: </label>
-
-                      <select id="deporte" name="deporte" required>
-                        <option value="">Seleccione una disciplina</option>
-                      </select>
-                    </div>
-                </fieldset>
-
-                <!-- BOTÓN -->
-                <div class="accionesFormulario">
-                  <button type="submit" class="botonEnviar">
-                    <i class="fa-solid fa-floppy-disk"></i>
-
-                    Crear Equipo
-                  </button>
-
-                  <p id="mensaje" class="mensaje"></p>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Ej: Nova Esports"
+                    maxlength="50"
+                    required
+                  />
                 </div>
-              </form>
+
+                <div class="campoFormulario">
+                  <label for="deporte"> Disciplina: </label>
+
+                  <select id="deporte" name="deporte" required>
+                    <option value="">Seleccione una disciplina</option>
+                  </select>
+                </div>
+              </fieldset>
+
+              <!-- APARIENCIA -->
+              <fieldset class="seccionFormulario" id="seccionApariencia">
+                <legend>Apariencia</legend>
+
+                <div class="previsualizacion-equipo">
+                  <div class="preview-equipo" id="previewEquipo">
+                    <div
+                      class="preview-equipo-banner"
+                      id="previewBanner"
+                      title="Haz clic para seleccionar un banner"
+                    >
+                      <span>Banner</span>
+                    </div>
+
+                    <div
+                      class="preview-equipo-logo"
+                      id="previewLogo"
+                      title="Haz clic para seleccionar un logo"
+                    >
+                      <i class="fa-solid fa-image"></i>
+                      <span>Logo</span>
+                    </div>
+
+                    <div class="preview-equipo-info">
+                      <h3 id="previewNombre">[NOMBRE DEL EQUIPO]</h3>
+                    </div>
+                  </div>
+                </div>
+
+                <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" hidden />
+                <input type="file" id="banner" name="banner" accept="image/png, image/jpeg" hidden />
+
+                <p class="ayuda-imagen">
+                  Haz clic sobre el logo o el banner para seleccionar una imagen (opcional).
+                </p>
+                <p class="ayuda-imagen">
+                  Logo: PNG o JPG · mínimo 300×300 px · máximo 2 MB
+                </p>
+                <p class="ayuda-imagen">
+                  Banner: PNG o JPG · mínimo 800×180 px · máximo 5 MB
+                </p>
+              </fieldset>
+
+              <!-- BOTÓN -->
+              <div class="accionesFormulario">
+                <button type="submit" class="botonEnviar">
+                  <i class="fa-solid fa-floppy-disk"></i>
+
+                  Crear Equipo
+                </button>
+
+                <p id="mensaje" class="mensaje"></p>
+              </div>
+            </form>
           </article>
         </main>
+      </div>
+    </div>
+
+    <!-- Confirmación de cierre de sesión -->
+    <div id="overlayCerrarSesion" class="overlay-cerrar-sesion" hidden>
+      <div
+        class="modal-cerrar-sesion"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloCerrarSesion"
+      >
+        <p id="tituloCerrarSesion">¿Cerrar sesión?</p>
+        <div class="acciones-cerrar-sesion">
+          <button type="button" class="btn-cerrar-si" data-cerrar-sesion>Sí</button>
+          <button type="button" class="btn-cerrar-no" id="btnCerrarNo">No</button>
+        </div>
       </div>
     </div>
 
@@ -152,6 +272,7 @@
     </button>
 
     <script src="../../../js/script.js" defer></script>
+    <script src="../../../js/validaciones.js"></script>
     <script src="../../../js/torneos/catalogos.js"></script>
     <script src="../../../js/equipos/crear-equipos.js"></script>
   </body>

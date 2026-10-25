@@ -257,9 +257,10 @@ body.dark-mode .preview-equipo-logo {
   font-weight: bold;
   color: #1a1a1a;
 
-  white-space: nowrap;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 20px;
 }
 
 body.dark-mode #previewNombre {
@@ -303,4 +304,60 @@ body.dark-mode #previewTag {
   #previewTag {
     font-size: 16px;
   }
+}
+
+
+/* Banner del equipo en la previsualización */
+
+.preview-equipo {
+  min-height: 300px;
+}
+
+.preview-equipo-banner {
+  width: calc(100% + 40px);
+  height: 100px;
+  margin: -25px -20px 0;
+  padding-top: 10px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  background-color: #c2c2c2;
+  background-size: cover;
+  background-position: center;
+
+  color: #555555;
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+body.dark-mode .preview-equipo-banner {
+  background-color: #0b0b13;
+  color: #ffffff;
+}
+
+.preview-equipo-banner.con-imagen span {
+  opacity: 0;
+}
+
+/* El logo se apoya en el borde inferior del banner sin tapar su texto */
+.preview-equipo-banner + .preview-equipo-logo {
+  position: relative;
+  margin-top: -30px;
+  width: 100px;
+  height: 100px;
+  gap: 4px;
+  font-size: 14px;
+  border: 3px solid #ffffff;
+}
+
+.preview-equipo-banner + .preview-equipo-logo i {
+  font-size: 28px;
+}
+
+.preview-equipo-banner + .preview-equipo-logo + .preview-equipo-info {
+  margin-top: 12px;
 }

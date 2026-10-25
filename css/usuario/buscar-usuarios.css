@@ -1,0 +1,325 @@
+/* BUSCAR USUARIOS Y PERFIL PÚBLICO */
+
+.buscador-usuarios {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  margin-bottom: 20px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--color-primary);
+  border-radius: 16px;
+}
+
+body.dark-mode .buscador-usuarios {
+  background-color: #4b5878;
+}
+
+.buscador-usuarios i {
+  flex-shrink: 0;
+  margin-right: 16px;
+  font-size: 16px;
+  color: var(--color-secondary);
+}
+
+body.dark-mode .buscador-usuarios i {
+  color: #ffffff;
+}
+
+#buscarUsuario {
+  min-width: 0;
+
+  width: 100%;
+  flex: 1;
+
+  height: 40px;
+
+  background: transparent;
+
+  border: none;
+  border-bottom: 5px solid var(--color-third);
+
+  color: var(--color-secondary);
+
+  outline: none;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  box-sizing: border-box;
+
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+body.dark-mode #buscarUsuario {
+  color: #ffffff;
+}
+
+#buscarUsuario::placeholder {
+  color: #3d82d1ef;
+  opacity: 1;
+}
+
+.estado-usuarios {
+  margin: 0 0 16px;
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+.estado-usuarios[hidden] {
+  display: none;
+}
+
+.grid-usuarios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.usuario-tarjeta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 12px;
+  font-family: inherit;
+  color: inherit;
+  text-align: center;
+  background: var(--color-primary);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.usuario-tarjeta:hover,
+.usuario-tarjeta:focus-visible {
+  background: var(--color-boton-hover1);
+  color: var(--color-texto-claro);
+}
+
+.usuario-foto {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+}
+
+.usuario-nombre {
+  display: block;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.usuario-rol {
+  padding: 2px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 999px;
+}
+
+.usuario-rol-organizador {
+  background: rgba(30, 132, 73, 0.3);
+}
+
+.usuario-rol-admin {
+  background: rgba(241, 196, 15, 0.4);
+}
+
+/* MODAL DEL PERFIL */
+
+.modal-perfil {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-perfil[hidden] {
+  display: none;
+}
+
+body.modal-abierto,
+html.modal-abierto {
+  overflow: hidden;
+}
+
+.perfil-publico {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 760px;
+  max-height: 100%;
+  overflow: hidden;
+  color: inherit;
+  background: var(--color-content-bg);
+  border: 1px solid var(--color-boton-border);
+  border-radius: 16px;
+}
+
+body.dark-mode .perfil-publico {
+  background: #2f3a52;
+  color: #ffffff;
+}
+
+/* Esta es la barra de scroll del perfil: queda dentro de la ventana */
+#contenidoPerfil {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cerrar-perfil {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.perfil-publico-banner {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.perfil-publico-identidad {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 24px;
+}
+
+.perfil-publico-identidad > div {
+  min-width: 0;
+  padding-top: 12px;
+}
+
+.perfil-publico-foto {
+  flex: none;
+  width: 110px;
+  height: 110px;
+  margin-top: -42px;
+  object-fit: cover;
+  background: var(--color-primary);
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+}
+
+.perfil-publico-identidad h2 {
+  padding: 0;
+  font-size: 26px;
+  overflow-wrap: anywhere;
+}
+
+.perfil-publico-desde {
+  margin: 6px 0 0;
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+.perfil-publico-seccion {
+  padding: 16px 24px 4px;
+}
+
+.perfil-publico-seccion:last-child {
+  padding-bottom: 24px;
+}
+
+.perfil-publico-seccion h3 {
+  margin: 12px 0 8px;
+  font-size: 19px;
+}
+
+.perfil-publico-lista {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perfil-publico-lista li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  background: var(--color-primary);
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+body.dark-mode .perfil-publico-lista li {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.perfil-publico-lista a {
+  color: inherit;
+}
+
+.perfil-publico-detalle {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.perfil-publico-vacio {
+  margin: 0;
+  padding: 16px 24px;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.perfil-publico-seccion .perfil-publico-vacio {
+  padding: 0 0 12px;
+}
+
+@media (max-width: 480px) {
+  .perfil-publico-identidad {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0 16px;
+  }
+
+  .perfil-publico-identidad > div {
+    padding-top: 8px;
+  }
+
+  .perfil-publico-seccion {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .grid-usuarios {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

@@ -5,3 +5,10 @@ database
 apache
 README.md
 php/config/config.local.php
+
+uploads/perfiles/*.jpg
+uploads/perfiles/*.png
+uploads/torneos/*.jpg
+uploads/torneos/*.png
+uploads/equipos/*.jpg
+uploads/equipos/*.png

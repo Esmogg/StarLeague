@@ -78,6 +78,10 @@ function obtenerTagEquipo(equipo) {
 
 /* LOGO */
 
+function obtenerBannerEquipo(equipo) {
+  return obtenerValor(equipo, ["banner", "imagenBanner", "bannerEquipo"], "");
+}
+
 function obtenerLogoEquipo(equipo) {
   return obtenerValor(equipo, ["logo", "imagenLogo", "logoEquipo"], "");
 }
@@ -221,6 +225,8 @@ function abrirModal(equipo) {
 
   const logo = obtenerLogoEquipo(equipo);
 
+  const banner = obtenerBannerEquipo(equipo);
+
   const deporte = obtenerNombreDeporteEquipo(equipo);
 
   const descripcion = obtenerValor(
@@ -293,6 +299,11 @@ function abrirModal(equipo) {
   const encabezado = document.createElement("div");
 
   encabezado.className = "modal-equipo-header";
+
+  if (banner) {
+    encabezado.classList.add("con-banner");
+    encabezado.style.backgroundImage = `url("${banner}")`;
+  }
 
   /* LOGO */
 
@@ -447,6 +458,19 @@ function abrirModal(equipo) {
   }
 
   contenidoModal.appendChild(seccionIntegrantes);
+
+  /* Nadie se une a un equipo por su cuenta: con sesión iniciada se le indica cómo pedirlo */
+
+  if (location.pathname.includes("/html/login/")) {
+    const pedir = document.createElement("a");
+
+    pedir.className = "boton-unirse-equipo";
+    pedir.href = "../mensajes/mensajes.html";
+    pedir.innerHTML =
+      '<i class="fa-solid fa-envelope"></i><span>Pedir unirme a un equipo</span>';
+
+    contenidoModal.appendChild(pedir);
+  }
 
   /* Solo lo ve quien creó el equipo o un administrador */
 

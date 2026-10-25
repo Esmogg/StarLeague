@@ -9,6 +9,7 @@ function responder(int $codigo, bool $ok, string $mensaje): never
 }
 
 exigirMetodo('POST');
+exigirCsrf();
 iniciarSesion();
 if (!isset($_SESSION['id_usuario'])) {
     responder(401, false, 'Debes iniciar sesión para eliminar un equipo.');
@@ -30,7 +31,11 @@ try {
         responder(403, false, 'No tienes permiso para eliminar este equipo.');
     }
 
+    $imgs = $equipos->imagenesDe($idEquipo);
     $equipos->eliminar($idEquipo);
+    borrarImagenTorneo($imgs['logo']);
+    borrarImagenTorneo($imgs['banner']);
+    registrarEvento('equipo_eliminado id=' . $idEquipo, 'id' . $idSesion);
     responder(200, true, 'Equipo eliminado.');
 } catch (Throwable $e) {
     error_log('[StarLeague] eliminar_equipo: ' . $e->getMessage());

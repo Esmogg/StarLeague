@@ -17,7 +17,16 @@ async function enviarRegistro(event) {
 
     const datos = Object.fromEntries(new FormData(formulario));
 
-    /* Validar contraseñas antes de gastar un request */
+    /* Validar antes de gastar un request (el servidor repite estas reglas) */
+
+    const errorDatos =
+      Validaciones.usuario(datos.new_user) ||
+      Validaciones.email(datos.mail) ||
+      Validaciones.password(datos.new_pass, datos.new_user);
+
+    if (errorDatos) {
+      throw errorDatos;
+    }
 
     if (datos.new_pass !== datos.new_pass2) {
       throw "Las contraseñas no coinciden.";
@@ -53,7 +62,7 @@ async function enviarRegistro(event) {
   } catch (error) {
     /* Mostrar error */
 
-    mensaje.textContent = error;
+    mensaje.textContent = typeof error === "string" ? error : "No se pudo completar el registro. Inténtalo más tarde.";
 
     mensaje.classList.remove("error", "exito");
     mensaje.style.display = "none";

@@ -13,9 +13,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/torneos/comprobante.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -35,6 +39,17 @@
         </a>
 
         <div class="title">☆ Inscribir a Torneos ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -58,7 +73,13 @@
                   <li>
                     <a href="ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
-                  <li><a href="torneos_resultados.html">Resultados</a></li>
+                  <li><a href="torneos_resultados.html">★ Resultados</a></li>
+                  <li><a href="brackets.html">★ Brackets y posiciones</a></li>
+                  <li>
+                    <a href="verificar_comprobante.html"
+                      >★ Verificar comprobante</a
+                    >
+                  </li>
                 </ul>
               </li>
 
@@ -84,26 +105,49 @@
                 </div>
 
                 <ul class="submenu">
-                  <li><a href="../usuario/usuario_perfil.html">Perfil</a></li>
+                  <li>
+                    <a href="../usuario/buscar_usuarios.html"
+                      >★ Buscar Usuarios</a
+                    >
+                  </li>
+                  <li><a href="../mensajes/mensajes.html">★ Mensajes</a></li>
+                  <li><a href="../usuario/usuario_perfil.html">★ Perfil</a></li>
+                  <li><a href="#" data-abrir-cerrar-sesion>★ Cerrar sesión</a></li>
                 </ul>
               </li>
-              <li>
-                <a href="../configuracion/config.html">
-                  <i class="fa-solid fa-cog"></i> Configuración
-                </a>
-              </li>
 
-              <li class="menu-grupo">
+              <li class="menu-grupo" data-roles="organizador admin" hidden>
                 <div class="menu-padre">
-                  <i class="fa-solid fa-shield-halved"></i>
-                  Admin
+                  <i class="fa-solid fa-clipboard-list"></i>
+                  Organización
                 </div>
                 <ul class="submenu">
                   <li><a href="crear_torneos.html">★ Crear Torneo</a></li>
-                  <li><a href="../equipos/crear_equipos.html">★ Crear Equipo</a></li>   
-                  <li><a class="activo" href="inscribir_torneos.html"> ★ Inscribir a Torneo</a></li>                                                
+                  <li>
+                    <a href="../equipos/crear_equipos.html">★ Crear Equipo</a>
+                  </li>
+                  <li>
+                    <a class="activo" href="inscribir_torneos.html">
+                      ★ Inscribir a Torneo</a
+                    >
+                  </li>
+                  <li>
+                    <a href="../equipos/inscribir_equipos.html">
+                      ★ Inscribir a Equipo</a
+                    >
+                  </li>
                 </ul>
-              </li>                   
+              </li>
+
+              <li class="menu-grupo" data-roles="admin" hidden>
+                <div class="menu-padre">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  Administración
+                </div>
+                <ul class="submenu">
+                  <li><a href="../admin/roles.html">★ Asignar roles</a></li>
+                </ul>
+              </li>
             </ul>
           </nav>
         </div>
@@ -112,13 +156,21 @@
           <article>
             <!-- Agregamos el formulario que enviará los datos -->
             <!-- Dentro de inscribir_torneos.html -->
-            <form action="../../../php/torneos/procesar_inscripcion.php" method="POST">
-              <fieldset class="seccionFormulario" id="seccionInformacionGeneral">
+            <form
+              action="../../../php/torneos/procesar_inscripcion.php"
+              method="POST"
+            >
+              <fieldset
+                class="seccionFormulario"
+                id="seccionInformacionGeneral"
+              >
                 <legend>Información General</legend>
                 <div class="camposFormulario" id="informacionGeneral">
                   <!-- 1. Seleccionar Torneo -->
                   <div class="campoFormulario">
-                    <label for="id_torneo">Seleccionar torneo a inscribir:</label>
+                    <label for="id_torneo"
+                      >Seleccionar torneo a inscribir:</label
+                    >
                     <select id="id_torneo" name="id_torneo" required>
                       <option value="">Cargando torneos...</option>
                     </select>
@@ -141,23 +193,74 @@
                 </div>
               </fieldset>
 
-                <!-- Campo oculto para avisar al backend si estamos inscribiendo un 'usuario' o 'equipo' -->
-                <input
-                  type="hidden"
-                  id="tipo_inscripcion"
-                  name="tipo_inscripcion"
-                  value=""
-                />
+              <!-- Campo oculto para avisar al backend si estamos inscribiendo un 'usuario' o 'equipo' -->
+              <input
+                type="hidden"
+                id="tipo_inscripcion"
+                name="tipo_inscripcion"
+                value=""
+              />
 
               <div class="accionesFormulario">
                 <button type="submit" class="botonEnviar">
                   <i class="fa-solid fa-check"></i> Registrar Inscripción
                 </button>
               </div>
-
             </form>
+
+            <section id="comprobante" class="comprobante" hidden>
+              <h2>
+                <i class="fa-solid fa-file-signature"></i> Comprobante de
+                inscripción
+              </h2>
+              <p>
+                Está firmado digitalmente por StarLeague. Guárdalo: sirve para
+                demostrar tu inscripción y cualquiera puede verificarlo.
+              </p>
+              <div class="campoFormulario">
+                <label for="textoComprobante">Comprobante</label>
+                <textarea id="textoComprobante" rows="6" readonly></textarea>
+              </div>
+              <div class="accionesFormulario">
+                <button
+                  type="button"
+                  id="copiarComprobante"
+                  class="botonEnviar"
+                >
+                  <i class="fa-solid fa-copy"></i> Copiar
+                </button>
+                <button
+                  type="button"
+                  id="descargarComprobante"
+                  class="botonEnviar"
+                >
+                  <i class="fa-solid fa-download"></i> Descargar
+                </button>
+              </div>
+              <p>
+                <a href="verificar_comprobante.html">
+                  Verificar un comprobante
+                </a>
+              </p>
+            </section>
           </article>
         </main>
+      </div>
+    </div>
+
+    <!-- Confirmación de cierre de sesión -->
+    <div id="overlayCerrarSesion" class="overlay-cerrar-sesion" hidden>
+      <div
+        class="modal-cerrar-sesion"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloCerrarSesion"
+      >
+        <p id="tituloCerrarSesion">¿Cerrar sesión?</p>
+        <div class="acciones-cerrar-sesion">
+          <button type="button" class="btn-cerrar-si" data-cerrar-sesion>Sí</button>
+          <button type="button" class="btn-cerrar-no" id="btnCerrarNo">No</button>
+        </div>
       </div>
     </div>
 

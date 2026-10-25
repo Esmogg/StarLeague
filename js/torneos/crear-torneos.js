@@ -1,4 +1,14 @@
 /*
+ * Escapa texto antes de meterlo en un innerHTML, para que un dato con
+ * etiquetas HTML se muestre como texto y no se ejecute (XSS).
+ */
+function escaparHtml(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[c]));
+}
+
+/*
  * URL del endpoint de creación de torneo, calculada a partir de la
  * ubicación real de este script (js/torneos/crear-torneos.js) y no de la
  * página que lo incluye. Así funciona igual desde html/torneos/,
@@ -179,8 +189,8 @@ function cargarEquiposDisponibles() {
     const logo = equipo.logo
       ? `
         <img
-          src="${equipo.logo}"
-          alt="Logo de ${equipo.nombre}"
+          src="${escaparHtml(equipo.logo)}"
+          alt="Logo de ${escaparHtml(equipo.nombre)}"
         >
       `
       : `
@@ -190,7 +200,7 @@ function cargarEquiposDisponibles() {
     opcion.innerHTML = `
       <input
         type="checkbox"
-        value="${equipo.id}"
+        value="${escaparHtml(equipo.id)}"
         ${yaAgregado ? "checked disabled" : ""}
       >
 
@@ -200,11 +210,11 @@ function cargarEquiposDisponibles() {
 
       <div class="opcion-equipo-info">
         <p class="opcion-equipo-nombre">
-          ${equipo.nombre}
+          ${escaparHtml(equipo.nombre)}
         </p>
 
         <p class="opcion-equipo-tag">
-          ${equipo.tag || ""}
+          ${escaparHtml(equipo.tag)}
         </p>
       </div>
     `;
@@ -285,8 +295,8 @@ function actualizarListaEquipos() {
     const logo = equipo.logo
       ? `
         <img
-          src="${equipo.logo}"
-          alt="Logo de ${equipo.nombre}"
+          src="${escaparHtml(equipo.logo)}"
+          alt="Logo de ${escaparHtml(equipo.nombre)}"
         >
       `
       : `
@@ -300,22 +310,22 @@ function actualizarListaEquipos() {
 
       <div class="tarjeta-equipo-agregado-info">
         <p class="tarjeta-equipo-agregado-nombre">
-          ${equipo.nombre}
+          ${escaparHtml(equipo.nombre)}
         </p>
 
         <p class="tarjeta-equipo-agregado-tag">
-          ${equipo.tag ? equipo.tag : ""}
+          ${escaparHtml(equipo.tag)}
         </p>
 
         <p class="tarjeta-equipo-agregado-disciplina">
-          ${equipo.deporte ? equipo.deporte : ""}
+          ${escaparHtml(equipo.deporte)}
         </p>
       </div>
 
       <button
         type="button"
         class="btnEliminarEquipo"
-        data-id="${equipo.id}"
+        data-id="${escaparHtml(equipo.id)}"
         title="Quitar equipo del torneo"
       >
         <i class="fa-solid fa-xmark"></i>
@@ -451,8 +461,8 @@ function abrirModalEquipo(equipo) {
   const logo = equipo.logo
     ? `
       <img
-        src="${equipo.logo}"
-        alt="Logo de ${equipo.nombre}"
+        src="${escaparHtml(equipo.logo)}"
+        alt="Logo de ${escaparHtml(equipo.nombre)}"
         class="info-equipo-logo"
       >
     `
@@ -480,11 +490,11 @@ function abrirModalEquipo(equipo) {
             (integrante) => `
               <div class="integrante-info">
                 <span class="integrante-info-nombre">
-                  ${integrante.jugador || "Jugador"}
+                  ${escaparHtml(integrante.jugador || "Jugador")}
                 </span>
 
                 <span class="integrante-info-rol">
-                  ${integrante.rol || ""}
+                  ${escaparHtml(integrante.rol)}
                 </span>
               </div>
             `,
@@ -502,11 +512,11 @@ function abrirModalEquipo(equipo) {
       <div class="info-equipo-header-text">
 
         <h2 id="tituloInfoEquipo">
-          ${equipo.nombre}
+          ${escaparHtml(equipo.nombre)}
         </h2>
 
         <p>
-          ${equipo.tag ? equipo.tag : "Sin tag"}
+          ${escaparHtml(equipo.tag || "Sin tag")}
         </p>
 
       </div>
@@ -523,14 +533,14 @@ function abrirModalEquipo(equipo) {
       <div class="info-equipo-dato">
         <strong>Disciplina:</strong>
         <span>
-          ${equipo.deporte || "No especificada"}
+          ${escaparHtml(equipo.deporte || "No especificada")}
         </span>
       </div>
 
       <div class="info-equipo-dato">
         <strong>Tag:</strong>
         <span>
-          ${equipo.tag || "Sin tag"}
+          ${escaparHtml(equipo.tag || "Sin tag")}
         </span>
       </div>
 
@@ -544,7 +554,7 @@ function abrirModalEquipo(equipo) {
       </h3>
 
       <p>
-        ${equipo.descripcion || "Este equipo no tiene descripción."}
+        ${escaparHtml(equipo.descripcion || "Este equipo no tiene descripción.")}
       </p>
 
     </section>
@@ -596,10 +606,10 @@ function validarImagen(
 
     /*Comprobar formato*/
 
-    const formatosPermitidos = ["image/png", "image/jpeg", "image/webp"];
+    const formatosPermitidos = ["image/png", "image/jpeg"];
 
     if (!formatosPermitidos.includes(archivo.type)) {
-      reject(`${nombreCampo}: solo se permiten imágenes PNG, JPG o WEBP.`);
+      reject(`${nombreCampo}: solo se permiten imágenes PNG o JPG.`);
 
       return;
     }
@@ -686,12 +696,16 @@ async function enviarFormulario(event) {
   try {
     const datos = Object.fromEntries(new FormData(formulario));
 
-    if (!validarNombre(datos.nombre)) {
-      throw "El nombre del torneo contiene caracteres no permitidos.";
-    }
+    /* Mismas reglas que el servidor (js/validaciones.js = php/config/Validador.php) */
 
-    if (!validarDescripcion(datos.descripcion)) {
-      throw "La descripción contiene caracteres no permitidos.";
+    const errorDatos =
+      Validaciones.nombre(datos.nombre, "torneo") ||
+      Validaciones.descripcion(datos.descripcion) ||
+      Validaciones.participantes(datos.cantidadParticipantes) ||
+      Validaciones.fechas(datos.fechaInicio, datos.fechaFin);
+
+    if (errorDatos) {
+      throw errorDatos;
     }
 
     const archivoLogo = inputLogo.files[0] || null;

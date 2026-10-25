@@ -82,8 +82,8 @@ StarLeague-sgdm/
 
 * __Primera entrega:__ 27 de Julio.
 * __Segunda entrega:__ 14 de Septiembre.
-* __Entrega final:__ 28 de Octubre.
-* __Defensa:__ 9-12 de Noviembre.
+* __Entrega final:__ 23 de Octubre.
+* __Defensa:__ 2-6 de Noviembre.
 
 ## Puesta en marcha
 
@@ -116,3 +116,10 @@ php/
 └── torneos/       crear_torneos.php, listar_torneos.php, eliminar_torneo.php, listar_resultados.php,
                    obtener_torneos.php, obtener_candidatos.php, procesar_inscripcion.php
 ```
+
+## Fotos de perfil y banner
+
+- Para una base de datos ya existente, ejecutá una sola vez `database/04_perfil_imagenes.sql` en phpMyAdmin o MySQL. Si creás la base desde cero con `database/starleague_BD.sql`, las columnas ya están incluidas.
+- El servidor web debe poder escribir en `uploads/perfiles/`.
+- En el `php.ini` usado por Apache, configurá `upload_max_filesize = 10M` y `post_max_size = 12M` (el segundo debe ser mayor que 10 MB por el contenido adicional de la petición). Reiniciá Apache después de modificarlo.
+- Se aceptan únicamente PNG y JPG/JPEG de hasta 10 MB. La foto de perfil debe tener al menos 200 × 200 píxeles y el banner al menos 1110 × 170 píxeles. Estas comprobaciones se realizan tanto en el navegador como en PHP.

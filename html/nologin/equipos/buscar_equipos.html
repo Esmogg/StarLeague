@@ -18,6 +18,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
@@ -29,10 +32,25 @@
         </button>
 
         <a href="../../../index.html">
-          <img src="../../../images/logo.png" alt="Logo Starleague" class="logo" />
+          <img
+            src="../../../images/logo.png"
+            alt="Logo Starleague"
+            class="logo"
+          />
         </a>
 
         <div class="title">☆ Buscar Equipos ☆</div>
+
+        <button
+          id="themeToggleButton"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activar modo oscuro"
+          aria-pressed="false"
+          title="Activar modo oscuro"
+        >
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
       </header>
 
       <div class="contenido">
@@ -57,7 +75,12 @@
                     <a href="../torneos/ver_torneos.html"> ★ Ver Torneos </a>
                   </li>
                   <li>
-                    <a href="../torneos/torneos_resultados.html">Resultados</a>
+                    <a href="../torneos/torneos_resultados.html">★ Resultados</a>
+                  </li>
+                  <li>
+                    <a href="../torneos/brackets.html"
+                      >★ Brackets y posiciones</a
+                    >
                   </li>
                 </ul>
               </li>
@@ -84,13 +107,13 @@
                 </div>
 
                 <ul class="submenu">
+                  <li>
+                    <a href="../usuario/buscar_usuarios.html"
+                      >★ Buscar Usuarios</a
+                    >
+                  </li>
                   <li><a href="../usuario/login.html">★ Login</a></li>
                 </ul>
-              </li>
-              <li>
-                <a href="../configuracion/config.html">
-                  <i class="fa-solid fa-cog"></i> Configuración
-                </a>
               </li>
             </ul>
           </nav>
